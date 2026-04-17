@@ -5,7 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using DAL;
 using BE;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
+using SERVICIOS;
+using System.Configuration;
 
 
 namespace BLL
@@ -18,14 +19,24 @@ namespace BLL
         {
         usuarioDal = new UsuarioDal();
         }
-        public UsuarioDal Login(string Nombre_Usuario,
-        string Contraseña_Hash)
+        public Usuario Login(string Nombre_Usuario, string ContraseñaLimpia)
         {
-            if (string.IsNullOrEmpty(Nombre_Usuario) || string.IsNullOrEmpty(Contraseña_Hash))
-                throw new Exception("Debe ingresar usuario y contraseña.");
+            if (string.IsNullOrEmpty(Nombre_Usuario) || string.IsNullOrEmpty(ContraseñaLimpia))
+                throw new Exception("Debe ingresar un usuario y una contraseña correcta.");
 
-            // Aquí podrías hashear el password antes de mandarlo a la DAL
-            return usuarioDal.Login(Nombre_Usuario, Contraseña_Hash);
+            // Hasheamos la clave pre-mandarla a la bd
+            string ContraseñaHasheado =   Criptografia.HashearClave(ContraseñaLimpia);
+
+            // Le mandamos a la DAL el hash, para que compare Hash contra Hash en la bd
+
+            return usuarioDal.Login(Nombre_Usuario, ContraseñaHasheado);
+        }
+        public void RegistrarUsuario(Usuario nuevoUsuario, string ContraseñaLimpia)
+        {
+            // Hasheas la clave antes de guardarla para que nunca esté en texto plano
+            nuevoUsuario.Contraseña_Hash = Criptografia.HashearClave(ContraseñaLimpia);
+
+            // usuarioDal.Registrar(nuevoUsuario);
         }
     }
 }
