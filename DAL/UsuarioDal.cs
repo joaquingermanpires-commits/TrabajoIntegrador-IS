@@ -13,9 +13,10 @@ namespace DAL
 {
     public class UsuarioDal
     {
-        public Usuario Login(string Usuario_Nombre, string Contraseña_Hash) {
-            string ConnectionString = ConfigurationManager.ConnectionString["IS"].ConnectionString;
-            using (var connection = new SqlConnection(connectionString))
+        public Usuario Login(string Usuario_Nombre, string Contraseña_Hash)
+        {
+            string ConnectionString = ConfigurationManager.ConnectionStrings["IS"].ConnectionString;
+            using (var connection = new SqlConnection(ConnectionString))
             {
                 try
                 {
@@ -31,9 +32,7 @@ namespace DAL
                         {
                             if (reader.Read())
                             {
-                                // Aquí leerías el Perfil (Admin, Cliente, Vendedor) y crearías el objeto BE correspondiente
-                                // Por simplicidad, un ejemplo base:
-                                Usuario userLogueado = new Usuario(); // O Admin, o Vendedor dependiendo de un campo "Rol" en tu tabla
+                                Usuario userLogueado = new Usuario(); 
                                 userLogueado.ID_Usuario = reader.GetInt64(0);
                                 userLogueado.Nombre_Usuario = reader.GetString(1);
 
@@ -49,4 +48,5 @@ namespace DAL
                 }
             }
         }
+    }
 }
