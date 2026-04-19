@@ -33,7 +33,7 @@ namespace BLL
         }
         public void RegistrarUsuario(Usuario nuevoUsuario, string ContraseñaLimpia)
         {
-            // Hasheas la clave antes de guardarla para que nunca esté en texto plano
+            // Hashea la clave antes de guardarla para que nunca esté en texto plano
             nuevoUsuario.Contraseña_Hash = Criptografia.HashearClave(ContraseñaLimpia);
 
             // usuarioDal.Registrar(nuevoUsuario);
