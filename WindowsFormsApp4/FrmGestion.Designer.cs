@@ -30,11 +30,11 @@
         {
             this.dgvu = new System.Windows.Forms.DataGridView();
             this.label1 = new System.Windows.Forms.Label();
-            this.BtnAgregar = new System.Windows.Forms.Button();
+            this.BtnAlta = new System.Windows.Forms.Button();
             this.BtnBaja = new System.Windows.Forms.Button();
             this.BtnModif = new System.Windows.Forms.Button();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.inputNombre = new System.Windows.Forms.TextBox();
+            this.InputContraseña = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
@@ -46,7 +46,7 @@
             this.dgvu.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvu.Location = new System.Drawing.Point(12, 23);
             this.dgvu.Name = "dgvu";
-            this.dgvu.Size = new System.Drawing.Size(270, 209);
+            this.dgvu.Size = new System.Drawing.Size(322, 209);
             this.dgvu.TabIndex = 0;
             // 
             // label1
@@ -58,51 +58,54 @@
             this.label1.TabIndex = 1;
             this.label1.Text = "Usuarios registrados";
             // 
-            // BtnAgregar
+            // BtnAlta
             // 
-            this.BtnAgregar.Location = new System.Drawing.Point(207, 292);
-            this.BtnAgregar.Name = "BtnAgregar";
-            this.BtnAgregar.Size = new System.Drawing.Size(75, 35);
-            this.BtnAgregar.TabIndex = 2;
-            this.BtnAgregar.Text = "Agregar";
-            this.BtnAgregar.UseVisualStyleBackColor = true;
+            this.BtnAlta.Location = new System.Drawing.Point(12, 377);
+            this.BtnAlta.Name = "BtnAlta";
+            this.BtnAlta.Size = new System.Drawing.Size(75, 35);
+            this.BtnAlta.TabIndex = 2;
+            this.BtnAlta.Text = "Agregar";
+            this.BtnAlta.UseVisualStyleBackColor = true;
+            this.BtnAlta.Click += new System.EventHandler(this.BtnAlta_Click);
             // 
             // BtnBaja
             // 
-            this.BtnBaja.Location = new System.Drawing.Point(207, 336);
+            this.BtnBaja.Location = new System.Drawing.Point(137, 377);
             this.BtnBaja.Name = "BtnBaja";
             this.BtnBaja.Size = new System.Drawing.Size(75, 35);
             this.BtnBaja.TabIndex = 3;
             this.BtnBaja.Text = "Eliminar";
             this.BtnBaja.UseVisualStyleBackColor = true;
+            this.BtnBaja.Click += new System.EventHandler(this.BtnBaja_Click);
             // 
             // BtnModif
             // 
-            this.BtnModif.Location = new System.Drawing.Point(207, 377);
+            this.BtnModif.Location = new System.Drawing.Point(259, 377);
             this.BtnModif.Name = "BtnModif";
             this.BtnModif.Size = new System.Drawing.Size(75, 35);
             this.BtnModif.TabIndex = 4;
             this.BtnModif.Text = "Modificar";
             this.BtnModif.UseVisualStyleBackColor = true;
+            this.BtnModif.Click += new System.EventHandler(this.BtnModif_Click);
             // 
-            // textBox1
+            // inputNombre
             // 
-            this.textBox1.Location = new System.Drawing.Point(12, 307);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(184, 20);
-            this.textBox1.TabIndex = 5;
+            this.inputNombre.Location = new System.Drawing.Point(12, 279);
+            this.inputNombre.Name = "inputNombre";
+            this.inputNombre.Size = new System.Drawing.Size(184, 20);
+            this.inputNombre.TabIndex = 5;
             // 
-            // textBox2
+            // InputContraseña
             // 
-            this.textBox2.Location = new System.Drawing.Point(12, 368);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(184, 20);
-            this.textBox2.TabIndex = 6;
+            this.InputContraseña.Location = new System.Drawing.Point(12, 323);
+            this.InputContraseña.Name = "InputContraseña";
+            this.InputContraseña.Size = new System.Drawing.Size(184, 20);
+            this.InputContraseña.TabIndex = 6;
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(9, 287);
+            this.label2.Location = new System.Drawing.Point(9, 259);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(100, 13);
             this.label2.TabIndex = 7;
@@ -111,7 +114,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(9, 352);
+            this.label3.Location = new System.Drawing.Point(9, 307);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(65, 13);
             this.label3.TabIndex = 8;
@@ -131,15 +134,15 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(303, 420);
+            this.ClientSize = new System.Drawing.Size(346, 420);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.textBox2);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.InputContraseña);
+            this.Controls.Add(this.inputNombre);
             this.Controls.Add(this.BtnModif);
             this.Controls.Add(this.BtnBaja);
-            this.Controls.Add(this.BtnAgregar);
+            this.Controls.Add(this.BtnAlta);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.dgvu);
             this.Name = "FrmGestion";
@@ -154,11 +157,11 @@
 
         private System.Windows.Forms.DataGridView dgvu;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button BtnAgregar;
+        private System.Windows.Forms.Button BtnAlta;
         private System.Windows.Forms.Button BtnBaja;
         private System.Windows.Forms.Button BtnModif;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.TextBox inputNombre;
+        private System.Windows.Forms.TextBox InputContraseña;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;

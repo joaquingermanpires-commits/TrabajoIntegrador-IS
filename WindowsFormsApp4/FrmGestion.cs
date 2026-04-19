@@ -17,8 +17,19 @@ namespace WindowsFormsApp4
             InitializeComponent();
         }
 
-       
+        private void BtnAlta_Click(object sender, EventArgs e)
+        {
 
-   
+        }
+
+        private void BtnBaja_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void BtnModif_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
