@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using DAL;
 using BE;
 using SERVICIOS;
-using System.Configuration;
+
 
 
 namespace BLL

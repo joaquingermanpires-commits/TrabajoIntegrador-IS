@@ -28,7 +28,10 @@ namespace SERVICIOS
 
         public void IniciarSesion(Usuario usuario)
         {
-            Usuario = usuario;
+            if (this.Usuario != null)
+                throw new Exception("Ya existe una sesión activa. Debe cerrar sesión primero.");
+
+            this.Usuario = usuario;
         }
 
         public void CerrarSesion()

@@ -7,7 +7,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BE;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
 namespace DAL
 {
@@ -21,7 +20,7 @@ namespace DAL
                 try
                 {
                     connection.Open();
-                    // Usar Stored Procedure según exigencia de la cátedra
+                    // Uso de Stored Procedure
                     using (var command = new SqlCommand("Usuario_Login", connection))
                     {
                         command.CommandType = CommandType.StoredProcedure;

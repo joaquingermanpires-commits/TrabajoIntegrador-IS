@@ -10,7 +10,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Configuration;
 
 namespace WindowsFormsApp4
 {
@@ -41,10 +40,9 @@ namespace WindowsFormsApp4
                     string nombreLogueado = Singleton.GetInstance().GetUsuario();
                     MessageBox.Show($"¡Bienvenido al sistema, {nombreLogueado}!", "Login Exitoso", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                    // 3. Aquí abres tu formulario MDI principal y ocultas el login
-                    // frmPrincipal menuPrincipal = new frmPrincipal();
-                    // menuPrincipal.Show();
-                    // this.Hide();
+                    FrmMenu menuPrincipal = new FrmMenu();
+                    menuPrincipal.Show();
+                    this.Hide();
                 }
                 else
                 {
@@ -56,6 +54,11 @@ namespace WindowsFormsApp4
                 // Atrapamos cualquier error de la base de datos o validación y lo mostramos
                 MessageBox.Show(ex.Message, "Error del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private void FrmLogin_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

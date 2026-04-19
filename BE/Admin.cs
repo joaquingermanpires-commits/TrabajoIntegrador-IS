@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace BE
 {
-    internal class Admin:Usuario
+    public class Admin:Usuario
     {
     }
 }
