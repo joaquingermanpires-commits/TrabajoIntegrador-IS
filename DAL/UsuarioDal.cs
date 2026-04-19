@@ -20,7 +20,7 @@ namespace DAL
                 try
                 {
                     connection.Open();
-                    // Usar Stored Procedure según exigencia de la cátedra
+                    // Uso de Stored Procedure
                     using (var command = new SqlCommand("Usuario_Login", connection))
                     {
                         command.CommandType = CommandType.StoredProcedure;
