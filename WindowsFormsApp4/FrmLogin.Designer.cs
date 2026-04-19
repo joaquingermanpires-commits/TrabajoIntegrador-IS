@@ -87,6 +87,7 @@
             this.Controls.Add(this.btnIngresar);
             this.Controls.Add(this.txtContraseña);
             this.Controls.Add(this.txtUsuario);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "FrmLogin";
             this.Load += new System.EventHandler(this.FrmLogin_Load);
             this.ResumeLayout(false);

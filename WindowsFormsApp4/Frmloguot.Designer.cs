@@ -47,6 +47,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(161, 77);
             this.Controls.Add(this.Btnout);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "Frmloguot";
             this.Text = "Frmloguot";
             this.ResumeLayout(false);

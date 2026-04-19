@@ -1,11 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace WindowsFormsApp4
@@ -24,16 +17,31 @@ namespace WindowsFormsApp4
 
         private void gestiónDeUsuariosToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            FrmGestion f1 = new FrmGestion();
-            f1.MdiParent = this;
-            f1.Show();
+
+            AbrirFormulario<FrmGestion>();
         }
 
         private void cerrarSesiónToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Frmloguot f2 = new Frmloguot();
-            f2.MdiParent = this;
-            f2.Show();
+            AbrirFormulario<Frmloguot>();
+        }
+
+        private void AbrirFormulario<T>() where T : Form, new()
+        {
+            //se busca que no se instancie 2 veces el mismo formulario
+            foreach (Form formularioAbierto in this.MdiChildren)
+            {
+                if (formularioAbierto is T)
+                {
+                    formularioAbierto.Activate();
+                    return;
+                }
+            }
+
+            //Si no lo encuentra en el bucle se crea uno
+            T nuevoFormulario = new T();
+            nuevoFormulario.MdiParent = this;
+            nuevoFormulario.Show();
         }
     }
 }
