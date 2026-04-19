@@ -48,6 +48,7 @@
             this.dgvu.Name = "dgvu";
             this.dgvu.Size = new System.Drawing.Size(322, 209);
             this.dgvu.TabIndex = 0;
+            this.dgvu.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvu_CellClick);
             // 
             // label1
             // 
@@ -145,6 +146,7 @@
             this.Controls.Add(this.BtnAlta);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.dgvu);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "FrmGestion";
             this.Text = "Gestión_de_usuarios";
             ((System.ComponentModel.ISupportInitialize)(this.dgvu)).EndInit();

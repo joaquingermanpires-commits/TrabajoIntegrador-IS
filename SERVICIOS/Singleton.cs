@@ -43,5 +43,15 @@ namespace SERVICIOS
         {
             return Usuario.Nombre_Usuario;
         }
+        public long GetIdUsuario()
+        {
+            if (Usuario != null)
+            {
+                return Usuario.ID_Usuario;
+            }
+            else { 
+            return 0;
+            }
+        }
     }
 }
