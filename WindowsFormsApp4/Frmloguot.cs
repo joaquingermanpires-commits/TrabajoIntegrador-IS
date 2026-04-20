@@ -25,11 +25,11 @@ namespace WindowsFormsApp4
                     resp = MessageBox.Show("¿Desea cerrar la sesión?", "Confirmación", MessageBoxButtons.YesNo);
                     if (resp == DialogResult.Yes)
                     {
-                    //"Destruimos" la sesión actual usando tu Singleton
+                    //"Destruimos" la sesión actual usando Singleton
                     Singleton.GetInstance().CerrarSesion();
 
-                    //reinicioamos la aplicacion para que aparezca la pantalla "FrmLogin
-                    Application.Restart();
+                //reiniciamos la aplicación para que aparezca la pantalla "FrmLogin"
+                Application.Restart();
 
             }
                     else
