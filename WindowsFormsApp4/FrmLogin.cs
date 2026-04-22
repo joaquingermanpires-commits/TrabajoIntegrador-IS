@@ -22,7 +22,7 @@ namespace WindowsFormsApp4
             usuarioBLL = new UsuarioBLL();
         }
 
-        private void btnIngresar_Click(object sender, EventArgs e)
+        public void btnIngresar_Click(object sender, EventArgs e)
         {
             try
             {

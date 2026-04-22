@@ -39,7 +39,7 @@ namespace WindowsFormsApp4
             dgvu.Columns["Nombre_Usuario"].HeaderText = "Nombre";
         }
 
-        private void BtnAlta_Click(object sender, EventArgs e)
+        public void BtnAlta_Click(object sender, EventArgs e)
         {
             try
             {
@@ -51,7 +51,7 @@ namespace WindowsFormsApp4
             catch (Exception ex) { MessageBox.Show(ex.Message); }
         }
 
-        private void BtnBaja_Click(object sender, EventArgs e)
+        public void BtnBaja_Click(object sender, EventArgs e)
         {
             try
             {
@@ -64,7 +64,7 @@ namespace WindowsFormsApp4
             catch (Exception ex) { MessageBox.Show(ex.Message); }
         }
 
-        private void BtnModif_Click(object sender, EventArgs e)
+        public void BtnModif_Click(object sender, EventArgs e)
         {
             try
             {

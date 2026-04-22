@@ -23,10 +23,10 @@ namespace WindowsFormsApp4
 
         private void cerrarSesiónToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            AbrirFormulario<Frmloguot>();
+            AbrirFormulario<Frmlogout>();
         }
 
-        private void AbrirFormulario<T>() where T : Form, new()
+        public void AbrirFormulario<T>() where T : Form, new()
         {
             //se busca que no se instancie 2 veces el mismo formulario
             foreach (Form formularioAbierto in this.MdiChildren)
