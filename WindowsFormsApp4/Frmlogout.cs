@@ -11,14 +11,14 @@ using System.Windows.Forms;
 
 namespace WindowsFormsApp4
 {
-    public partial class Frmloguot : Form
+    public partial class Frmlogout : Form
     {
-        public Frmloguot()
+        public Frmlogout()
         {
             InitializeComponent();
         }
 
-        private void Btnout_Click(object sender, EventArgs e)
+        public void Btnout_Click(object sender, EventArgs e)
         {
 
             DialogResult resp;

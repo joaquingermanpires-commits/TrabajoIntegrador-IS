@@ -1,6 +1,6 @@
 ﻿namespace WindowsFormsApp4
 {
-    partial class Frmloguot
+    partial class Frmlogout
     {
         /// <summary>
         /// Required designer variable.

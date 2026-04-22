@@ -46,11 +46,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Frmloguot.cs">
+    <Compile Include="Frmlogout.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Frmloguot.Designer.cs">
-      <DependentUpon>Frmloguot.cs</DependentUpon>
+    <Compile Include="Frmlogout.Designer.cs">
+      <DependentUpon>Frmlogout.cs</DependentUpon>
     </Compile>
     <Compile Include="FrmGestion.cs">
       <SubType>Form</SubType>
@@ -75,8 +75,8 @@
     <EmbeddedResource Include="FrmLogin.resx">
       <DependentUpon>FrmLogin.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Frmloguot.resx">
-      <DependentUpon>Frmloguot.cs</DependentUpon>
+    <EmbeddedResource Include="Frmlogout.resx">
+      <DependentUpon>Frmlogout.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FrmGestion.resx">
       <DependentUpon>FrmGestion.cs</DependentUpon>
