@@ -100,6 +100,7 @@
             // 
             this.InputContraseña.Location = new System.Drawing.Point(12, 323);
             this.InputContraseña.Name = "InputContraseña";
+            this.InputContraseña.PasswordChar = '*';
             this.InputContraseña.Size = new System.Drawing.Size(184, 20);
             this.InputContraseña.TabIndex = 6;
             // 
