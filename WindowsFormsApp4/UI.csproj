@@ -46,6 +46,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FrmSesion.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmSesion.Designer.cs">
+      <DependentUpon>FrmSesion.cs</DependentUpon>
+    </Compile>
     <Compile Include="Frmlogout.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -84,6 +90,9 @@
     <EmbeddedResource Include="FrmMenu.resx">
       <DependentUpon>FrmMenu.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="FrmSesion.resx">
+      <DependentUpon>FrmSesion.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -107,6 +116,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ABS\ABS.csproj">
+      <Project>{00a6be9c-a53a-425b-b61e-d34458648b9a}</Project>
+      <Name>ABS</Name>
+    </ProjectReference>
     <ProjectReference Include="..\BE\BE.csproj">
       <Project>{fa62a2d4-39e4-475d-a394-23bf0ee4cd60}</Project>
       <Name>BE</Name>

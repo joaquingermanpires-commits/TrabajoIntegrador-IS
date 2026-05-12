@@ -21,23 +21,19 @@ namespace WindowsFormsApp4
         public void Btnout_Click(object sender, EventArgs e)
         {
 
-            DialogResult resp;
-                    resp = MessageBox.Show("¿Desea cerrar la sesión?", "Confirmación", MessageBoxButtons.YesNo);
-                    if (resp == DialogResult.Yes)
-                    {
-                    //"Destruimos" la sesión actual usando Singleton
-                    Singleton.GetInstance().CerrarSesion();
-
-                //reiniciamos la aplicación para que aparezca la pantalla "FrmLogin"
-                Application.Restart();
-
+         DialogResult resp;
+            resp = MessageBox.Show("¿Desea cerrar la sesión?", "Confirmación", MessageBoxButtons.YesNo);
+            if (resp == DialogResult.Yes)
+            {
+                 //"Destruimos" la sesión actual usando Singleton
+                 Singleton.GetInstance().CerrarSesion();
+                 //reiniciamos la aplicación para que aparezca la pantalla "FrmLogin"
+                 Application.Restart();
             }
-                    else
-                    {
-                    this.Close();
-                    }
-
-                
+            else
+            {
+                 this.Close();
+            }   
             
         }
     }
