@@ -1,4 +1,5 @@
 ﻿using BE;
+using ABS;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,10 +12,29 @@ namespace SERVICIOS
     {
         private Usuario Usuario { get; set; }
         private static Singleton sesion;
+        private List<IObserver> observadores = new List<IObserver>();
 
         private Singleton()
         {
+        }
+        public void Suscribir(IObserver obs)
+        {
+            if (!observadores.Contains(obs))
+                observadores.Add(obs);
+        }
 
+        public void Desuscribir(IObserver obs)
+        {
+            observadores.Remove(obs);
+        }
+
+        private void Notificar()
+        {
+            // Le avisamos a todos los formularios suscritos que algo cambió
+            foreach (var obs in observadores)
+            {
+                obs.ActualizarEstadoSesion();
+            }
         }
 
         public static Singleton GetInstance()
@@ -32,16 +52,19 @@ namespace SERVICIOS
                 throw new Exception("Ya existe una sesión activa. Debe cerrar sesión primero.");
 
             this.Usuario = usuario;
+            Notificar();
         }
 
         public void CerrarSesion()
         {
-            Usuario = null;
+            this.Usuario = null;
+            Notificar();
         }
 
         public string GetUsuario()
         {
-            return Usuario.Nombre_Usuario;
+            //return Usuario.Nombre_Usuario;
+            return Usuario != null ? Usuario.Nombre_Usuario : null;
         }
         public long GetIdUsuario()
         {
@@ -49,9 +72,11 @@ namespace SERVICIOS
             {
                 return Usuario.ID_Usuario;
             }
-            else { 
-            return 0;
+            else
+            {
+                return 0;
             }
+            //return Usuario != null ? Usuario.ID_Usuario : 0;
         }
     }
 }
