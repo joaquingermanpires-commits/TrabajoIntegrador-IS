@@ -79,7 +79,7 @@ namespace WindowsFormsApp4
             Application.Exit();
         }
 
-        public void ActualizarIdioma(IIdioma idioma)
+        public void ActualizarIdioma()
         {
             var traducciones = IdiomaBLL.GetInstance().ObtenerTraducciones();
 

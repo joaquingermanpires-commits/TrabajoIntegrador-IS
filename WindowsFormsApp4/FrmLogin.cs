@@ -42,6 +42,10 @@ namespace WindowsFormsApp4
                     string nombreLogueado = Singleton.GetInstance().GetUsuario();
                     MessageBox.Show($"¡Bienvenido al sistema, {nombreLogueado}!", "Login Exitoso", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
+                    if (usuarioValidado.IdiomaPreferido != null)
+                    {
+                        IdiomaBLL.GetInstance().CambiarIdioma(usuarioValidado.IdiomaPreferido);
+                    }
                     FrmMenu menuPrincipal = new FrmMenu();
                     menuPrincipal.Show();
                     this.Hide();
@@ -58,7 +62,7 @@ namespace WindowsFormsApp4
             }
         }
 
-        public void ActualizarIdioma(IIdioma idioma)
+        public void ActualizarIdioma()
         {
             var traducciones = IdiomaBLL.GetInstance().ObtenerTraducciones();
 

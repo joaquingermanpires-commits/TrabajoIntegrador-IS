@@ -10,14 +10,10 @@ namespace BLL
     public class IdiomaBLL
     {
         // 1. PATRÓN SINGLETON (Para centralizar el estado del idioma)
-        private static IdiomaBLL _instancia;
+        private static readonly IdiomaBLL _instancia = new IdiomaBLL();
 
         public static IdiomaBLL GetInstance()
         {
-            if (_instancia == null)
-            {
-                _instancia = new IdiomaBLL();
-            }
             return _instancia;
         }
 
@@ -32,11 +28,7 @@ namespace BLL
         private IdiomaBLL()
         {
             idiomaDal = new IdiomaDal();
-
-            // La DAL devuelve List<Idioma> (Concreto de BE)
             var idiomas = idiomaDal.ObtenerIdiomasDisponibles();
-
-            // C# asigna sin problemas un Idioma a una variable IIdioma
             IdiomaActivo = idiomas.Find(i => i.PorDefecto) ?? (idiomas.Count > 0 ? idiomas[0] : null);
         }
 
@@ -48,11 +40,10 @@ namespace BLL
             {
                 observadores.Add(obs);
 
-                // Un detalle Pro: Cuando un formulario se suscribe por primera vez, 
-                // le mandamos el idioma activo inmediatamente para que se traduzca al abrirse.
                 if (IdiomaActivo != null)
                 {
-                    obs.ActualizarIdioma(IdiomaActivo);
+                    // Quitamos el parámetro IdiomaActivo
+                    obs.ActualizarIdioma();
                 }
             }
         }
@@ -64,10 +55,10 @@ namespace BLL
 
         private void Notificar()
         {
-            // Le avisamos a todos los formularios abiertos que se traduzcan
             foreach (var obs in observadores)
             {
-                obs.ActualizarIdioma(IdiomaActivo);
+                // Quitamos el parámetro IdiomaActivo
+                obs.ActualizarIdioma();
             }
         }
 
@@ -78,6 +69,7 @@ namespace BLL
             if (nuevoIdioma != null)
             {
                 this.IdiomaActivo = nuevoIdioma;
+
                 Notificar(); // ¡Disparamos la cascada de actualizaciones visuales!
             }
         }
