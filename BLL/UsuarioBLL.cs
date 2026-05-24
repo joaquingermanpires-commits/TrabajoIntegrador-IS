@@ -1,11 +1,12 @@
-﻿using System;
+﻿using ABS;
+using BE;
+using DAL;
+using SERVICIOS;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using DAL;
-using BE;
-using SERVICIOS;
 
 
 
@@ -76,7 +77,13 @@ namespace BLL
 
             usuarioDal.Baja(id);
         }
-
+        public void ActualizarIdiomaPreferido(long idUsuario, IIdioma nuevoIdioma)
+        {
+            if (nuevoIdioma != null && idUsuario > 0)
+            {
+                usuarioDal.ActualizarIdiomaUsuario(idUsuario, nuevoIdioma.ID_Idioma);
+            }
+        }
         public List<Usuario> ObtenerUsuarios()
         {
             return usuarioDal.ListarTodos();

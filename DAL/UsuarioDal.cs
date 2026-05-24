@@ -119,5 +119,23 @@ namespace DAL
             }
             return lista;
         }
+        public void ActualizarIdiomaUsuario(long idUsuario, int idIdioma)
+        {
+            string connectionString = ConfigurationManager.ConnectionStrings["IS"].ConnectionString;
+            using (var connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+                using (var command = new SqlCommand("SP_ActualizarIdiomaUsuario", connection))
+                {
+                    // Especificamos que ES un Stored Procedure
+                    command.CommandType = CommandType.StoredProcedure;
+
+                    // Pasamos los parámetros exactos que pide SQL
+                    command.Parameters.AddWithValue("@IdUsuario", idUsuario);
+                    command.Parameters.AddWithValue("@IdIdioma", idIdioma);
+                    command.ExecuteNonQuery(); // Ejecuta el UPDATE
+                }
+            }
+        }
     }
 }

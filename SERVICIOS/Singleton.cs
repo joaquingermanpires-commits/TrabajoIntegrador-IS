@@ -11,7 +11,7 @@ namespace SERVICIOS
     public class Singleton
     {
         private Usuario Usuario { get; set; }
-        private static Singleton sesion;
+        private static readonly Singleton _sesion = new Singleton();
         private List<IObserver> observadores = new List<IObserver>();
 
         private Singleton()
@@ -39,11 +39,7 @@ namespace SERVICIOS
 
         public static Singleton GetInstance()
         {
-            if (sesion == null)
-            {
-                sesion = new Singleton();
-            }
-            return sesion;
+            return _sesion;
         }
 
         public void IniciarSesion(Usuario usuario)

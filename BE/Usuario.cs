@@ -12,5 +12,6 @@ namespace BE
         public long ID_Usuario { get; set; }
         public string Nombre_Usuario { get; set; }
         public string Contraseña_Hash { get; set; }
+        public Idioma IdiomaPreferido { get; set; }
     }
 }
