@@ -38,6 +38,9 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgvu)).BeginInit();
             this.SuspendLayout();
             // 
@@ -109,34 +112,79 @@
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(9, 259);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(100, 13);
+            this.label2.Size = new System.Drawing.Size(96, 13);
             this.label2.TabIndex = 7;
-            this.label2.Text = "Nombre de usuario*";
+            this.label2.Tag = "lblUsuario";
+            this.label2.Text = "Nombre de usuario";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(9, 307);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(65, 13);
+            this.label3.Size = new System.Drawing.Size(61, 13);
             this.label3.TabIndex = 8;
-            this.label3.Text = "Contraseña*";
+            this.label3.Tag = "lblContraseña";
+            this.label3.Text = "Contraseña";
             // 
             // label4
             // 
             this.label4.AutoSize = true;
             this.label4.ForeColor = System.Drawing.Color.Red;
-            this.label4.Location = new System.Drawing.Point(9, 235);
+            this.label4.Location = new System.Drawing.Point(21, 244);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(198, 13);
+            this.label4.Size = new System.Drawing.Size(191, 13);
             this.label4.TabIndex = 9;
-            this.label4.Text = "* indica que los  campos son obligatorios";
+            this.label4.Tag = "campos_Obligatorios";
+            this.label4.Text = "indica que los  campos son obligatorios";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.BackColor = System.Drawing.Color.Transparent;
+            this.label5.ForeColor = System.Drawing.Color.Red;
+            this.label5.Location = new System.Drawing.Point(12, 244);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(12, 17);
+            this.label5.TabIndex = 10;
+            this.label5.Text = "* ";
+            this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.label5.UseCompatibleTextRendering = true;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.BackColor = System.Drawing.Color.Transparent;
+            this.label6.ForeColor = System.Drawing.Color.Red;
+            this.label6.Location = new System.Drawing.Point(197, 279);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(12, 17);
+            this.label6.TabIndex = 11;
+            this.label6.Text = "* ";
+            this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.label6.UseCompatibleTextRendering = true;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.BackColor = System.Drawing.Color.Transparent;
+            this.label7.ForeColor = System.Drawing.Color.Red;
+            this.label7.Location = new System.Drawing.Point(197, 323);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(12, 17);
+            this.label7.TabIndex = 12;
+            this.label7.Text = "* ";
+            this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.label7.UseCompatibleTextRendering = true;
             // 
             // FrmGestion
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(346, 420);
+            this.Controls.Add(this.label7);
+            this.Controls.Add(this.label6);
+            this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
@@ -150,6 +198,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "FrmGestion";
             this.Text = "Gestión_de_usuarios";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FrmGestion_FormClosed);
             ((System.ComponentModel.ISupportInitialize)(this.dgvu)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -168,5 +217,8 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label label7;
     }
 }

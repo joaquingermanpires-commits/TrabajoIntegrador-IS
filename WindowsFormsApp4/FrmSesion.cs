@@ -18,10 +18,9 @@ namespace WindowsFormsApp4
         public FrmSesion()
         {
             InitializeComponent();
-            lblSesionB.Text = nombreLogueado;
+            lblSesionB.Text = Singleton.GetInstance().GetUsuario();
             IdiomaBLL.GetInstance().Suscribir(this);
         }
-        string nombreLogueado= Singleton.GetInstance().GetUsuario();
 
         private void btnidioma_Click(object sender, EventArgs e)
         {
@@ -61,6 +60,11 @@ namespace WindowsFormsApp4
                     TraducirControles(c.Controls, traducciones);
                 }
             }
+        }
+
+        private void FrmSesion_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            IdiomaBLL.GetInstance().Desuscribir(this);
         }
     }
 }

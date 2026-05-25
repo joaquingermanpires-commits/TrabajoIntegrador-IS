@@ -34,7 +34,14 @@ namespace DAL
                                 Usuario userLogueado = new Usuario(); 
                                 userLogueado.ID_Usuario = reader.GetInt64(0);
                                 userLogueado.Nombre_Usuario = reader.GetString(1);
+                                if (!reader.IsDBNull(2))
+                                {
+                                    int idIdioma = reader.GetInt32(2);
 
+                                    // Instanciamos el idioma dentro del usuario y le guardamos su ID
+                                    userLogueado.IdiomaPreferido = new Idioma();
+                                    userLogueado.IdiomaPreferido.ID_Idioma = idIdioma;
+                                }
                                 return userLogueado;
                             }
                         }
@@ -62,7 +69,6 @@ namespace DAL
                 }
             }
         }
-
         public void Modificar(Usuario usuario)
         {
             string connectionString = ConfigurationManager.ConnectionStrings["IS"].ConnectionString;
@@ -79,7 +85,6 @@ namespace DAL
                 }
             }
         }
-
         public void Baja(long idUsuario)
         {
             string connectionString = ConfigurationManager.ConnectionStrings["IS"].ConnectionString;
@@ -94,7 +99,6 @@ namespace DAL
                 }
             }
         }
-
         public List<Usuario> ListarTodos()
         {
             List<Usuario> lista = new List<Usuario>();

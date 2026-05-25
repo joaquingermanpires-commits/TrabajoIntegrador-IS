@@ -41,15 +41,16 @@
             this.Btnout.UseVisualStyleBackColor = true;
             this.Btnout.Click += new System.EventHandler(this.Btnout_Click);
             // 
-            // Frmloguot
+            // Frmlogout
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(161, 77);
             this.Controls.Add(this.Btnout);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
-            this.Name = "Frmloguot";
+            this.Name = "Frmlogout";
             this.Text = "Frmloguot";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Frmlogout_FormClosed);
             this.ResumeLayout(false);
 
         }
