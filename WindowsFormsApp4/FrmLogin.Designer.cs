@@ -33,7 +33,7 @@
             this.btnIngresar = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
+            this.CambiarIdioma = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
@@ -83,16 +83,16 @@
             this.label2.Tag = "lblUsuario";
             this.label2.Text = "Nombre de usuario";
             // 
-            // button1
+            // CambiarIdioma
             // 
-            this.button1.Location = new System.Drawing.Point(322, 126);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(109, 41);
-            this.button1.TabIndex = 5;
-            this.button1.Tag = "btnidioma";
-            this.button1.Text = "Cambiar idioma";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.CambiarIdioma.Location = new System.Drawing.Point(322, 126);
+            this.CambiarIdioma.Name = "CambiarIdioma";
+            this.CambiarIdioma.Size = new System.Drawing.Size(109, 41);
+            this.CambiarIdioma.TabIndex = 5;
+            this.CambiarIdioma.Tag = "btnidioma";
+            this.CambiarIdioma.Text = "Cambiar idioma";
+            this.CambiarIdioma.UseVisualStyleBackColor = true;
+            this.CambiarIdioma.Click += new System.EventHandler(this.Cambiar_Idioma_click);
             // 
             // label3
             // 
@@ -110,7 +110,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(443, 195);
             this.Controls.Add(this.label3);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.CambiarIdioma);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.btnIngresar);
@@ -119,7 +119,6 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "FrmLogin";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FrmLogin_FormClosed);
-            this.Load += new System.EventHandler(this.FrmLogin_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -132,7 +131,7 @@
         private System.Windows.Forms.Button btnIngresar;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button CambiarIdioma;
         private System.Windows.Forms.Label label3;
     }
 }

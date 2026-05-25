@@ -23,7 +23,6 @@ namespace WindowsFormsApp4
             usuarioBLL = new UsuarioBLL();
             IdiomaBLL.GetInstance().Suscribir(this);
         }
-
         public void btnIngresar_Click(object sender, EventArgs e)
         {
             try
@@ -61,7 +60,6 @@ namespace WindowsFormsApp4
                 MessageBox.Show(ex.Message, "Error del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
         public void ActualizarIdioma()
         {
             var traducciones = IdiomaBLL.GetInstance().ObtenerTraducciones();
@@ -69,7 +67,6 @@ namespace WindowsFormsApp4
             // Le pasamos la lista de traducciones y todos los controles del formulario al método recursivo
             TraducirControles(this.Controls, traducciones);
         }
-
         // 2. El método recursivo
         private void TraducirControles(Control.ControlCollection controles, Dictionary<string, string> traducciones)
         {
@@ -95,14 +92,12 @@ namespace WindowsFormsApp4
                 }
             }
         }
-        private void FrmLogin_Load(object sender, EventArgs e) { }
-
         private void FrmLogin_FormClosed(object sender, FormClosedEventArgs e)
         {
             IdiomaBLL.GetInstance().Desuscribir(this);
+            Application.Exit();
         }
-
-        private void button1_Click(object sender, EventArgs e)
+        private void Cambiar_Idioma_click(object sender, EventArgs e)
         {
             var idiomaActual = IdiomaBLL.GetInstance().IdiomaActivo;
 

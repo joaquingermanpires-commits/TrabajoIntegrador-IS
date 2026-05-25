@@ -88,6 +88,7 @@
             this.Name = "FrmSesion";
             this.Tag = "Sesion";
             this.Text = "Sesion";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FrmSesion_FormClosed);
             this.ResumeLayout(false);
             this.PerformLayout();
 

@@ -15,7 +15,6 @@ namespace BLL
     public class UsuarioBLL
     {
         private readonly UsuarioDal usuarioDal;
-
         public UsuarioBLL() 
         {
         usuarioDal = new UsuarioDal();
@@ -24,15 +23,9 @@ namespace BLL
         {
             if (string.IsNullOrEmpty(Nombre_Usuario) || string.IsNullOrEmpty(ContraseñaLimpia))
                 throw new Exception("Debe ingresar un usuario y una contraseña correcta.");
-
-            // Hasheamos la clave pre-mandarla a la bd
             string ContraseñaHasheado =   Criptografia.HashearClave(ContraseñaLimpia);
-
-            // Le mandamos a la DAL el hash, para que compare Hash contra Hash en la bd
-
             return usuarioDal.Login(Nombre_Usuario, ContraseñaHasheado);
         }
-
         public void CrearUsuario(string nombre, string contraseñaLimpia)
         {
             if (string.IsNullOrWhiteSpace(nombre) || string.IsNullOrWhiteSpace(contraseñaLimpia))
@@ -45,7 +38,6 @@ namespace BLL
 
             usuarioDal.Alta(nuevoUsuario);
         }
-
         public void ModificarUsuario(long id, string nuevoNombre, string nuevaContraseñaLimpia)
         {
             if (id <= 0) throw new Exception("ID de usuario inválido.");
@@ -63,7 +55,6 @@ namespace BLL
 
             usuarioDal.Modificar(userModificado);
         }
-
         public void EliminarUsuario(long id)
         {
             if (id <= 0) throw new Exception("Seleccione un usuario válido para eliminar.");

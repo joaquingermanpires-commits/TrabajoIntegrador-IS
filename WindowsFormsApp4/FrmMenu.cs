@@ -44,7 +44,6 @@ namespace WindowsFormsApp4
         {
             AbrirFormulario<FrmGestion>();
         }
-
         private void cerrarSesiónToolStripMenuItem_Click(object sender, EventArgs e)
         {
             AbrirFormulario<Frmlogout>();
@@ -53,7 +52,10 @@ namespace WindowsFormsApp4
         {
             AbrirFormulario<FrmSesion>();
         }
-
+        private void idiomasToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            AbrirFormulario<FrmIdiomas>();
+        }
         public void AbrirFormulario<T>() where T : Form, new()
         {
             //se busca que no se instancie 2 veces el mismo formulario
@@ -105,5 +107,6 @@ namespace WindowsFormsApp4
                 }
             }
         }
+
     }
 }
