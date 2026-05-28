@@ -9,6 +9,7 @@ namespace DAL
 {
     public class IdiomaDal
     {
+        //Lectura y Carga(Read) :
         public List<Idioma> ObtenerIdiomasDisponibles()
         {
             List<Idioma> lista = new List<Idioma>();
@@ -54,49 +55,18 @@ namespace DAL
             }
             return traducciones;
         }
-        public void AgregarIdioma(string nombre)
+        public DataTable ObtenerEtiquetasTodas()
         {
+            DataTable dt = new DataTable();
             using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["IS"].ConnectionString))
             {
-                using (SqlCommand cmd = new SqlCommand("SP_AgregarIdioma", con))
+                using (SqlCommand cmd = new SqlCommand("SP_ObtenerEtiquetas", con))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.AddWithValue("@Nombre", nombre);
-                    con.Open();
-                    cmd.ExecuteNonQuery();
+                    using (SqlDataAdapter da = new SqlDataAdapter(cmd)) da.Fill(dt);
                 }
             }
-        }
-        public void AgregarEtiquetaConTraduccion(string nombreControl, int idIdioma, string texto)
-        {
-            string connectionString = ConfigurationManager.ConnectionStrings["IS"].ConnectionString;
-            using (var connection = new SqlConnection(connectionString))
-            {
-                using (SqlCommand cmd = new SqlCommand("SP_AgregarEtiquetaConTraduccion", connection))
-                {
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.AddWithValue("@NombreControl", nombreControl);
-                    cmd.Parameters.AddWithValue("@IdIdioma", idIdioma);
-                    cmd.Parameters.AddWithValue("@Texto", texto);
-                    connection.Open();
-                    cmd.ExecuteNonQuery();
-                }
-            }
-        }
-        public void GuardarTraduccion(int idIdioma, string nombreControl, string texto)
-        {
-            using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["IS"].ConnectionString))
-            {
-                using (SqlCommand cmd = new SqlCommand("SP_GuardarTraduccion", con))
-                {
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.AddWithValue("@IdIdioma", idIdioma);
-                    cmd.Parameters.AddWithValue("@NombreControl", nombreControl);
-                    cmd.Parameters.AddWithValue("@Texto", texto);
-                    con.Open();
-                    cmd.ExecuteNonQuery();
-                }
-            }
+            return dt;
         }
         public DataTable ObtenerDiccionarioCompleto(int idIdioma)
         {
@@ -115,5 +85,97 @@ namespace DAL
             }
             return dt;
         }
+        //Gestión de Idiomas (Write):
+        public void AgregarIdioma(string nombre)
+        {
+            using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["IS"].ConnectionString))
+            {
+                using (SqlCommand cmd = new SqlCommand("SP_AgregarIdioma", con))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@Nombre", nombre);
+                    con.Open();
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
+        public void AgregarIdiomaCopiaDefault(string nombreIdioma)
+        {
+            // Se usa para cargarle una traduccion por default
+            string connectionString = ConfigurationManager.ConnectionStrings["IS"].ConnectionString;
+
+            using (SqlConnection con = new SqlConnection(connectionString))
+            {
+                using (SqlCommand cmd = new SqlCommand("SP_AgregarIdiomaCopiaDefault", con))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@NombreIdioma", nombreIdioma);
+                    con.Open();
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
+        //Gestión de Etiquetas (Write):
+        public void AgregarEtiqueta(string nombreControl)
+        {
+            string connectionString = ConfigurationManager.ConnectionStrings["IS"].ConnectionString;
+
+            using (SqlConnection con = new SqlConnection(connectionString))
+            {
+                using (SqlCommand cmd = new SqlCommand("SP_AgregarEtiqueta", con))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@Nombre_Control", nombreControl);
+                    con.Open();
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
+        public void ModificarEtiqueta(string nombreViejo, string nombreNuevo)
+        {
+            using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["IS"].ConnectionString))
+            {
+                using (SqlCommand cmd = new SqlCommand("SP_ModificarEtiqueta", con))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@NombreViejo", nombreViejo);
+                    cmd.Parameters.AddWithValue("@NombreNuevo", nombreNuevo);
+                    con.Open();
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
+        public void EliminarEtiqueta(string nombreControl)
+        {
+            string connectionString = ConfigurationManager.ConnectionStrings["IS"].ConnectionString;
+
+            using (SqlConnection con = new SqlConnection(connectionString))
+            {
+                using (SqlCommand cmd = new SqlCommand("SP_EliminarEtiqueta", con))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@NombreControl", nombreControl);
+                    con.Open();
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
+        //Gestión de Traducciones (Write):
+        public void GuardarTraduccion(int idIdioma, string nombreControl, string texto)
+        {
+            using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["IS"].ConnectionString))
+            {
+                using (SqlCommand cmd = new SqlCommand("SP_ActualizarTraduccion", con))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@IdIdioma", idIdioma);
+                    cmd.Parameters.AddWithValue("@NombreControl", nombreControl);
+                    cmd.Parameters.AddWithValue("@Texto", texto);
+                    con.Open();
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
+
     }
 }

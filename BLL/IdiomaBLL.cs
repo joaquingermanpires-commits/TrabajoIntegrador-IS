@@ -5,19 +5,12 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
-// using DAL; // Lo descomentarás en el próximo paso cuando armemos el IdiomaDal
 
 namespace BLL
 {
     public class IdiomaBLL
     {
-        // 1. PATRÓN SINGLETON (Para centralizar el estado del idioma)
         private static readonly IdiomaBLL _instancia = new IdiomaBLL();
-
-        public static IdiomaBLL GetInstance()
-        {
-            return _instancia;
-        }
         public IIdioma IdiomaActivo { get; private set; }
         private IdiomaDal idiomaDal;
         private List<IObservadorIdioma> observadores = new List<IObservadorIdioma>();
@@ -27,6 +20,11 @@ namespace BLL
             var idiomas = idiomaDal.ObtenerIdiomasDisponibles();
             IdiomaActivo = idiomas.Find(i => i.PorDefecto) ?? (idiomas.Count > 0 ? idiomas[0] : null);
         }
+        //Patrones Observer y Singleton:
+        public static IdiomaBLL GetInstance()
+        {
+            return _instancia;
+        }
         public void Suscribir(IObservadorIdioma obs)
         {
             if (!observadores.Contains(obs))
@@ -35,7 +33,6 @@ namespace BLL
 
                 if (IdiomaActivo != null)
                 {
-                    // Quitamos el parámetro IdiomaActivo
                     obs.ActualizarIdioma();
                 }
             }
@@ -48,19 +45,20 @@ namespace BLL
         {
             foreach (var obs in observadores)
             {
-                // Quitamos el parámetro IdiomaActivo
                 obs.ActualizarIdioma();
             }
         }
+        //Estado de Sesión Visual:
         public void CambiarIdioma(IIdioma nuevoIdioma)
         {
             if (nuevoIdioma != null)
             {
                 this.IdiomaActivo = nuevoIdioma;
 
-                Notificar(); // ¡Disparamos la cascada de actualizaciones visuales!
+                Notificar();
             }
         }
+        //Consultas de Datos (Lectura con validación/pasarela):
         public Dictionary<string, string> ObtenerTraducciones()
         {
             if (IdiomaActivo == null)
@@ -72,38 +70,57 @@ namespace BLL
         {
             return idiomaDal.ObtenerIdiomasDisponibles().Cast<IIdioma>().ToList();
         }
-        public void AgregarIdioma(string nombre)
+        public DataTable ObtenerEtiquetasTodas()
         {
-            if (string.IsNullOrWhiteSpace(nombre)) throw new Exception("El nombre del idioma no puede estar vacío.");
-            idiomaDal.AgregarIdioma(nombre);
-        }
-        public void AgregarEtiquetaConTraduccion(string nombreControl, int idIdioma, string texto)
-        {
-            if (string.IsNullOrWhiteSpace(nombreControl))
-                throw new Exception("El nombre del Tag / Etiqueta no puede estar vacío.");
-            if (string.IsNullOrWhiteSpace(texto))
-                throw new Exception("Debe ingresar una traducción para la nueva etiqueta.");
-            if (idIdioma <= 0)
-                throw new Exception("Seleccione un idioma válido.");
-
-            idiomaDal.AgregarEtiquetaConTraduccion(nombreControl, idIdioma, texto);
-        }
-        public void GuardarTraducciones(int idIdioma, Dictionary<string, string> nuevasTraducciones)
-        {
-            if (idIdioma <= 0) throw new Exception("Debe seleccionar un idioma válido.");
-
-            foreach (var item in nuevasTraducciones)
-            {
-                // Solo guardamos si el usuario escribió algo en la grilla
-                if (!string.IsNullOrWhiteSpace(item.Value))
-                {
-                    idiomaDal.GuardarTraduccion(idIdioma, item.Key, item.Value);
-                }
-            }
+            return idiomaDal.ObtenerEtiquetasTodas();
         }
         public DataTable ObtenerDiccionarioCompleto(int idIdioma)
         {
             return idiomaDal.ObtenerDiccionarioCompleto(idIdioma);
+        }
+        //Modificación de Datos (Escritura con validación de reglas de negocio):
+        public void AgregarIdiomaCopiaDefault(string nombreIdioma)
+        {
+            if (string.IsNullOrWhiteSpace(nombreIdioma)) throw new Exception("El nombre del idioma no puede estar vacío.");
+            idiomaDal.AgregarIdiomaCopiaDefault(nombreIdioma);
+        }
+        public void AgregarEtiqueta(string nombreControl)
+        {
+            if (string.IsNullOrWhiteSpace(nombreControl))
+            {
+                throw new Exception("El nombre del Tag / Etiqueta no puede estar vacío.");
+            }
+            idiomaDal.AgregarEtiqueta(nombreControl);
+        }
+        public void ModificarEtiqueta(string nombreViejo, string nombreNuevo)
+        {
+            if (string.IsNullOrWhiteSpace(nombreViejo) || string.IsNullOrWhiteSpace(nombreNuevo))
+                throw new Exception("Debe seleccionar una etiqueta y escribir el nuevo nombre.");
+            idiomaDal.ModificarEtiqueta(nombreViejo, nombreNuevo);
+        }
+        public void EliminarEtiqueta(string nombreControl)
+        {
+            if (string.IsNullOrWhiteSpace(nombreControl))
+            {
+                throw new Exception("Debe seleccionar una etiqueta de la grilla para eliminar.");
+            }
+            idiomaDal.EliminarEtiqueta(nombreControl);
+        }
+        public void GuardarTraduccionIndividual(int idIdioma, string nombreControl, string texto)
+        {
+            if (idIdioma <= 0)
+            {
+                throw new Exception("Debe seleccionar un idioma válido del menú desplegable.");
+            }
+            if (string.IsNullOrWhiteSpace(nombreControl))
+            {
+                throw new Exception("Debe seleccionar una etiqueta de la grilla para asignarle una traducción.");
+            }
+            if (string.IsNullOrWhiteSpace(texto))
+            {
+                throw new Exception("El texto de la traducción no puede estar vacío.");
+            }
+            idiomaDal.GuardarTraduccion(idIdioma, nombreControl, texto);
         }
     }
 }

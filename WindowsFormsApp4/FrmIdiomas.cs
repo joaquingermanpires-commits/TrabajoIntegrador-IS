@@ -9,6 +9,8 @@ namespace WindowsFormsApp4
 {
     public partial class FrmIdiomas : Form, IObservadorIdioma
     {
+        private string etiquetaSeleccionada = "";
+        private string tagTraduccionSeleccionada = "";
         public FrmIdiomas()
         {
             InitializeComponent();
@@ -28,6 +30,8 @@ namespace WindowsFormsApp4
         }
         private void ActualizaDGVU()
         {
+            dgvTraducciones.AllowUserToAddRows = false;
+            dgvTraducciones.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             if (cmbIdiomas.SelectedItem is IIdioma idiomaSeleccionado)
             {
                 dgvTraducciones.DataSource = IdiomaBLL.GetInstance().ObtenerDiccionarioCompleto(idiomaSeleccionado.ID_Idioma);
@@ -35,85 +39,102 @@ namespace WindowsFormsApp4
                 if (dgvTraducciones.Columns.Contains("Nombre_Control"))
                 {
                     dgvTraducciones.Columns["Nombre_Control"].ReadOnly = true;
-                    dgvTraducciones.Columns["Nombre_Control"].HeaderText = "Tag / Etiqueta";
+                    dgvTraducciones.Columns["Nombre_Control"].HeaderText = "Etiqueta";
                 }
                 if (dgvTraducciones.Columns.Contains("TextoTraduccion"))
                 {
-                    dgvTraducciones.Columns["TextoTraduccion"].HeaderText = "Traducción para este Idioma";
+                    dgvTraducciones.Columns["TextoTraduccion"].ReadOnly = true;
+                    dgvTraducciones.Columns["TextoTraduccion"].HeaderText = "Traducción";
                 }
+            }
+        }
+        private void dgvTraducciones_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0)
+            {
+                //txtTraduccion.Text = dgvTraducciones.Rows[e.RowIndex].Cells["TextoTraduccion"].Value.ToString();
+
+                etiquetaSeleccionada = dgvTraducciones.Rows[e.RowIndex].Cells["Nombre_Control"].Value.ToString();
+                txtEtiqueta.Text = etiquetaSeleccionada;
+
+                tagTraduccionSeleccionada = dgvTraducciones.Rows[e.RowIndex].Cells["TextoTraduccion"].Value.ToString();
+                txtTraduccion.Text = tagTraduccionSeleccionada;
             }
         }
         private void btnAgregarEtiqueta_Click(object sender, EventArgs e)
         {
             try
             {
-                if (cmbIdiomas.SelectedItem is IIdioma idiomaSeleccionado)
-                {
-                    // Enviamos el Tag, el Idioma de la pantalla y el texto inicial
-                    IdiomaBLL.GetInstance().AgregarEtiquetaConTraduccion(
-                        txtNuevaEtiqueta.Text.Trim(),
-                        idiomaSeleccionado.ID_Idioma,
-                        txtNuevaTraduccion.Text.Trim()
-                    );
-
-                    MessageBox.Show("Etiqueta y traducción registradas correctamente.");
-
-                    // Limpiamos los campos y refrescamos la grilla
-                    txtNuevaEtiqueta.Clear();
-                    txtNuevaTraduccion.Clear();
-                    ActualizaDGVU();
-                }
+                IdiomaBLL.GetInstance().AgregarEtiqueta(txtEtiqueta.Text.Trim());
+                ActualizaDGVU();
+                cmbIdiomas_SelectedIndexChanged(null, null); // Refresca traducciones por si sumamos una nueva
+                txtEtiqueta.Clear();
             }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            }
+            catch (Exception ex) { MessageBox.Show(ex.Message); }
+
         }
-        private void btnAgregarTraducciones_Click(object sender, EventArgs e)
+        private void btnEliminarEtiqueta_Click(object sender, EventArgs e)
         {
             try
             {
-                var idiomaSeleccionado = (IIdioma)cmbIdiomas.SelectedItem;
-                Dictionary<string, string> diccionario = new Dictionary<string, string>();
-
-                foreach (DataGridViewRow row in dgvTraducciones.Rows)
+                if (MessageBox.Show("¿Eliminar etiqueta y todas sus traducciones?", "Confirmar", MessageBoxButtons.YesNo) == DialogResult.Yes)
                 {
-                    if (row.Cells["Nombre_Control"].Value != null)
+                    IdiomaBLL.GetInstance().EliminarEtiqueta(etiquetaSeleccionada);
+                    ActualizaDGVU();
+                    cmbIdiomas_SelectedIndexChanged(null, null);
+                    txtEtiqueta.Clear();
+                }
+            }
+            catch (Exception ex) { MessageBox.Show(ex.Message); }
+        }
+        private void btnModificarEtiqueta_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                IdiomaBLL.GetInstance().ModificarEtiqueta(etiquetaSeleccionada, txtEtiqueta.Text.Trim());
+                ActualizaDGVU();
+                cmbIdiomas_SelectedIndexChanged(null, null);
+                txtEtiqueta.Clear();
+                etiquetaSeleccionada = "";
+                MessageBox.Show("Etiqueta modificada.");
+            }
+            catch (Exception ex) { MessageBox.Show(ex.Message); }
+        }
+        private void btnAgregarTraducciones_Click(object sender, EventArgs e)
+        {
+
+            try
+            {
+                if (cmbIdiomas.SelectedItem is IIdioma idiomaSeleccionado && !string.IsNullOrEmpty(tagTraduccionSeleccionada))
+                {
+                    IdiomaBLL.GetInstance().GuardarTraduccionIndividual(idiomaSeleccionado.ID_Idioma, tagTraduccionSeleccionada, txtTraduccion.Text.Trim());
+
+                    MessageBox.Show("Traducción guardada.");
+                    ActualizaDGVU();
+                    txtTraduccion.Clear();
+                    if (IdiomaBLL.GetInstance().IdiomaActivo.ID_Idioma == idiomaSeleccionado.ID_Idioma)
                     {
-                        string tag = row.Cells["Nombre_Control"].Value.ToString();
-                        string traduccion = row.Cells["TextoTraduccion"].Value?.ToString() ?? "";
-                        diccionario.Add(tag, traduccion);
+                        IdiomaBLL.GetInstance().CambiarIdioma(idiomaSeleccionado);
                     }
                 }
-
-                IdiomaBLL.GetInstance().GuardarTraducciones(idiomaSeleccionado.ID_Idioma, diccionario);
-                MessageBox.Show("Modificaciones de la grilla guardadas con éxito.");
-
-                // Si editamos el idioma que el operador tiene puesto ahora mismo, forzamos el refresco visual (Observer)
-                if (IdiomaBLL.GetInstance().IdiomaActivo.ID_Idioma == idiomaSeleccionado.ID_Idioma)
-                {
-                    IdiomaBLL.GetInstance().CambiarIdioma(idiomaSeleccionado);
-                }
-                ActualizaDGVU();
             }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "Error al guardar", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+            catch (Exception ex) { MessageBox.Show(ex.Message); }
         }
         private void btnAgregarIdioma_Click(object sender, EventArgs e)
         {
             try
             {
-                IdiomaBLL.GetInstance().AgregarIdioma(txtNuevoIdioma.Text.Trim());
-                CargarComboIdiomas();
-                txtNuevoIdioma.Clear();
-                MessageBox.Show("Idioma agregado con éxito.");
-                ActualizaDGVU();
+                {
+                    IdiomaBLL.GetInstance().AgregarIdiomaCopiaDefault(txtNuevoIdioma.Text.Trim());
+                    CargarComboIdiomas();
+                    txtNuevoIdioma.Clear();
+                    MessageBox.Show("Idioma agregado con éxito.");
+                    ActualizaDGVU();
+                }
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show(ex.Message, "Error al agregar idioma", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
         public void ActualizarIdioma()
@@ -136,15 +157,6 @@ namespace WindowsFormsApp4
         private void FrmIdiomas_FormClosed(object sender, FormClosedEventArgs e)
         {
             IdiomaBLL.GetInstance().Desuscribir(this);
-        }
-
-        private void dgvTraducciones_CellClick(object sender, DataGridViewCellEventArgs e)
-        {
-            if (e.RowIndex >= 0)
-            {
-                txtNuevaEtiqueta.Text = dgvTraducciones.Rows[e.RowIndex].Cells["Nombre_Control"].Value.ToString();
-                txtNuevaTraduccion.Text = dgvTraducciones.Rows[e.RowIndex].Cells["TextoTraduccion"].Value.ToString();
-            }
         }
     }
 }
