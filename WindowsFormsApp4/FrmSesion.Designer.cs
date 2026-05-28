@@ -28,27 +28,16 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.btnidioma = new System.Windows.Forms.Button();
             this.lblSesionA = new System.Windows.Forms.Label();
             this.lblSesionB = new System.Windows.Forms.Label();
             this.lblidioma = new System.Windows.Forms.Label();
+            this.cmbIdiomas = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
-            // 
-            // btnidioma
-            // 
-            this.btnidioma.Location = new System.Drawing.Point(200, 120);
-            this.btnidioma.Name = "btnidioma";
-            this.btnidioma.Size = new System.Drawing.Size(123, 23);
-            this.btnidioma.TabIndex = 0;
-            this.btnidioma.Tag = "btnidioma";
-            this.btnidioma.Text = "Cambiar idioma";
-            this.btnidioma.UseVisualStyleBackColor = true;
-            this.btnidioma.Click += new System.EventHandler(this.btnidioma_Click);
             // 
             // lblSesionA
             // 
             this.lblSesionA.AutoSize = true;
-            this.lblSesionA.Location = new System.Drawing.Point(65, 59);
+            this.lblSesionA.Location = new System.Drawing.Point(40, 32);
             this.lblSesionA.Name = "lblSesionA";
             this.lblSesionA.Size = new System.Drawing.Size(110, 13);
             this.lblSesionA.TabIndex = 1;
@@ -58,7 +47,7 @@
             // lblSesionB
             // 
             this.lblSesionB.AutoSize = true;
-            this.lblSesionB.Location = new System.Drawing.Point(197, 59);
+            this.lblSesionB.Location = new System.Drawing.Point(172, 32);
             this.lblSesionB.Name = "lblSesionB";
             this.lblSesionB.Size = new System.Drawing.Size(10, 13);
             this.lblSesionB.TabIndex = 2;
@@ -68,22 +57,32 @@
             // lblidioma
             // 
             this.lblidioma.AutoSize = true;
-            this.lblidioma.Location = new System.Drawing.Point(65, 125);
+            this.lblidioma.Location = new System.Drawing.Point(40, 82);
             this.lblidioma.Name = "lblidioma";
             this.lblidioma.Size = new System.Drawing.Size(112, 13);
             this.lblidioma.TabIndex = 3;
             this.lblidioma.Tag = "lblidioma";
             this.lblidioma.Text = "Idiona actual: Español";
             // 
+            // cmbIdiomas
+            // 
+            this.cmbIdiomas.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbIdiomas.FormattingEnabled = true;
+            this.cmbIdiomas.Location = new System.Drawing.Point(175, 79);
+            this.cmbIdiomas.Name = "cmbIdiomas";
+            this.cmbIdiomas.Size = new System.Drawing.Size(121, 21);
+            this.cmbIdiomas.TabIndex = 4;
+            this.cmbIdiomas.SelectedIndexChanged += new System.EventHandler(this.cmbIdiomas_SelectedIndexChanged);
+            // 
             // FrmSesion
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(396, 184);
+            this.ClientSize = new System.Drawing.Size(354, 154);
+            this.Controls.Add(this.cmbIdiomas);
             this.Controls.Add(this.lblidioma);
             this.Controls.Add(this.lblSesionB);
             this.Controls.Add(this.lblSesionA);
-            this.Controls.Add(this.btnidioma);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "FrmSesion";
             this.Tag = "Sesion";
@@ -95,10 +94,9 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.Button btnidioma;
         private System.Windows.Forms.Label lblSesionA;
         private System.Windows.Forms.Label lblSesionB;
         private System.Windows.Forms.Label lblidioma;
+        private System.Windows.Forms.ComboBox cmbIdiomas;
     }
 }

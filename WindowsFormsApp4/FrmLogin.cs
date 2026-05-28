@@ -22,6 +22,7 @@ namespace WindowsFormsApp4
             InitializeComponent();
             usuarioBLL = new UsuarioBLL();
             IdiomaBLL.GetInstance().Suscribir(this);
+            CargarComboIdiomas();
         }
         //btn Log in
         public void btnIngresar_Click(object sender, EventArgs e)
@@ -30,16 +31,14 @@ namespace WindowsFormsApp4
             {
                 string Nombre_Usuario = txtUsuario.Text;
                 string Contraseña = txtContraseña.Text;
-
-                //  La BLL se encarga de la validación (que incluye el hasheo y llamar a la DAL)
                 Usuario usuarioValidado = usuarioBLL.Login(Nombre_Usuario, Contraseña);
 
                 if (usuarioValidado != null)
                 {
-                    // Uso de Singleton, Guardamos al usuario en la memoria global
                     Singleton.GetInstance().IniciarSesion(usuarioValidado);
-
                     string nombreLogueado = Singleton.GetInstance().GetUsuario();
+                    BitacoraBLL.GetInstance().RegistrarBitacora(Nombre_Usuario, "INFO", "FrmLogin", "Inicio de sesión exitoso.");
+
                     MessageBox.Show($"¡Bienvenido al sistema, {nombreLogueado}!", "Login Exitoso", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                     if (usuarioValidado.IdiomaPreferido != null)
@@ -52,24 +51,40 @@ namespace WindowsFormsApp4
                 }
                 else
                 {
+                    BitacoraBLL.GetInstance().RegistrarBitacora(Nombre_Usuario, "WARNING", "FrmLogin", "Intento de inicio de sesión fallido (Credenciales incorrectas).");
                     MessageBox.Show("Usuario o contraseña incorrectos.", "Error de Autenticación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
             }
             catch (Exception ex)
             {
-                // Atrapamos cualquier error de la base de datos o validación y lo mostramos
+                BitacoraBLL.GetInstance().RegistrarBitacora(txtUsuario.Text, "CRITICAL", "FrmLogin", $"Error del sistema: {ex.Message}");
                 MessageBox.Show(ex.Message, "Error del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-        //btn Cambiar Idioma
-        private void Cambiar_Idioma_click(object sender, EventArgs e)
+        //Cambiar Idioma
+        private void CargarComboIdiomas()
         {
+            var idiomasDisponibles = IdiomaBLL.GetInstance().ObtenerIdiomasDisponibles();
+            cmbIdiomas.SelectedIndexChanged -= cmbIdiomas_SelectedIndexChanged;
+            cmbIdiomas.DataSource = idiomasDisponibles;
+            cmbIdiomas.DisplayMember = "Nombre";
+            cmbIdiomas.ValueMember = "ID_Idioma";
+            // Dejamos seleccionado el idioma que el sistema tiene por defecto
             var idiomaActual = IdiomaBLL.GetInstance().IdiomaActivo;
-            var todosLosIdiomas = IdiomaBLL.GetInstance().ObtenerIdiomasDisponibles();
-            var nuevoIdioma = todosLosIdiomas.Find(i => i.ID_Idioma != idiomaActual.ID_Idioma);
-            if (nuevoIdioma != null)
+            if (idiomaActual != null)
             {
-                IdiomaBLL.GetInstance().CambiarIdioma(nuevoIdioma);
+                cmbIdiomas.SelectedValue = idiomaActual.ID_Idioma;
+            }
+            cmbIdiomas.SelectedIndexChanged += cmbIdiomas_SelectedIndexChanged;
+        }
+        private void cmbIdiomas_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cmbIdiomas.SelectedItem is IIdioma idiomaSeleccionado)
+            {
+                if (IdiomaBLL.GetInstance().IdiomaActivo == null || IdiomaBLL.GetInstance().IdiomaActivo.ID_Idioma != idiomaSeleccionado.ID_Idioma)
+                {
+                    IdiomaBLL.GetInstance().CambiarIdioma(idiomaSeleccionado);
+                }
             }
         }
         //Metodos del formulario

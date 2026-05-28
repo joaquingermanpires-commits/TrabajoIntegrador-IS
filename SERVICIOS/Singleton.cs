@@ -17,6 +17,7 @@ namespace SERVICIOS
         private Singleton()
         {
         }
+        //Observer
         public void Suscribir(IObserver obs)
         {
             if (!observadores.Contains(obs))
@@ -34,6 +35,7 @@ namespace SERVICIOS
                 obs.ActualizarEstadoSesion();
             }
         }
+        //Sesion
         public static Singleton GetInstance()
         {
             return _sesion;

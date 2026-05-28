@@ -55,6 +55,11 @@ namespace WindowsFormsApp4
         {
             AbrirFormulario<FrmIdiomas>();
         }
+
+        private void bitacoraToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            AbrirFormulario<FrmBitacora>();
+        }
         public void AbrirFormulario<T>() where T : Form, new()
         {
             //se busca que no se instancie 2 veces el mismo formulario
