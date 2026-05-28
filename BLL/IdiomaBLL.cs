@@ -70,10 +70,6 @@ namespace BLL
         {
             return idiomaDal.ObtenerIdiomasDisponibles().Cast<IIdioma>().ToList();
         }
-        public DataTable ObtenerEtiquetasTodas()
-        {
-            return idiomaDal.ObtenerEtiquetasTodas();
-        }
         public DataTable ObtenerDiccionarioCompleto(int idIdioma)
         {
             return idiomaDal.ObtenerDiccionarioCompleto(idIdioma);

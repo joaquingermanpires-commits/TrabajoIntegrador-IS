@@ -20,17 +20,14 @@ namespace SERVICIOS
             {
                 // Convercion del texto plano a un arreglo de bytes
                 byte[] bytesOriginales = Encoding.UTF8.GetBytes(claveLimpia);
-
                 // Computacion del hash
                 byte[] bytesHasheados = sha256.ComputeHash(bytesOriginales);
-
                 // Se Convierte el arreglo de bytes a un string hexadecimal para guardarlo en la bd
                 StringBuilder constructorString = new StringBuilder();
                 for (int i = 0; i < bytesHasheados.Length; i++)
                 {
                     constructorString.Append(bytesHasheados[i].ToString("x2"));
                 }
-
                 return constructorString.ToString();
             }
         }

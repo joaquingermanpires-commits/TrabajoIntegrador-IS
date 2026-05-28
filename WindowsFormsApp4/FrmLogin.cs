@@ -23,6 +23,7 @@ namespace WindowsFormsApp4
             usuarioBLL = new UsuarioBLL();
             IdiomaBLL.GetInstance().Suscribir(this);
         }
+        //btn Log in
         public void btnIngresar_Click(object sender, EventArgs e)
         {
             try
@@ -60,32 +61,35 @@ namespace WindowsFormsApp4
                 MessageBox.Show(ex.Message, "Error del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+        //btn Cambiar Idioma
+        private void Cambiar_Idioma_click(object sender, EventArgs e)
+        {
+            var idiomaActual = IdiomaBLL.GetInstance().IdiomaActivo;
+            var todosLosIdiomas = IdiomaBLL.GetInstance().ObtenerIdiomasDisponibles();
+            var nuevoIdioma = todosLosIdiomas.Find(i => i.ID_Idioma != idiomaActual.ID_Idioma);
+            if (nuevoIdioma != null)
+            {
+                IdiomaBLL.GetInstance().CambiarIdioma(nuevoIdioma);
+            }
+        }
+        //Metodos del formulario
         public void ActualizarIdioma()
         {
             var traducciones = IdiomaBLL.GetInstance().ObtenerTraducciones();
-
-            // Le pasamos la lista de traducciones y todos los controles del formulario al método recursivo
             TraducirControles(this.Controls, traducciones);
         }
-        // 2. El método recursivo
         private void TraducirControles(Control.ControlCollection controles, Dictionary<string, string> traducciones)
         {
             foreach (Control c in controles)
             {
-                // 1. Verificamos que el control tenga algo escrito en su propiedad Tag
                 if (c.Tag != null && !string.IsNullOrWhiteSpace(c.Tag.ToString()))
                 {
-                    // Convertimos el Tag a string para usarlo como llave
                     string claveTag = c.Tag.ToString();
-
-                    // 2. Si esa llave existe en la base de datos, lo traducimos
                     if (traducciones.ContainsKey(claveTag))
                     {
                         c.Text = traducciones[claveTag];
                     }
                 }
-
-                // 3. La recursividad se mantiene idéntica para buscar dentro de los Paneles
                 if (c.Controls.Count > 0)
                 {
                     TraducirControles(c.Controls, traducciones);
@@ -96,22 +100,6 @@ namespace WindowsFormsApp4
         {
             IdiomaBLL.GetInstance().Desuscribir(this);
             Application.Exit();
-        }
-        private void Cambiar_Idioma_click(object sender, EventArgs e)
-        {
-            var idiomaActual = IdiomaBLL.GetInstance().IdiomaActivo;
-
-            // 2. Traemos la lista completa de idiomas disponibles (Español, Inglés)
-            var todosLosIdiomas = IdiomaBLL.GetInstance().ObtenerIdiomasDisponibles();
-
-            // 3. Usamos LINQ para buscar el primer idioma cuyo ID sea DIFERENTE al ID del idioma actual
-            var nuevoIdioma = todosLosIdiomas.Find(i => i.ID_Idioma != idiomaActual.ID_Idioma);
-
-            // 4. Si encontró el "otro" idioma, le decimos al gestor que haga el cambio
-            if (nuevoIdioma != null)
-            {
-                IdiomaBLL.GetInstance().CambiarIdioma(nuevoIdioma);
-            }
         }
     }
 }

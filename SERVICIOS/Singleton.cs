@@ -22,12 +22,10 @@ namespace SERVICIOS
             if (!observadores.Contains(obs))
                 observadores.Add(obs);
         }
-
         public void Desuscribir(IObserver obs)
         {
             observadores.Remove(obs);
         }
-
         private void Notificar()
         {
             // Le avisamos a todos los formularios suscritos que algo cambió
@@ -36,12 +34,10 @@ namespace SERVICIOS
                 obs.ActualizarEstadoSesion();
             }
         }
-
         public static Singleton GetInstance()
         {
             return _sesion;
         }
-
         public void IniciarSesion(Usuario usuario)
         {
             if (this.Usuario != null)
@@ -50,13 +46,11 @@ namespace SERVICIOS
             this.Usuario = usuario;
             Notificar();
         }
-
         public void CerrarSesion()
         {
             this.Usuario = null;
             Notificar();
         }
-
         public string GetUsuario()
         {
             //return Usuario.Nombre_Usuario;

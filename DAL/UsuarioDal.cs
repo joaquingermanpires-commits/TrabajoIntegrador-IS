@@ -20,7 +20,6 @@ namespace DAL
                 try
                 {
                     connection.Open();
-                    // Uso de Stored Procedure
                     using (var command = new SqlCommand("Usuario_Login", connection))
                     {
                         command.CommandType = CommandType.StoredProcedure;
@@ -37,8 +36,6 @@ namespace DAL
                                 if (!reader.IsDBNull(2))
                                 {
                                     int idIdioma = reader.GetInt32(2);
-
-                                    // Instanciamos el idioma dentro del usuario y le guardamos su ID
                                     userLogueado.IdiomaPreferido = new Idioma();
                                     userLogueado.IdiomaPreferido.ID_Idioma = idIdioma;
                                 }
@@ -131,13 +128,10 @@ namespace DAL
                 connection.Open();
                 using (var command = new SqlCommand("SP_ActualizarIdiomaUsuario", connection))
                 {
-                    // Especificamos que ES un Stored Procedure
                     command.CommandType = CommandType.StoredProcedure;
-
-                    // Pasamos los parámetros exactos que pide SQL
                     command.Parameters.AddWithValue("@IdUsuario", idUsuario);
                     command.Parameters.AddWithValue("@IdIdioma", idIdioma);
-                    command.ExecuteNonQuery(); // Ejecuta el UPDATE
+                    command.ExecuteNonQuery();
                 }
             }
         }

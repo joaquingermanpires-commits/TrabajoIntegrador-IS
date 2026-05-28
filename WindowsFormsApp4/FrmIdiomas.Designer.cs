@@ -93,6 +93,7 @@
             this.btnAgregarIdioma.Name = "btnAgregarIdioma";
             this.btnAgregarIdioma.Size = new System.Drawing.Size(75, 23);
             this.btnAgregarIdioma.TabIndex = 5;
+            this.btnAgregarIdioma.Tag = "btnAgregar";
             this.btnAgregarIdioma.Text = "Agregar";
             this.btnAgregarIdioma.UseVisualStyleBackColor = true;
             this.btnAgregarIdioma.Click += new System.EventHandler(this.btnAgregarIdioma_Click);
@@ -103,6 +104,7 @@
             this.btnAgregarEtiqueta.Name = "btnAgregarEtiqueta";
             this.btnAgregarEtiqueta.Size = new System.Drawing.Size(75, 23);
             this.btnAgregarEtiqueta.TabIndex = 6;
+            this.btnAgregarEtiqueta.Tag = "btnAgregar";
             this.btnAgregarEtiqueta.Text = "Agregar";
             this.btnAgregarEtiqueta.UseVisualStyleBackColor = true;
             this.btnAgregarEtiqueta.Click += new System.EventHandler(this.btnAgregarEtiqueta_Click);
@@ -180,6 +182,7 @@
             this.Controls.Add(this.dgvTraducciones);
             this.Controls.Add(this.cmbIdiomas);
             this.Name = "FrmIdiomas";
+            this.Tag = "FrmIdiomas";
             this.Text = "FrmIdiomas";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FrmIdiomas_FormClosed);
             ((System.ComponentModel.ISupportInitialize)(this.dgvTraducciones)).EndInit();
