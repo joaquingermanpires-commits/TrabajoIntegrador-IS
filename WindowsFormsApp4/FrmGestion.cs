@@ -22,7 +22,6 @@ namespace WindowsFormsApp4
             bll = new UsuarioBLL();
             IdiomaBLL.GetInstance().Suscribir(this);
         }
-
         private void dgvu_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex >= 0)
@@ -40,33 +39,25 @@ namespace WindowsFormsApp4
             this.dgvu.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.DisplayedCells;
             dgvu.Columns["Contraseña_Hash"].Visible = false;
             dgvu.Columns["Nombre_Usuario"].HeaderText = "Nombre";
+            dgvu.Columns["IdiomaPreferido"].Visible = false;
         }
         public void ActualizarIdioma()
         {
             var traducciones = IdiomaBLL.GetInstance().ObtenerTraducciones();
-
-            // Le pasamos la lista de traducciones y todos los controles del formulario al método recursivo
             TraducirControles(this.Controls, traducciones);
         }
-        // 2. El método recursivo
         private void TraducirControles(Control.ControlCollection controles, Dictionary<string, string> traducciones)
         {
             foreach (Control c in controles)
             {
-                // 1. Verificamos que el control tenga algo escrito en su propiedad Tag
                 if (c.Tag != null && !string.IsNullOrWhiteSpace(c.Tag.ToString()))
                 {
-                    // Convertimos el Tag a string para usarlo como llave
                     string claveTag = c.Tag.ToString();
-
-                    // 2. Si esa llave existe en la base de datos, lo traducimos
                     if (traducciones.ContainsKey(claveTag))
                     {
                         c.Text = traducciones[claveTag];
                     }
                 }
-
-                // 3. La recursividad se mantiene idéntica para buscar dentro de los Paneles
                 if (c.Controls.Count > 0)
                 {
                     TraducirControles(c.Controls, traducciones);
@@ -79,7 +70,6 @@ namespace WindowsFormsApp4
             {
                 bll.CrearUsuario(inputNombre.Text, InputContraseña.Text);
                 MessageBox.Show("Usuario creado con éxito.");
-                // Recargar grilla
                 ActualizaDGVU();
             }
             catch (Exception ex) { MessageBox.Show(ex.Message); }
@@ -91,7 +81,6 @@ namespace WindowsFormsApp4
                 long idSeleccionado = Convert.ToInt64(dgvu.CurrentRow.Cells["ID_Usuario"].Value);
                 bll.EliminarUsuario(idSeleccionado);
                 MessageBox.Show("Usuario eliminado.");
-                // Recargar grilla
                 ActualizaDGVU();
             }
             catch (Exception ex) { MessageBox.Show(ex.Message); }
@@ -100,7 +89,6 @@ namespace WindowsFormsApp4
         {
             try
             {
-                // se Validamos que el usuario haya hecho clic en alguna fila de la grilla
                 if (dgvu.CurrentRow == null)
                 {
                     MessageBox.Show("Por favor, seleccione un usuario de la lista para modificar.", "Atención", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -110,16 +98,10 @@ namespace WindowsFormsApp4
                 long idSeleccionado = Convert.ToInt64(dgvu.CurrentRow.Cells["ID_Usuario"].Value);   
                 string nuevoNombre = inputNombre.Text;
                 string nuevaContrasena = InputContraseña.Text;
-
-                //BLL valida y hashee
                 bll.ModificarUsuario(idSeleccionado, nuevoNombre, nuevaContrasena);
-
-                // 5. Si todo salió bien, avisamos al usuario
                 MessageBox.Show("El usuario ha sido modificado exitosamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
                 inputNombre.Clear();
                 InputContraseña.Clear();
-
                 ActualizaDGVU();
             }
             catch (Exception ex)
