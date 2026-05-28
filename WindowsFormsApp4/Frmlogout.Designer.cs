@@ -49,7 +49,6 @@
             this.Controls.Add(this.Btnout);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "Frmlogout";
-            this.Text = "Frmlogout";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Frmlogout_FormClosed);
             this.ResumeLayout(false);
 

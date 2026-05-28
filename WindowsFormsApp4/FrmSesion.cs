@@ -20,20 +20,9 @@ namespace WindowsFormsApp4
             InitializeComponent();
             lblSesionB.Text = Singleton.GetInstance().GetUsuario();
             IdiomaBLL.GetInstance().Suscribir(this);
+            CargarComboIdiomas();
         }
-        private void btnidioma_Click(object sender, EventArgs e)
-        {
-            var idiomaActual = IdiomaBLL.GetInstance().IdiomaActivo;
-            var todosLosIdiomas = IdiomaBLL.GetInstance().ObtenerIdiomasDisponibles();
-            var nuevoIdioma = todosLosIdiomas.Find(i => i.ID_Idioma != idiomaActual.ID_Idioma);
-            if (nuevoIdioma != null)
-            {
-                IdiomaBLL.GetInstance().CambiarIdioma(nuevoIdioma);
-                long idUsuarioActivo = Singleton.GetInstance().GetIdUsuario();
-                UsuarioBLL gestorUsuario = new UsuarioBLL();
-                gestorUsuario.ActualizarIdiomaPreferido(idUsuarioActivo, nuevoIdioma);
-            }
-        }
+        //Metodos del formulario
         public void ActualizarIdioma()
         {
             var traducciones = IdiomaBLL.GetInstance().ObtenerTraducciones();
@@ -85,6 +74,45 @@ namespace WindowsFormsApp4
         private void FrmSesion_FormClosed(object sender, FormClosedEventArgs e)
         {
             IdiomaBLL.GetInstance().Desuscribir(this);
+        }
+        //Cambiar Idioma
+        private void CargarComboIdiomas()
+        {
+            var idiomasDisponibles = IdiomaBLL.GetInstance().ObtenerIdiomasDisponibles();
+            cmbIdiomas.SelectedIndexChanged -= cmbIdiomas_SelectedIndexChanged;
+            cmbIdiomas.DataSource = idiomasDisponibles;
+            cmbIdiomas.DisplayMember = "Nombre";
+            cmbIdiomas.ValueMember = "ID_Idioma";
+            // Sincronizamos el combo con el idioma que el sistema tiene activo actualmente
+            var idiomaActual = IdiomaBLL.GetInstance().IdiomaActivo;
+            if (idiomaActual != null)
+            {
+                cmbIdiomas.SelectedValue = idiomaActual.ID_Idioma;
+            }
+            cmbIdiomas.SelectedIndexChanged += cmbIdiomas_SelectedIndexChanged;
+        }
+        private void cmbIdiomas_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cmbIdiomas.SelectedItem is IIdioma idiomaSeleccionado)
+            {
+                if (IdiomaBLL.GetInstance().IdiomaActivo == null || IdiomaBLL.GetInstance().IdiomaActivo.ID_Idioma != idiomaSeleccionado.ID_Idioma)
+                {
+                    IdiomaBLL.GetInstance().CambiarIdioma(idiomaSeleccionado);
+                    try
+                    {
+                        long idUsuarioLogueado = Singleton.GetInstance().GetIdUsuario();
+                        if (idUsuarioLogueado > 0)
+                        {
+                            UsuarioBLL usuarioBLL = new UsuarioBLL();
+                            usuarioBLL.ActualizarIdiomaPreferido(idUsuarioLogueado, idiomaSeleccionado);
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("El idioma se cambió correctamente, pero hubo un error al guardar su preferencia: " + ex.Message, "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
+                }
+            }
         }
     }
 }

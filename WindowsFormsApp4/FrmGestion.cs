@@ -1,5 +1,7 @@
 ﻿using ABS;
+using BE;
 using BLL;
+using SERVICIOS;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -15,6 +17,7 @@ namespace WindowsFormsApp4
     public partial class FrmGestion : Form, IObservadorIdioma
     {
         UsuarioBLL bll = new UsuarioBLL();
+        private string usuario = Singleton.GetInstance().GetUsuario();
         public FrmGestion()
         {
             InitializeComponent();
@@ -48,9 +51,16 @@ namespace WindowsFormsApp4
             {
                 bll.CrearUsuario(inputNombre.Text, InputContraseña.Text);
                 MessageBox.Show("Usuario creado con éxito.");
+                BitacoraBLL.GetInstance().RegistrarBitacora(usuario, "INFO", "FrmGestion", "Usuario creado exitosamente.");
                 ActualizaDGVU();
+                InputContraseña.Clear();
+                inputNombre.Clear();
             }
-            catch (Exception ex) { MessageBox.Show(ex.Message); }
+            catch (Exception ex) 
+            {
+                MessageBox.Show("Error al Crear"); ;
+                BitacoraBLL.GetInstance().RegistrarBitacora(usuario, "CRITICAL", "FrmGestion", $"Error del sistema: {ex.Message}");
+            }
         }
         public void BtnBaja_Click(object sender, EventArgs e)
         {
@@ -59,9 +69,16 @@ namespace WindowsFormsApp4
                 long idSeleccionado = Convert.ToInt64(dgvu.CurrentRow.Cells["ID_Usuario"].Value);
                 bll.EliminarUsuario(idSeleccionado);
                 MessageBox.Show("Usuario eliminado.");
+                BitacoraBLL.GetInstance().RegistrarBitacora(usuario, "INFO", "FrmGestion", "Usuario eliminado exitosamente.");
                 ActualizaDGVU();
+                InputContraseña.Clear();
+                inputNombre.Clear();
             }
-            catch (Exception ex) { MessageBox.Show(ex.Message); }
+            catch (Exception ex) 
+            {
+                MessageBox.Show(ex.Message, "Error al Eliminar", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                BitacoraBLL.GetInstance().RegistrarBitacora(usuario, "CRITICAL", "FrmGestion", $"Error del sistema: {ex.Message}");
+            }
         }
         public void BtnModif_Click(object sender, EventArgs e)
         {
@@ -70,6 +87,7 @@ namespace WindowsFormsApp4
                 if (dgvu.CurrentRow == null)
                 {
                     MessageBox.Show("Por favor, seleccione un usuario de la lista para modificar.", "Atención", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    BitacoraBLL.GetInstance().RegistrarBitacora(usuario, "WARNING", "FrmGestion", "Error de seleccion de usuario.");
                     return;
                 }
 
@@ -78,13 +96,17 @@ namespace WindowsFormsApp4
                 string nuevaContrasena = InputContraseña.Text;
                 bll.ModificarUsuario(idSeleccionado, nuevoNombre, nuevaContrasena);
                 MessageBox.Show("El usuario ha sido modificado exitosamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                BitacoraBLL.GetInstance().RegistrarBitacora(usuario, "INFO", "FrmGestion", "Usuario modificado exitosamente.");
                 inputNombre.Clear();
                 InputContraseña.Clear();
                 ActualizaDGVU();
+                InputContraseña.Clear();
+                inputNombre.Clear();
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Error al modificar", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                BitacoraBLL.GetInstance().RegistrarBitacora(usuario, "CRITICAL", "FrmGestion", $"Error del sistema: {ex.Message}");
             }
         }
         //Metodos del formulario

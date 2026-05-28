@@ -1,5 +1,7 @@
 ﻿using ABS;
+using BE;
 using BLL;
+using SERVICIOS;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -11,6 +13,7 @@ namespace WindowsFormsApp4
     {
         private string etiquetaSeleccionada = "";
         private string tagTraduccionSeleccionada = "";
+        private string usuario = Singleton.GetInstance().GetUsuario();
         public FrmIdiomas()
         {
             InitializeComponent();
@@ -66,11 +69,16 @@ namespace WindowsFormsApp4
             try
             {
                 IdiomaBLL.GetInstance().AgregarEtiqueta(txtEtiqueta.Text.Trim());
+                BitacoraBLL.GetInstance().RegistrarBitacora(usuario, "INFO", "FrmIdioma", "Etiqueta agregada exitosamente.");
                 ActualizaDGVU();
                 cmbIdiomas_SelectedIndexChanged(null, null); // Refresca traducciones por si sumamos una nueva
                 txtEtiqueta.Clear();
             }
-            catch (Exception ex) { MessageBox.Show(ex.Message); }
+            catch (Exception ex) 
+            {
+                BitacoraBLL.GetInstance().RegistrarBitacora(usuario, "CRITICAL", "FrmIdioma", $"Error del sistema: {ex.Message}"); 
+                MessageBox.Show(ex.Message); 
+            }
 
         }
         private void btnEliminarEtiqueta_Click(object sender, EventArgs e)
@@ -80,25 +88,35 @@ namespace WindowsFormsApp4
                 if (MessageBox.Show("¿Eliminar etiqueta y todas sus traducciones?", "Confirmar", MessageBoxButtons.YesNo) == DialogResult.Yes)
                 {
                     IdiomaBLL.GetInstance().EliminarEtiqueta(etiquetaSeleccionada);
+                    BitacoraBLL.GetInstance().RegistrarBitacora(usuario, "INFO", "FrmIdioma", "Etiqueta eliminada exitosamente.");
                     ActualizaDGVU();
                     cmbIdiomas_SelectedIndexChanged(null, null);
                     txtEtiqueta.Clear();
                 }
             }
-            catch (Exception ex) { MessageBox.Show(ex.Message); }
+            catch (Exception ex) 
+            {
+                BitacoraBLL.GetInstance().RegistrarBitacora(usuario, "CRITICAL", "FrmIdioma", $"Error del sistema: {ex.Message}");
+                MessageBox.Show(ex.Message); 
+            }
         }
         private void btnModificarEtiqueta_Click(object sender, EventArgs e)
         {
             try
             {
                 IdiomaBLL.GetInstance().ModificarEtiqueta(etiquetaSeleccionada, txtEtiqueta.Text.Trim());
+                BitacoraBLL.GetInstance().RegistrarBitacora(usuario, "INFO", "FrmIdioma", "Etiqueta modificada exitosamente.");
                 ActualizaDGVU();
                 cmbIdiomas_SelectedIndexChanged(null, null);
                 txtEtiqueta.Clear();
                 etiquetaSeleccionada = "";
                 MessageBox.Show("Etiqueta modificada.");
             }
-            catch (Exception ex) { MessageBox.Show(ex.Message); }
+            catch (Exception ex) 
+            {
+                BitacoraBLL.GetInstance().RegistrarBitacora(usuario, "CRITICAL", "FrmIdioma", $"Error del sistema: {ex.Message}");
+                MessageBox.Show(ex.Message); 
+            }
         }
         //Boton traducciones
         private void btnAgregarTraducciones_Click(object sender, EventArgs e)
@@ -109,7 +127,7 @@ namespace WindowsFormsApp4
                 if (cmbIdiomas.SelectedItem is IIdioma idiomaSeleccionado && !string.IsNullOrEmpty(tagTraduccionSeleccionada))
                 {
                     IdiomaBLL.GetInstance().GuardarTraduccionIndividual(idiomaSeleccionado.ID_Idioma, tagTraduccionSeleccionada, txtTraduccion.Text.Trim());
-
+                    BitacoraBLL.GetInstance().RegistrarBitacora(usuario, "INFO", "FrmIdioma", "Traducción agregada exitosamente.");
                     MessageBox.Show("Traducción guardada.");
                     ActualizaDGVU();
                     txtTraduccion.Clear();
@@ -119,7 +137,11 @@ namespace WindowsFormsApp4
                     }
                 }
             }
-            catch (Exception ex) { MessageBox.Show(ex.Message); }
+            catch (Exception ex) 
+            {
+                BitacoraBLL.GetInstance().RegistrarBitacora(usuario, "CRITICAL", "FrmIdioma", $"Error del sistema: {ex.Message}");
+                MessageBox.Show(ex.Message); 
+            }
         }
         //Boton Idioma
         private void btnAgregarIdioma_Click(object sender, EventArgs e)
@@ -130,12 +152,14 @@ namespace WindowsFormsApp4
                     IdiomaBLL.GetInstance().AgregarIdiomaCopiaDefault(txtNuevoIdioma.Text.Trim());
                     CargarComboIdiomas();
                     txtNuevoIdioma.Clear();
+                    BitacoraBLL.GetInstance().RegistrarBitacora(usuario, "INFO", "FrmIdioma", "Nuevo Idioma guardado exitosamente.");
                     MessageBox.Show("Idioma agregado con éxito.");
                     ActualizaDGVU();
                 }
             }
             catch (Exception ex)
             {
+                BitacoraBLL.GetInstance().RegistrarBitacora(usuario, "CRITICAL", "FrmIdioma", $"Error del sistema: {ex.Message}");
                 MessageBox.Show(ex.Message, "Error al agregar idioma", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }

@@ -28,9 +28,9 @@ namespace BLL
         }
         public void CrearUsuario(string nombre, string contraseñaLimpia)
         {
-            if (string.IsNullOrWhiteSpace(nombre) || string.IsNullOrWhiteSpace(contraseñaLimpia))
+            if (string.IsNullOrWhiteSpace(nombre) || string.IsNullOrWhiteSpace(contraseñaLimpia))       
                 throw new Exception("El nombre y la contraseña son obligatorios.");
-
+            
             Usuario nuevoUsuario = new Usuario();
             nuevoUsuario.Nombre_Usuario = nombre;
             // Hashea la clave antes de guardarla para que nunca esté en texto plano
@@ -59,7 +59,7 @@ namespace BLL
         {
             if (id <= 0) throw new Exception("Seleccione un usuario válido para eliminar.");
 
-            long idUsuarioLogueado = SERVICIOS.Singleton.GetInstance().GetIdUsuario();
+            long idUsuarioLogueado = Singleton.GetInstance().GetIdUsuario();
             //se evita que el usuario logueado se borre a sí mismo
             if (id == idUsuarioLogueado)
             {

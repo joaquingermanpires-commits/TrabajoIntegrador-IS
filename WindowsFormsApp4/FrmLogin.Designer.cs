@@ -33,8 +33,8 @@
             this.btnIngresar = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.CambiarIdioma = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
+            this.cmbIdiomas = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // txtUsuario
@@ -83,34 +83,33 @@
             this.label2.Tag = "lblUsuario";
             this.label2.Text = "Nombre de usuario";
             // 
-            // CambiarIdioma
-            // 
-            this.CambiarIdioma.Location = new System.Drawing.Point(322, 126);
-            this.CambiarIdioma.Name = "CambiarIdioma";
-            this.CambiarIdioma.Size = new System.Drawing.Size(109, 41);
-            this.CambiarIdioma.TabIndex = 5;
-            this.CambiarIdioma.Tag = "btnidioma";
-            this.CambiarIdioma.Text = "Cambiar idioma";
-            this.CambiarIdioma.UseVisualStyleBackColor = true;
-            this.CambiarIdioma.Click += new System.EventHandler(this.Cambiar_Idioma_click);
-            // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(319, 110);
+            this.label3.Location = new System.Drawing.Point(319, 28);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(112, 13);
             this.label3.TabIndex = 6;
             this.label3.Tag = "lblidioma";
             this.label3.Text = "Idiona actual: Español";
             // 
+            // cmbIdiomas
+            // 
+            this.cmbIdiomas.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbIdiomas.FormattingEnabled = true;
+            this.cmbIdiomas.Location = new System.Drawing.Point(322, 99);
+            this.cmbIdiomas.Name = "cmbIdiomas";
+            this.cmbIdiomas.Size = new System.Drawing.Size(109, 21);
+            this.cmbIdiomas.TabIndex = 7;
+            this.cmbIdiomas.SelectedIndexChanged += new System.EventHandler(this.cmbIdiomas_SelectedIndexChanged);
+            // 
             // FrmLogin
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(443, 195);
+            this.Controls.Add(this.cmbIdiomas);
             this.Controls.Add(this.label3);
-            this.Controls.Add(this.CambiarIdioma);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.btnIngresar);
@@ -131,8 +130,8 @@
         private System.Windows.Forms.Button btnIngresar;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Button CambiarIdioma;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.ComboBox cmbIdiomas;
     }
 }
 

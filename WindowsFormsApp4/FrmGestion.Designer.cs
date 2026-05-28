@@ -198,7 +198,7 @@
             this.Controls.Add(this.dgvu);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "FrmGestion";
-            this.Text = "Gestión_de_usuarios";
+            this.Text = "Gestión de usuarios";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FrmGestion_FormClosed);
             ((System.ComponentModel.ISupportInitialize)(this.dgvu)).EndInit();
             this.ResumeLayout(false);
