@@ -55,19 +55,6 @@ namespace DAL
             }
             return traducciones;
         }
-        public DataTable ObtenerEtiquetasTodas()
-        {
-            DataTable dt = new DataTable();
-            using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["IS"].ConnectionString))
-            {
-                using (SqlCommand cmd = new SqlCommand("SP_ObtenerEtiquetas", con))
-                {
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    using (SqlDataAdapter da = new SqlDataAdapter(cmd)) da.Fill(dt);
-                }
-            }
-            return dt;
-        }
         public DataTable ObtenerDiccionarioCompleto(int idIdioma)
         {
             DataTable dt = new DataTable();
@@ -86,24 +73,10 @@ namespace DAL
             return dt;
         }
         //Gestión de Idiomas (Write):
-        public void AgregarIdioma(string nombre)
-        {
-            using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["IS"].ConnectionString))
-            {
-                using (SqlCommand cmd = new SqlCommand("SP_AgregarIdioma", con))
-                {
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.AddWithValue("@Nombre", nombre);
-                    con.Open();
-                    cmd.ExecuteNonQuery();
-                }
-            }
-        }
         public void AgregarIdiomaCopiaDefault(string nombreIdioma)
         {
             // Se usa para cargarle una traduccion por default
             string connectionString = ConfigurationManager.ConnectionStrings["IS"].ConnectionString;
-
             using (SqlConnection con = new SqlConnection(connectionString))
             {
                 using (SqlCommand cmd = new SqlCommand("SP_AgregarIdiomaCopiaDefault", con))

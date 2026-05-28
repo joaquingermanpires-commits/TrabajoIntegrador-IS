@@ -18,6 +18,7 @@ namespace WindowsFormsApp4
             IdiomaBLL.GetInstance().Suscribir(this);
             ActualizaDGVU();
         }
+        //Actualizacion de controles(dgv,cmb,txtbox)
         private void CargarComboIdiomas()
         {
             cmbIdiomas.DataSource = IdiomaBLL.GetInstance().ObtenerIdiomasDisponibles();
@@ -52,15 +53,14 @@ namespace WindowsFormsApp4
         {
             if (e.RowIndex >= 0)
             {
-                //txtTraduccion.Text = dgvTraducciones.Rows[e.RowIndex].Cells["TextoTraduccion"].Value.ToString();
-
                 etiquetaSeleccionada = dgvTraducciones.Rows[e.RowIndex].Cells["Nombre_Control"].Value.ToString();
                 txtEtiqueta.Text = etiquetaSeleccionada;
 
-                tagTraduccionSeleccionada = dgvTraducciones.Rows[e.RowIndex].Cells["TextoTraduccion"].Value.ToString();
-                txtTraduccion.Text = tagTraduccionSeleccionada;
+                tagTraduccionSeleccionada = dgvTraducciones.Rows[e.RowIndex].Cells["Nombre_Control"].Value.ToString();
+                txtTraduccion.Text = dgvTraducciones.Rows[e.RowIndex].Cells["TextoTraduccion"].Value?.ToString() ?? "";
             }
         }
+        //Botones etiquetas
         private void btnAgregarEtiqueta_Click(object sender, EventArgs e)
         {
             try
@@ -100,6 +100,7 @@ namespace WindowsFormsApp4
             }
             catch (Exception ex) { MessageBox.Show(ex.Message); }
         }
+        //Boton traducciones
         private void btnAgregarTraducciones_Click(object sender, EventArgs e)
         {
 
@@ -120,6 +121,7 @@ namespace WindowsFormsApp4
             }
             catch (Exception ex) { MessageBox.Show(ex.Message); }
         }
+        //Boton Idioma
         private void btnAgregarIdioma_Click(object sender, EventArgs e)
         {
             try
@@ -137,6 +139,7 @@ namespace WindowsFormsApp4
                 MessageBox.Show(ex.Message, "Error al agregar idioma", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+        //Metodos del formulario
         public void ActualizarIdioma()
         {
             var traducciones = IdiomaBLL.GetInstance().ObtenerTraducciones();

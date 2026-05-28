@@ -2,6 +2,7 @@
 using BLL;
 using SERVICIOS;
 using System;
+using System.Collections.Generic;
 using System.Windows.Forms;
 
 namespace WindowsFormsApp4
@@ -14,16 +15,13 @@ namespace WindowsFormsApp4
             Singleton.GetInstance().Suscribir(this);
             IdiomaBLL.GetInstance().Suscribir(this);
         }
-
         private void Menu_Load(object sender, EventArgs e){}
-
         public void ActualizarEstadoSesion()
         {
             string nombreUsuario = Singleton.GetInstance().GetUsuario();
 
             if (nombreUsuario != null)
             {
-                // 1. Actualizamos la interfaz visual con los datos del usuario activo
                 this.Text = "Sistema de Gestión - Sesión iniciada por: " + nombreUsuario;
 
                 // 2. Aquí es donde a futuro aplicarás la lógica de Permisos/Roles.
@@ -40,6 +38,7 @@ namespace WindowsFormsApp4
                 */
             }
         }
+        //Controles ToolStripMenu
         private void gestiónDeUsuariosToolStripMenuItem_Click(object sender, EventArgs e)
         {
             AbrirFormulario<FrmGestion>();
@@ -73,40 +72,61 @@ namespace WindowsFormsApp4
             nuevoFormulario.MdiParent = this;
             nuevoFormulario.Show();
         }
+        //Metodos del formulario
         private void FrmMenu_FormClosed(object sender, FormClosedEventArgs e) 
-        //Al reiniciar la aplicacion en FrmLogout ocurria un problema que la aplicacion no se cerraba correctamente pero la depuracion si finalizaba
+        //Al cerrar la aplicacion en FrmLogout ocurria un problema que la aplicacion no se cerraba correctamente pero la depuracion si finalizaba
         {
             IdiomaBLL.GetInstance().Desuscribir(this);
             Singleton.GetInstance().Desuscribir(this);
             Application.Exit();
         }
-
         public void ActualizarIdioma()
         {
             var traducciones = IdiomaBLL.GetInstance().ObtenerTraducciones();
-
-            // Para los menús principales de arriba (SISTEMA, ADMINISTRACION)
-            foreach (ToolStripMenuItem menuPrincipal in menuStrip1.Items)
+            TraducirControles(this.Controls, traducciones);
+        }
+        private void TraducirControles(Control.ControlCollection controles, Dictionary<string, string> traducciones)
+        {
+            foreach (Control c in controles)
             {
-                if (menuPrincipal.Tag != null && !string.IsNullOrWhiteSpace(menuPrincipal.Tag.ToString()))
+                if (c.Tag != null && !string.IsNullOrWhiteSpace(c.Tag.ToString()))
                 {
-                    string claveTag = menuPrincipal.Tag.ToString();
+                    string claveTag = c.Tag.ToString();
                     if (traducciones.ContainsKey(claveTag))
-                        menuPrincipal.Text = traducciones[claveTag];
-                }
-
-                // Para los botones desplegables (Alta, Baja, Modificación)
-                foreach (ToolStripItem subItem in menuPrincipal.DropDownItems)
-                {
-                    if (subItem.Tag != null && !string.IsNullOrWhiteSpace(subItem.Tag.ToString()))
                     {
-                        string claveTagSub = subItem.Tag.ToString();
-                        if (traducciones.ContainsKey(claveTagSub))
-                            subItem.Text = traducciones[claveTagSub];
+                        c.Text = traducciones[claveTag];
                     }
+                }
+                if (c is ToolStrip menu)
+                {
+                    foreach (ToolStripItem item in menu.Items)
+                    {
+                        TraducirItemDeMenu(item, traducciones);
+                    }
+                }
+                else if (c.Controls.Count > 0)
+                {
+                    TraducirControles(c.Controls, traducciones);
                 }
             }
         }
-
+        private void TraducirItemDeMenu(ToolStripItem item, Dictionary<string, string> traducciones)
+        {
+            if (item.Tag != null && !string.IsNullOrWhiteSpace(item.Tag.ToString()))
+            {
+                string claveTag = item.Tag.ToString();
+                if (traducciones.ContainsKey(claveTag))
+                {
+                    item.Text = traducciones[claveTag];
+                }
+            }
+            if (item is ToolStripMenuItem menuItem && menuItem.DropDownItems.Count > 0)
+            {
+                foreach (ToolStripItem subItem in menuItem.DropDownItems)
+                {
+                    TraducirItemDeMenu(subItem, traducciones);
+                }
+            }
+        }
     }
 }

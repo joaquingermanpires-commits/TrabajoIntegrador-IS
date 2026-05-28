@@ -22,12 +22,12 @@ namespace WindowsFormsApp4
             bll = new UsuarioBLL();
             IdiomaBLL.GetInstance().Suscribir(this);
         }
+        //Actualizacion de controles(dgv, txtbox)
         private void dgvu_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex >= 0)
             {
                 inputNombre.Text = dgvu.Rows[e.RowIndex].Cells["Nombre_Usuario"].Value.ToString();
-
                 // Vaciamos la contraseña por seguridad (para forzar a que escriba una nueva si quiere modificar)
                 InputContraseña.Clear();
             }
@@ -41,29 +41,7 @@ namespace WindowsFormsApp4
             dgvu.Columns["Nombre_Usuario"].HeaderText = "Nombre";
             dgvu.Columns["IdiomaPreferido"].Visible = false;
         }
-        public void ActualizarIdioma()
-        {
-            var traducciones = IdiomaBLL.GetInstance().ObtenerTraducciones();
-            TraducirControles(this.Controls, traducciones);
-        }
-        private void TraducirControles(Control.ControlCollection controles, Dictionary<string, string> traducciones)
-        {
-            foreach (Control c in controles)
-            {
-                if (c.Tag != null && !string.IsNullOrWhiteSpace(c.Tag.ToString()))
-                {
-                    string claveTag = c.Tag.ToString();
-                    if (traducciones.ContainsKey(claveTag))
-                    {
-                        c.Text = traducciones[claveTag];
-                    }
-                }
-                if (c.Controls.Count > 0)
-                {
-                    TraducirControles(c.Controls, traducciones);
-                }
-            }
-        }
+        //Gestion Usuarios
         public void BtnAlta_Click(object sender, EventArgs e)
         {
             try
@@ -107,6 +85,30 @@ namespace WindowsFormsApp4
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Error al modificar", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+        //Metodos del formulario
+        public void ActualizarIdioma()
+        {
+            var traducciones = IdiomaBLL.GetInstance().ObtenerTraducciones();
+            TraducirControles(this.Controls, traducciones);
+        }
+        private void TraducirControles(Control.ControlCollection controles, Dictionary<string, string> traducciones)
+        {
+            foreach (Control c in controles)
+            {
+                if (c.Tag != null && !string.IsNullOrWhiteSpace(c.Tag.ToString()))
+                {
+                    string claveTag = c.Tag.ToString();
+                    if (traducciones.ContainsKey(claveTag))
+                    {
+                        c.Text = traducciones[claveTag];
+                    }
+                }
+                if (c.Controls.Count > 0)
+                {
+                    TraducirControles(c.Controls, traducciones);
+                }
             }
         }
         private void FrmGestion_FormClosed(object sender, FormClosedEventArgs e)
