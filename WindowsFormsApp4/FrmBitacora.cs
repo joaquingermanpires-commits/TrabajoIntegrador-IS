@@ -38,6 +38,7 @@ namespace WindowsFormsApp4
         {
             var traducciones = IdiomaBLL.GetInstance().ObtenerTraducciones();
             TraducirControles(this.Controls, traducciones);
+            CargarBitacora();
         }
         private void TraducirControles(Control.ControlCollection controles, Dictionary<string, string> traducciones)
         {
@@ -61,6 +62,12 @@ namespace WindowsFormsApp4
         private void FrmBitacora_FormClosed(object sender, FormClosedEventArgs e)
         {
             IdiomaBLL.GetInstance().Desuscribir(this);
+
+        }
+
+        private void FrmBitacora_Load(object sender, EventArgs e)
+        {
+            CargarBitacora();
         }
     }
 }

@@ -37,10 +37,8 @@ namespace WindowsFormsApp4
                 {
                     Singleton.GetInstance().IniciarSesion(usuarioValidado);
                     string nombreLogueado = Singleton.GetInstance().GetUsuario();
-                    BitacoraBLL.GetInstance().RegistrarBitacora(Nombre_Usuario, "INFO", "FrmLogin", "Inicio de sesión exitoso.");
-
                     MessageBox.Show($"¡Bienvenido al sistema, {nombreLogueado}!", "Login Exitoso", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
+                    BitacoraBLL.GetInstance().RegistrarBitacora(Nombre_Usuario, "INFO", "FrmLogin", "Inicio de sesión exitoso.");
                     if (usuarioValidado.IdiomaPreferido != null)
                     {
                         IdiomaBLL.GetInstance().CambiarIdioma(usuarioValidado.IdiomaPreferido);
@@ -51,14 +49,14 @@ namespace WindowsFormsApp4
                 }
                 else
                 {
-                    BitacoraBLL.GetInstance().RegistrarBitacora(Nombre_Usuario, "WARNING", "FrmLogin", "Intento de inicio de sesión fallido (Credenciales incorrectas).");
                     MessageBox.Show("Usuario o contraseña incorrectos.", "Error de Autenticación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    BitacoraBLL.GetInstance().RegistrarBitacora(Nombre_Usuario, "WARNING", "FrmLogin", "Intento de inicio de sesión fallido (Credenciales incorrectas).");
                 }
             }
             catch (Exception ex)
             {
-                BitacoraBLL.GetInstance().RegistrarBitacora(txtUsuario.Text, "CRITICAL", "FrmLogin", $"Error del sistema: {ex.Message}");
                 MessageBox.Show(ex.Message, "Error del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                BitacoraBLL.GetInstance().RegistrarBitacora(txtUsuario.Text, "CRITICAL", "FrmLogin", $"Error del sistema: {ex.Message}");
             }
         }
         //Cambiar Idioma

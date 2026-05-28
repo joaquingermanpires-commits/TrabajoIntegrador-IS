@@ -181,9 +181,11 @@
             this.Controls.Add(this.txtNuevoIdioma);
             this.Controls.Add(this.dgvTraducciones);
             this.Controls.Add(this.cmbIdiomas);
+            this.ForeColor = System.Drawing.Color.Black;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "FrmIdiomas";
             this.Tag = "FrmIdiomas";
-            this.Text = "FrmIdiomas";
+            this.Text = "Idiomas";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FrmIdiomas_FormClosed);
             ((System.ComponentModel.ISupportInitialize)(this.dgvTraducciones)).EndInit();
             this.ResumeLayout(false);

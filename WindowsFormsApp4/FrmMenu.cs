@@ -55,10 +55,11 @@ namespace WindowsFormsApp4
         {
             AbrirFormulario<FrmIdiomas>();
         }
-
         private void bitacoraToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            AbrirFormulario<FrmBitacora>();
+            FrmBitacora frmBitacora = new FrmBitacora();
+            frmBitacora.StartPosition = FormStartPosition.CenterScreen;
+            frmBitacora.ShowDialog();
         }
         public void AbrirFormulario<T>() where T : Form, new()
         {

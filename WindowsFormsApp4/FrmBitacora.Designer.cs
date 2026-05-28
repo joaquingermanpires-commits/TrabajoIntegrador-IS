@@ -42,17 +42,19 @@
             this.dgvBitacora.Name = "dgvBitacora";
             this.dgvBitacora.ReadOnly = true;
             this.dgvBitacora.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvBitacora.Size = new System.Drawing.Size(630, 210);
+            this.dgvBitacora.Size = new System.Drawing.Size(760, 210);
             this.dgvBitacora.TabIndex = 0;
             // 
             // FrmBitacora
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(665, 450);
+            this.ClientSize = new System.Drawing.Size(784, 330);
             this.Controls.Add(this.dgvBitacora);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "FrmBitacora";
-            this.Text = "FrmBitacora";
+            this.Text = "Bitacora";
+            this.Load += new System.EventHandler(this.FrmBitacora_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvBitacora)).EndInit();
             this.ResumeLayout(false);
 
