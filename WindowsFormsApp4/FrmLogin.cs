@@ -35,6 +35,7 @@ namespace WindowsFormsApp4
 
                 if (usuarioValidado != null)
                 {
+                    PermisoBLL.GetInstance().CargarPermisosUsuario(usuarioValidado);
                     Singleton.GetInstance().IniciarSesion(usuarioValidado);
                     string nombreLogueado = Singleton.GetInstance().GetUsuario();
                     MessageBox.Show($"¡Bienvenido al sistema, {nombreLogueado}!", "Login Exitoso", MessageBoxButtons.OK, MessageBoxIcon.Information);

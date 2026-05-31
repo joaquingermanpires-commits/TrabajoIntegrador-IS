@@ -56,6 +56,7 @@
     <Compile Include="BackupDal.cs" />
     <Compile Include="BitacoraDal.cs" />
     <Compile Include="IdiomaDal.cs" />
+    <Compile Include="PermisoDal.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UsuarioDal.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -82,6 +83,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ABS\ABS.csproj">
+      <Project>{00a6be9c-a53a-425b-b61e-d34458648b9a}</Project>
+      <Name>ABS</Name>
+    </ProjectReference>
     <ProjectReference Include="..\BE\BE.csproj">
       <Project>{fa62a2d4-39e4-475d-a394-23bf0ee4cd60}</Project>
       <Name>BE</Name>

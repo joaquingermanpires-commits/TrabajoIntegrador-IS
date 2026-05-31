@@ -35,8 +35,9 @@
             this.informacionDeLaSesionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.idiomasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.bitacoraToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.backUpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.permisosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -48,7 +49,8 @@
             this.informacionDeLaSesionToolStripMenuItem,
             this.idiomasToolStripMenuItem,
             this.bitacoraToolStripMenuItem,
-            this.backUpToolStripMenuItem});
+            this.backUpToolStripMenuItem,
+            this.permisosToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(1144, 24);
@@ -95,17 +97,25 @@
             this.bitacoraToolStripMenuItem.Text = "Bitacora";
             this.bitacoraToolStripMenuItem.Click += new System.EventHandler(this.bitacoraToolStripMenuItem_Click);
             // 
-            // contextMenuStrip1
-            // 
-            this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(61, 4);
-            // 
             // backUpToolStripMenuItem
             // 
             this.backUpToolStripMenuItem.Name = "backUpToolStripMenuItem";
             this.backUpToolStripMenuItem.Size = new System.Drawing.Size(59, 20);
             this.backUpToolStripMenuItem.Text = "BackUp";
             this.backUpToolStripMenuItem.Click += new System.EventHandler(this.backUpToolStripMenuItem_Click);
+            // 
+            // contextMenuStrip1
+            // 
+            this.contextMenuStrip1.Name = "contextMenuStrip1";
+            this.contextMenuStrip1.Size = new System.Drawing.Size(61, 4);
+            // 
+            // permisosToolStripMenuItem
+            // 
+            this.permisosToolStripMenuItem.Name = "permisosToolStripMenuItem";
+            this.permisosToolStripMenuItem.Size = new System.Drawing.Size(67, 20);
+            this.permisosToolStripMenuItem.Tag = "permissions";
+            this.permisosToolStripMenuItem.Text = "Permisos";
+            this.permisosToolStripMenuItem.Click += new System.EventHandler(this.permisosToolStripMenuItem_Click);
             // 
             // FrmMenu
             // 
@@ -137,5 +147,6 @@
         private System.Windows.Forms.ToolStripMenuItem idiomasToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem bitacoraToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem backUpToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem permisosToolStripMenuItem;
     }
 }

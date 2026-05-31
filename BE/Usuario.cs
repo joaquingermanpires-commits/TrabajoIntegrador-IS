@@ -13,5 +13,10 @@ namespace BE
         public string Nombre_Usuario { get; set; }
         public string Contraseña_Hash { get; set; }
         public Idioma IdiomaPreferido { get; set; }
+        public List<Permiso> Permisos { get; set; }
+        public Usuario()
+        {
+            Permisos = new List<Permiso>();
+        }
     }
 }

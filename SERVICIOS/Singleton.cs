@@ -53,6 +53,7 @@ namespace SERVICIOS
             this.Usuario = null;
             Notificar();
         }
+        //otros metodos
         public string GetUsuario()
         {
             //return Usuario.Nombre_Usuario;
@@ -68,7 +69,11 @@ namespace SERVICIOS
             {
                 return 0;
             }
-            //return Usuario != null ? Usuario.ID_Usuario : 0;
+        }
+        //Permisos
+        public Usuario GetUsuarioActual()
+        {
+            return this.Usuario;
         }
     }
 }
