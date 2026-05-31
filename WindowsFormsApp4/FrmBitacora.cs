@@ -1,4 +1,5 @@
 ﻿using ABS;
+using BE;
 using BLL;
 using System;
 using System.Collections.Generic;
@@ -12,33 +13,84 @@ namespace WindowsFormsApp4
         {
             InitializeComponent();
             IdiomaBLL.GetInstance().Suscribir(this);
-            CargarBitacora();
         }
-        private void CargarBitacora()
+
+        private void FrmBitacora_Load(object sender, EventArgs e)
+        {
+            cmbCriticidad.Items.Add("Todas");
+            cmbCriticidad.Items.Add("INFO");
+            cmbCriticidad.Items.Add("WARNING");
+            cmbCriticidad.Items.Add("ERROR");
+            cmbCriticidad.Items.Add("CRITICAL");
+            cmbCriticidad.SelectedIndex = 0; // Seleccionamos "Todas" por defecto
+            dtpDesde.Value = DateTime.Now.AddMonths(-1);
+            dtpHasta.Value = DateTime.Now;
+            BuscarConFiltros();
+        }
+        //botones para filtrar
+        private void btnFiltrar_Click(object sender, EventArgs e)
+        {
+            BuscarConFiltros();
+        }
+        private void btnLimpiar_Click(object sender, EventArgs e)
+        {
+            dtpDesde.Value = DateTime.Now.AddMonths(-1);
+            dtpHasta.Value = DateTime.Now;
+            cmbCriticidad.SelectedIndex = 0;
+            txtUsuario.Clear();
+
+            BuscarConFiltros();
+        }
+        //Metodos del dgv
+        private void BuscarConFiltros()
         {
             try
             {
-                dgvBitacora.DataSource = BitacoraBLL.GetInstance().ConsultarBitacora();
-                if (dgvBitacora.Columns.Count > 0)
-                {
-                    dgvBitacora.Columns["ID_Bitacora"].Visible = false;
-                    dgvBitacora.Columns["Fecha"].Width = 130;
-                    dgvBitacora.Columns["Usuario"].Width = 120;
-                    dgvBitacora.Columns["Criticidad"].Width = 90;
-                    dgvBitacora.Columns["Modulo"].Width = 120;
-                    dgvBitacora.Columns["Mensaje"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-                }
+                DateTime? fechaDesde = dtpDesde.Value.Date;
+                DateTime? fechaHasta = dtpHasta.Value.Date.AddDays(1).AddSeconds(-1);
+                string criticidad = cmbCriticidad.SelectedItem.ToString() == "Todas" ? "" : cmbCriticidad.SelectedItem.ToString();
+                string usuario = txtUsuario.Text.Trim();
+                var listaFiltrada = BitacoraBLL.GetInstance().ConsultarBitacoraFiltrada(fechaDesde, fechaHasta, criticidad, usuario);
+
+                dgvBitacora.DataSource = null;
+                dgvBitacora.DataSource = listaFiltrada;
+
+                FormatearGrilla();
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error al cargar la bitácora: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Error al filtrar la bitácora: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+        private void FormatearGrilla()
+        {
+            if (dgvBitacora.Columns.Count > 0)
+            {
+                dgvBitacora.Columns["ID_Bitacora"].Visible = false;
+
+                dgvBitacora.Columns["Fecha"].Width = 130;
+                dgvBitacora.Columns["Fecha"].DefaultCellStyle.Format = "dd/MM/yyyy HH:mm:ss"; // Formato de fecha y hora
+
+                dgvBitacora.Columns["Usuario"].Width = 120;
+                dgvBitacora.Columns["Criticidad"].Width = 90;
+                dgvBitacora.Columns["Modulo"].Width = 120;
+
+                dgvBitacora.Columns["Mensaje"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            }
+        }
+        //Metodos del formulario
         public void ActualizarIdioma()
         {
             var traducciones = IdiomaBLL.GetInstance().ObtenerTraducciones();
+            if (this.Tag != null && !string.IsNullOrWhiteSpace(this.Tag.ToString()))
+            {
+                string claveTagFormulario = this.Tag.ToString();
+                if (traducciones.ContainsKey(claveTagFormulario))
+                {
+                    this.Text = traducciones[claveTagFormulario];
+                }
+            }
             TraducirControles(this.Controls, traducciones);
-            CargarBitacora();
         }
         private void TraducirControles(Control.ControlCollection controles, Dictionary<string, string> traducciones)
         {
@@ -47,27 +99,15 @@ namespace WindowsFormsApp4
                 if (c.Tag != null && !string.IsNullOrWhiteSpace(c.Tag.ToString()))
                 {
                     string claveTag = c.Tag.ToString();
-                    if (traducciones.ContainsKey(claveTag))
-                    {
-                        c.Text = traducciones[claveTag];
-                    }
+                    if (traducciones.ContainsKey(claveTag)) c.Text = traducciones[claveTag];
                 }
 
-                if (c.Controls.Count > 0)
-                {
-                    TraducirControles(c.Controls, traducciones);
-                }
+                if (c.Controls.Count > 0) TraducirControles(c.Controls, traducciones);
             }
         }
         private void FrmBitacora_FormClosed(object sender, FormClosedEventArgs e)
         {
             IdiomaBLL.GetInstance().Desuscribir(this);
-
-        }
-
-        private void FrmBitacora_Load(object sender, EventArgs e)
-        {
-            CargarBitacora();
         }
     }
 }

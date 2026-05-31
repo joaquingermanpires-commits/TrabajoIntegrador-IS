@@ -61,6 +61,10 @@ namespace WindowsFormsApp4
             frmBitacora.StartPosition = FormStartPosition.CenterScreen;
             frmBitacora.ShowDialog();
         }
+        private void backUpToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            AbrirFormulario<FrmBackup>();
+        }
         public void AbrirFormulario<T>() where T : Form, new()
         {
             //se busca que no se instancie 2 veces el mismo formulario

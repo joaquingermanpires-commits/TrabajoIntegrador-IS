@@ -45,6 +45,14 @@ namespace WindowsFormsApp4
         public void ActualizarIdioma()
         {
             var traducciones = IdiomaBLL.GetInstance().ObtenerTraducciones();
+            if (this.Tag != null && !string.IsNullOrWhiteSpace(this.Tag.ToString()))
+            {
+                string claveTagFormulario = this.Tag.ToString();
+                if (traducciones.ContainsKey(claveTagFormulario))
+                {
+                    this.Text = traducciones[claveTagFormulario];
+                }
+            }
             TraducirControles(this.Controls, traducciones);
         }
         private void TraducirControles(Control.ControlCollection controles, Dictionary<string, string> traducciones)

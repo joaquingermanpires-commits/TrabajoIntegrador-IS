@@ -32,5 +32,15 @@ namespace BLL
         {
             return bitacoraDal.Consultar();
         }
+        public List<Bitacora> ConsultarBitacoraFiltrada(DateTime? fechaDesde, DateTime? fechaHasta, string criticidad, string usuario)
+        {
+            // Acá podés agregar validaciones a futuro (ej: que FechaDesde no sea mayor a FechaHasta)
+            if (fechaDesde.HasValue && fechaHasta.HasValue && fechaDesde > fechaHasta)
+            {
+                throw new Exception("La fecha de inicio no puede ser mayor a la fecha de fin.");
+            }
+
+            return bitacoraDal.ConsultarConFiltros(fechaDesde, fechaHasta, criticidad, usuario);
+        }
     }
 }

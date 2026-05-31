@@ -58,9 +58,10 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(9, 7);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(102, 13);
+            this.label1.Size = new System.Drawing.Size(10, 13);
             this.label1.TabIndex = 1;
-            this.label1.Text = "Usuarios registrados";
+            this.label1.Tag = "lblUsuariosR";
+            this.label1.Text = "-";
             // 
             // BtnAlta
             // 
@@ -69,7 +70,7 @@
             this.BtnAlta.Size = new System.Drawing.Size(75, 35);
             this.BtnAlta.TabIndex = 2;
             this.BtnAlta.Tag = "btnAgregar";
-            this.BtnAlta.Text = "Agregar";
+            this.BtnAlta.Text = "-";
             this.BtnAlta.UseVisualStyleBackColor = true;
             this.BtnAlta.Click += new System.EventHandler(this.BtnAlta_Click);
             // 
@@ -79,7 +80,8 @@
             this.BtnBaja.Name = "BtnBaja";
             this.BtnBaja.Size = new System.Drawing.Size(75, 35);
             this.BtnBaja.TabIndex = 3;
-            this.BtnBaja.Text = "Eliminar";
+            this.BtnBaja.Tag = "btnEliminar";
+            this.BtnBaja.Text = "-";
             this.BtnBaja.UseVisualStyleBackColor = true;
             this.BtnBaja.Click += new System.EventHandler(this.BtnBaja_Click);
             // 
@@ -89,7 +91,8 @@
             this.BtnModif.Name = "BtnModif";
             this.BtnModif.Size = new System.Drawing.Size(75, 35);
             this.BtnModif.TabIndex = 4;
-            this.BtnModif.Text = "Modificar";
+            this.BtnModif.Tag = "btnModificar";
+            this.BtnModif.Text = "-";
             this.BtnModif.UseVisualStyleBackColor = true;
             this.BtnModif.Click += new System.EventHandler(this.BtnModif_Click);
             // 
@@ -113,20 +116,20 @@
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(9, 259);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(96, 13);
+            this.label2.Size = new System.Drawing.Size(10, 13);
             this.label2.TabIndex = 7;
             this.label2.Tag = "lblUsuario";
-            this.label2.Text = "Nombre de usuario";
+            this.label2.Text = "-";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(9, 307);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(61, 13);
+            this.label3.Size = new System.Drawing.Size(10, 13);
             this.label3.TabIndex = 8;
             this.label3.Tag = "lblContraseña";
-            this.label3.Text = "Contraseña";
+            this.label3.Text = "-";
             // 
             // label4
             // 
@@ -134,10 +137,10 @@
             this.label4.ForeColor = System.Drawing.Color.Red;
             this.label4.Location = new System.Drawing.Point(21, 244);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(191, 13);
+            this.label4.Size = new System.Drawing.Size(10, 13);
             this.label4.TabIndex = 9;
-            this.label4.Tag = "campos_Obligatorios";
-            this.label4.Text = "indica que los  campos son obligatorios";
+            this.label4.Tag = "lblCamposO";
+            this.label4.Text = "-";
             // 
             // label5
             // 
@@ -198,7 +201,8 @@
             this.Controls.Add(this.dgvu);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "FrmGestion";
-            this.Text = "Gestión de usuarios";
+            this.Tag = "FrmGestion";
+            this.Text = "-";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FrmGestion_FormClosed);
             ((System.ComponentModel.ISupportInitialize)(this.dgvu)).EndInit();
             this.ResumeLayout(false);
