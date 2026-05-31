@@ -64,6 +64,12 @@
     <Compile Include="FrmIdiomas.Designer.cs">
       <DependentUpon>FrmIdiomas.cs</DependentUpon>
     </Compile>
+    <Compile Include="FrmPermisos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmPermisos.Designer.cs">
+      <DependentUpon>FrmPermisos.cs</DependentUpon>
+    </Compile>
     <Compile Include="FrmSesion.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -116,6 +122,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FrmMenu.resx">
       <DependentUpon>FrmMenu.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmPermisos.resx">
+      <DependentUpon>FrmPermisos.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FrmSesion.resx">
       <DependentUpon>FrmSesion.cs</DependentUpon>

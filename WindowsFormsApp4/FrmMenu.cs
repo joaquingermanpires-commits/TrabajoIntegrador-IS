@@ -1,4 +1,5 @@
 ﻿using ABS;
+using BE;
 using BLL;
 using SERVICIOS;
 using System;
@@ -15,7 +16,10 @@ namespace WindowsFormsApp4
             Singleton.GetInstance().Suscribir(this);
             IdiomaBLL.GetInstance().Suscribir(this);
         }
-        private void Menu_Load(object sender, EventArgs e){}
+        private void Menu_Load(object sender, EventArgs e)
+        {
+            AplicarSeguridad();
+        }
         public void ActualizarEstadoSesion()
         {
             string nombreUsuario = Singleton.GetInstance().GetUsuario();
@@ -23,19 +27,19 @@ namespace WindowsFormsApp4
             if (nombreUsuario != null)
             {
                 this.Text = "Sistema de Gestión - Sesión iniciada por: " + nombreUsuario;
-
-                // 2. Aquí es donde a futuro aplicarás la lógica de Permisos/Roles.
-                // Ejemplo conceptual de lo que harás más adelante:
-                /*
-                if (Singleton.GetInstance().TienePermiso("Administrar_Usuarios"))
-                {
-                    gestionarUsuariosToolStripMenuItem.Visible = true;
-                }
-                else
-                {
-                    gestionarUsuariosToolStripMenuItem.Visible = false;
-                }
-                */
+            }
+        }
+        //Permisos
+        private void AplicarSeguridad()
+        {
+            Usuario usuarioLogueado = Singleton.GetInstance().GetUsuarioActual();
+            if (usuarioLogueado != null)
+            {
+                bitacoraToolStripMenuItem.Visible = PermisoBLL.GetInstance().VerificarPermiso(usuarioLogueado, "MenuBitacora");
+                backUpToolStripMenuItem.Visible = PermisoBLL.GetInstance().VerificarPermiso(usuarioLogueado, "MenuBackup");
+                permisosToolStripMenuItem.Visible = PermisoBLL.GetInstance().VerificarPermiso(usuarioLogueado, "MenuPermisos");
+                gestiónDeUsuariosToolStripMenuItem.Visible = PermisoBLL.GetInstance().VerificarPermiso(usuarioLogueado, "MenuUsuarios");
+                idiomasToolStripMenuItem.Visible = PermisoBLL.GetInstance().VerificarPermiso(usuarioLogueado, "MenuIdiomas");
             }
         }
         //Controles ToolStripMenu
@@ -64,6 +68,10 @@ namespace WindowsFormsApp4
         private void backUpToolStripMenuItem_Click(object sender, EventArgs e)
         {
             AbrirFormulario<FrmBackup>();
+        }
+        private void permisosToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            AbrirFormulario<FrmPermisos>();
         }
         public void AbrirFormulario<T>() where T : Form, new()
         {
