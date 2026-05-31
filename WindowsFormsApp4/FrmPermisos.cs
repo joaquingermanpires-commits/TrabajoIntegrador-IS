@@ -72,6 +72,17 @@ namespace WindowsFormsApp4
                     MarcarNodosDelUsuario(tvPermisos.Nodes, usuarioSeleccionado.Permisos);
                 }
                 actualizandoAutomaticamente = false;
+                if (usuarioSeleccionado.ID_Usuario == 1 || usuarioSeleccionado.Nombre_Usuario.ToLower() == "admin1")
+                {
+                    btnGuardarPermisos.Enabled = false;
+                    tvPermisos.Enabled = false;
+                                               
+                }
+                else
+                {
+                    btnGuardarPermisos.Enabled = true;
+                    tvPermisos.Enabled = true;
+                }
             }
         }
         // LÓGICA DE CHECKBOXES (TILDES)

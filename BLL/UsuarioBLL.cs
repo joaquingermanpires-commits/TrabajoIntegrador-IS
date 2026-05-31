@@ -43,6 +43,18 @@ namespace BLL
             if (id <= 0) throw new Exception("ID de usuario inválido.");
             if (string.IsNullOrWhiteSpace(nuevoNombre)) throw new Exception("El nombre no puede estar vacío.");
 
+            if (id == 1)
+            {
+                long idUsuarioLogueado = SERVICIOS.Singleton.GetInstance().GetIdUsuario();
+                if (idUsuarioLogueado != 1)
+                {
+                    throw new Exception("Acción denegada: Solo el administrador principal puede modificar su propia cuenta.");
+                }
+                if (nuevoNombre.ToLower() != "admin1")
+                {
+                    throw new Exception("Acción denegada: El nombre de usuario de la cuenta principal debe mantenerse como 'admin1'. Solo puede cambiar su contraseña.");
+                }
+            }
             Usuario userModificado = new Usuario();
             userModificado.ID_Usuario = id;
             userModificado.Nombre_Usuario = nuevoNombre;
@@ -59,6 +71,10 @@ namespace BLL
         {
             if (id <= 0) throw new Exception("Seleccione un usuario válido para eliminar.");
 
+            if (id == 1)
+            {
+                throw new Exception("Acción denegada: El administrador principal (admin1) no puede ser eliminado del sistema bajo ninguna circunstancia.");
+            }
             long idUsuarioLogueado = Singleton.GetInstance().GetIdUsuario();
             //se evita que el usuario logueado se borre a sí mismo
             if (id == idUsuarioLogueado)

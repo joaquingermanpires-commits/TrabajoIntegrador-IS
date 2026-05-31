@@ -70,6 +70,10 @@ namespace BLL
             {
                 throw new Exception("Debe seleccionar un usuario válido para asignarle permisos.");
             }
+            if (usuario.ID_Usuario == 1 || usuario.Nombre_Usuario.ToLower() == "admin1")
+            {
+                throw new Exception("Acción denegada por reglas de seguridad: Los permisos del administrador principal del sistema son inmutables y no pueden ser modificados.");
+            }
 
             permisoDal.GuardarPermisosUsuario(usuario);
         }
