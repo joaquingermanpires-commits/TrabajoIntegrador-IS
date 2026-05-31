@@ -85,7 +85,7 @@
             this.Controls.Add(this.lblSesionA);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "FrmSesion";
-            this.Tag = "Sesion";
+            this.Tag = "FrmSesion";
             this.Text = "Sesion";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FrmSesion_FormClosed);
             this.ResumeLayout(false);

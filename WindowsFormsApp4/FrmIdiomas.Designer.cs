@@ -65,7 +65,7 @@
             // 
             // txtNuevoIdioma
             // 
-            this.txtNuevoIdioma.Location = new System.Drawing.Point(61, 12);
+            this.txtNuevoIdioma.Location = new System.Drawing.Point(98, 12);
             this.txtNuevoIdioma.Name = "txtNuevoIdioma";
             this.txtNuevoIdioma.Size = new System.Drawing.Size(100, 20);
             this.txtNuevoIdioma.TabIndex = 2;
@@ -83,18 +83,19 @@
             this.btnCambiarTraducciones.Name = "btnCambiarTraducciones";
             this.btnCambiarTraducciones.Size = new System.Drawing.Size(75, 23);
             this.btnCambiarTraducciones.TabIndex = 4;
-            this.btnCambiarTraducciones.Text = "Cambiar";
+            this.btnCambiarTraducciones.Tag = "btnModificar";
+            this.btnCambiarTraducciones.Text = "-";
             this.btnCambiarTraducciones.UseVisualStyleBackColor = true;
             this.btnCambiarTraducciones.Click += new System.EventHandler(this.btnAgregarTraducciones_Click);
             // 
             // btnAgregarIdioma
             // 
-            this.btnAgregarIdioma.Location = new System.Drawing.Point(167, 10);
+            this.btnAgregarIdioma.Location = new System.Drawing.Point(204, 10);
             this.btnAgregarIdioma.Name = "btnAgregarIdioma";
             this.btnAgregarIdioma.Size = new System.Drawing.Size(75, 23);
             this.btnAgregarIdioma.TabIndex = 5;
             this.btnAgregarIdioma.Tag = "btnAgregar";
-            this.btnAgregarIdioma.Text = "Agregar";
+            this.btnAgregarIdioma.Text = "-";
             this.btnAgregarIdioma.UseVisualStyleBackColor = true;
             this.btnAgregarIdioma.Click += new System.EventHandler(this.btnAgregarIdioma_Click);
             // 
@@ -105,7 +106,7 @@
             this.btnAgregarEtiqueta.Size = new System.Drawing.Size(75, 23);
             this.btnAgregarEtiqueta.TabIndex = 6;
             this.btnAgregarEtiqueta.Tag = "btnAgregar";
-            this.btnAgregarEtiqueta.Text = "Agregar";
+            this.btnAgregarEtiqueta.Text = "-";
             this.btnAgregarEtiqueta.UseVisualStyleBackColor = true;
             this.btnAgregarEtiqueta.Click += new System.EventHandler(this.btnAgregarEtiqueta_Click);
             // 
@@ -114,18 +115,20 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(19, 15);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(41, 13);
+            this.label1.Size = new System.Drawing.Size(10, 13);
             this.label1.TabIndex = 7;
-            this.label1.Text = "Idioma:";
+            this.label1.Tag = "lblIdiomab";
+            this.label1.Text = "-";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(14, 259);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(46, 13);
+            this.label2.Size = new System.Drawing.Size(10, 13);
             this.label2.TabIndex = 8;
-            this.label2.Text = "Etiqueta";
+            this.label2.Tag = "lblEtiqueta";
+            this.label2.Text = "-";
             // 
             // txtTraduccion
             // 
@@ -139,9 +142,10 @@
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(14, 340);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(61, 13);
+            this.label3.Size = new System.Drawing.Size(10, 13);
             this.label3.TabIndex = 10;
-            this.label3.Text = "Traduccion";
+            this.label3.Tag = "lblTraduccion";
+            this.label3.Text = "-";
             // 
             // btnModificarEtiqueta
             // 
@@ -149,7 +153,8 @@
             this.btnModificarEtiqueta.Name = "btnModificarEtiqueta";
             this.btnModificarEtiqueta.Size = new System.Drawing.Size(75, 23);
             this.btnModificarEtiqueta.TabIndex = 11;
-            this.btnModificarEtiqueta.Text = "Modificar";
+            this.btnModificarEtiqueta.Tag = "btnModificar";
+            this.btnModificarEtiqueta.Text = "-";
             this.btnModificarEtiqueta.UseVisualStyleBackColor = true;
             this.btnModificarEtiqueta.Click += new System.EventHandler(this.btnModificarEtiqueta_Click);
             // 
@@ -159,7 +164,8 @@
             this.btnEliminarEtiqueta.Name = "btnEliminarEtiqueta";
             this.btnEliminarEtiqueta.Size = new System.Drawing.Size(75, 23);
             this.btnEliminarEtiqueta.TabIndex = 12;
-            this.btnEliminarEtiqueta.Text = "Eliminar";
+            this.btnEliminarEtiqueta.Tag = "btnEliminar";
+            this.btnEliminarEtiqueta.Text = "-";
             this.btnEliminarEtiqueta.UseVisualStyleBackColor = true;
             this.btnEliminarEtiqueta.Click += new System.EventHandler(this.btnEliminarEtiqueta_Click);
             // 
@@ -185,7 +191,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "FrmIdiomas";
             this.Tag = "FrmIdiomas";
-            this.Text = "Idiomas";
+            this.Text = "-";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FrmIdiomas_FormClosed);
             ((System.ComponentModel.ISupportInitialize)(this.dgvTraducciones)).EndInit();
             this.ResumeLayout(false);

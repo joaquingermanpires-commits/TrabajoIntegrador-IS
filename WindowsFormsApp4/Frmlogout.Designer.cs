@@ -37,7 +37,8 @@
             this.Btnout.Name = "Btnout";
             this.Btnout.Size = new System.Drawing.Size(115, 53);
             this.Btnout.TabIndex = 0;
-            this.Btnout.Text = "Cerrar Sesión";
+            this.Btnout.Tag = "btnout";
+            this.Btnout.Text = "-";
             this.Btnout.UseVisualStyleBackColor = true;
             this.Btnout.Click += new System.EventHandler(this.Btnout_Click);
             // 
@@ -49,6 +50,8 @@
             this.Controls.Add(this.Btnout);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "Frmlogout";
+            this.Tag = "Frmlogout";
+            this.Text = "-";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Frmlogout_FormClosed);
             this.ResumeLayout(false);
 
