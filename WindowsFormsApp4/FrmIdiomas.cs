@@ -163,6 +163,38 @@ namespace WindowsFormsApp4
                 MessageBox.Show(ex.Message, "Error al agregar idioma", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+        private void btnEliminarIdioma_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (cmbIdiomas.SelectedItem is BE.Idioma idiomaSeleccionado)
+                {
+                    DialogResult confirmacion = MessageBox.Show(
+                        $"¿Está seguro que desea eliminar el idioma '{idiomaSeleccionado.Nombre}' y todas sus traducciones? Esta acción no se puede deshacer.",
+                        "Confirmación de Eliminación",
+                        MessageBoxButtons.YesNo,
+                        MessageBoxIcon.Warning);
+
+                    if (confirmacion == DialogResult.Yes)
+                    {
+                        IdiomaBLL.GetInstance().EliminarIdioma(idiomaSeleccionado);
+                        BitacoraBLL.GetInstance().RegistrarBitacora(SERVICIOS.Singleton.GetInstance().GetUsuarioActual().Nombre_Usuario, "WARNING", 
+                            "FrmIdiomas", $"Se ha eliminado el idioma: {idiomaSeleccionado.Nombre}");
+
+                        MessageBox.Show("Idioma eliminado correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        CargarComboIdiomas();
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Por favor, seleccione el idioma que desea eliminar.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al eliminar el idioma: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
         //Metodos del formulario
         public void ActualizarIdioma()
         {

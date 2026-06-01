@@ -44,6 +44,7 @@ namespace WindowsFormsApp4
             dgvu.Columns["Contraseña_Hash"].Visible = false;
             dgvu.Columns["Nombre_Usuario"].HeaderText = "Nombre";
             dgvu.Columns["IdiomaPreferido"].Visible = false;
+            dgvu.Columns["DVH"].Visible = false;
         }
         //Gestion Usuarios
         public void BtnAlta_Click(object sender, EventArgs e)

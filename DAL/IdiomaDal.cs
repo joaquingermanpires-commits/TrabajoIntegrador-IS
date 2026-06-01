@@ -88,6 +88,20 @@ namespace DAL
                 }
             }
         }
+        public void EliminarIdioma(int idIdioma)
+        {
+            string connectionString = ConfigurationManager.ConnectionStrings["IS"].ConnectionString;
+            using (var connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+                using (var command = new SqlCommand("SP_EliminarIdioma", connection))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue("@IdIdioma", idIdioma);
+                    command.ExecuteNonQuery();
+                }
+            }
+        }
         //Gestión de Etiquetas (Write):
         public void AgregarEtiqueta(string nombreControl)
         {

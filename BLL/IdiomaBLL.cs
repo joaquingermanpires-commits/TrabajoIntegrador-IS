@@ -80,6 +80,20 @@ namespace BLL
             if (string.IsNullOrWhiteSpace(nombreIdioma)) throw new Exception("El nombre del idioma no puede estar vacío.");
             idiomaDal.AgregarIdiomaCopiaDefault(nombreIdioma);
         }
+        public void EliminarIdioma(BE.Idioma idioma)
+        {
+            if (idioma == null || idioma.ID_Idioma <= 0)
+            {
+                throw new Exception("Debe seleccionar un idioma válido para eliminar.");
+            }
+
+            // REGLA DE NEGOCIO: No se puede eliminar el idioma por defecto
+            if (idioma.PorDefecto)
+            {
+                throw new Exception("Acción denegada: No se puede eliminar el idioma por defecto del sistema. Cambie el idioma por defecto antes de intentar eliminar este.");
+            }
+            idiomaDal.EliminarIdioma(idioma.ID_Idioma);
+        }
         public void AgregarEtiqueta(string nombreControl)
         {
             if (string.IsNullOrWhiteSpace(nombreControl))

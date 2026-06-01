@@ -41,13 +41,14 @@
             this.label3 = new System.Windows.Forms.Label();
             this.btnModificarEtiqueta = new System.Windows.Forms.Button();
             this.btnEliminarEtiqueta = new System.Windows.Forms.Button();
+            this.btnEliminarIdioma = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTraducciones)).BeginInit();
             this.SuspendLayout();
             // 
             // cmbIdiomas
             // 
             this.cmbIdiomas.FormattingEnabled = true;
-            this.cmbIdiomas.Location = new System.Drawing.Point(17, 50);
+            this.cmbIdiomas.Location = new System.Drawing.Point(17, 71);
             this.cmbIdiomas.Name = "cmbIdiomas";
             this.cmbIdiomas.Size = new System.Drawing.Size(157, 21);
             this.cmbIdiomas.TabIndex = 0;
@@ -57,7 +58,7 @@
             // 
             this.dgvTraducciones.AllowUserToAddRows = false;
             this.dgvTraducciones.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvTraducciones.Location = new System.Drawing.Point(17, 77);
+            this.dgvTraducciones.Location = new System.Drawing.Point(17, 109);
             this.dgvTraducciones.Name = "dgvTraducciones";
             this.dgvTraducciones.Size = new System.Drawing.Size(261, 150);
             this.dgvTraducciones.TabIndex = 1;
@@ -65,21 +66,21 @@
             // 
             // txtNuevoIdioma
             // 
-            this.txtNuevoIdioma.Location = new System.Drawing.Point(98, 12);
+            this.txtNuevoIdioma.Location = new System.Drawing.Point(83, 12);
             this.txtNuevoIdioma.Name = "txtNuevoIdioma";
             this.txtNuevoIdioma.Size = new System.Drawing.Size(100, 20);
             this.txtNuevoIdioma.TabIndex = 2;
             // 
             // txtEtiqueta
             // 
-            this.txtEtiqueta.Location = new System.Drawing.Point(61, 256);
+            this.txtEtiqueta.Location = new System.Drawing.Point(62, 265);
             this.txtEtiqueta.Name = "txtEtiqueta";
             this.txtEtiqueta.Size = new System.Drawing.Size(151, 20);
             this.txtEtiqueta.TabIndex = 3;
             // 
             // btnCambiarTraducciones
             // 
-            this.btnCambiarTraducciones.Location = new System.Drawing.Point(180, 337);
+            this.btnCambiarTraducciones.Location = new System.Drawing.Point(181, 346);
             this.btnCambiarTraducciones.Name = "btnCambiarTraducciones";
             this.btnCambiarTraducciones.Size = new System.Drawing.Size(75, 23);
             this.btnCambiarTraducciones.TabIndex = 4;
@@ -90,7 +91,7 @@
             // 
             // btnAgregarIdioma
             // 
-            this.btnAgregarIdioma.Location = new System.Drawing.Point(204, 10);
+            this.btnAgregarIdioma.Location = new System.Drawing.Point(83, 42);
             this.btnAgregarIdioma.Name = "btnAgregarIdioma";
             this.btnAgregarIdioma.Size = new System.Drawing.Size(75, 23);
             this.btnAgregarIdioma.TabIndex = 5;
@@ -101,7 +102,7 @@
             // 
             // btnAgregarEtiqueta
             // 
-            this.btnAgregarEtiqueta.Location = new System.Drawing.Point(17, 282);
+            this.btnAgregarEtiqueta.Location = new System.Drawing.Point(18, 291);
             this.btnAgregarEtiqueta.Name = "btnAgregarEtiqueta";
             this.btnAgregarEtiqueta.Size = new System.Drawing.Size(75, 23);
             this.btnAgregarEtiqueta.TabIndex = 6;
@@ -123,7 +124,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(14, 259);
+            this.label2.Location = new System.Drawing.Point(15, 268);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(10, 13);
             this.label2.TabIndex = 8;
@@ -132,7 +133,7 @@
             // 
             // txtTraduccion
             // 
-            this.txtTraduccion.Location = new System.Drawing.Point(74, 337);
+            this.txtTraduccion.Location = new System.Drawing.Point(75, 346);
             this.txtTraduccion.Name = "txtTraduccion";
             this.txtTraduccion.Size = new System.Drawing.Size(100, 20);
             this.txtTraduccion.TabIndex = 9;
@@ -140,7 +141,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(14, 340);
+            this.label3.Location = new System.Drawing.Point(15, 349);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(10, 13);
             this.label3.TabIndex = 10;
@@ -149,7 +150,7 @@
             // 
             // btnModificarEtiqueta
             // 
-            this.btnModificarEtiqueta.Location = new System.Drawing.Point(198, 282);
+            this.btnModificarEtiqueta.Location = new System.Drawing.Point(199, 291);
             this.btnModificarEtiqueta.Name = "btnModificarEtiqueta";
             this.btnModificarEtiqueta.Size = new System.Drawing.Size(75, 23);
             this.btnModificarEtiqueta.TabIndex = 11;
@@ -160,7 +161,7 @@
             // 
             // btnEliminarEtiqueta
             // 
-            this.btnEliminarEtiqueta.Location = new System.Drawing.Point(108, 282);
+            this.btnEliminarEtiqueta.Location = new System.Drawing.Point(109, 291);
             this.btnEliminarEtiqueta.Name = "btnEliminarEtiqueta";
             this.btnEliminarEtiqueta.Size = new System.Drawing.Size(75, 23);
             this.btnEliminarEtiqueta.TabIndex = 12;
@@ -169,11 +170,23 @@
             this.btnEliminarEtiqueta.UseVisualStyleBackColor = true;
             this.btnEliminarEtiqueta.Click += new System.EventHandler(this.btnEliminarEtiqueta_Click);
             // 
+            // btnEliminarIdioma
+            // 
+            this.btnEliminarIdioma.Location = new System.Drawing.Point(164, 42);
+            this.btnEliminarIdioma.Name = "btnEliminarIdioma";
+            this.btnEliminarIdioma.Size = new System.Drawing.Size(75, 23);
+            this.btnEliminarIdioma.TabIndex = 13;
+            this.btnEliminarIdioma.Tag = "btnEliminar";
+            this.btnEliminarIdioma.Text = "-";
+            this.btnEliminarIdioma.UseVisualStyleBackColor = true;
+            this.btnEliminarIdioma.Click += new System.EventHandler(this.btnEliminarIdioma_Click);
+            // 
             // FrmIdiomas
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(313, 379);
+            this.ClientSize = new System.Drawing.Size(291, 391);
+            this.Controls.Add(this.btnEliminarIdioma);
             this.Controls.Add(this.btnEliminarEtiqueta);
             this.Controls.Add(this.btnModificarEtiqueta);
             this.Controls.Add(this.label3);
@@ -214,5 +227,6 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button btnModificarEtiqueta;
         private System.Windows.Forms.Button btnEliminarEtiqueta;
+        private System.Windows.Forms.Button btnEliminarIdioma;
     }
 }

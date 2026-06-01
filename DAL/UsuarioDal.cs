@@ -62,6 +62,7 @@ namespace DAL
                     command.CommandType = CommandType.StoredProcedure;
                     command.Parameters.Add("@Username", SqlDbType.VarChar).Value = usuario.Nombre_Usuario;
                     command.Parameters.Add("@Password", SqlDbType.VarChar).Value = usuario.Contraseña_Hash;
+                    command.Parameters.Add("@DVH", SqlDbType.BigInt).Value = usuario.DVH;
                     command.ExecuteNonQuery();
                 }
             }
@@ -78,6 +79,7 @@ namespace DAL
                     command.Parameters.Add("@Id_Usuario", SqlDbType.BigInt).Value = usuario.ID_Usuario;
                     command.Parameters.Add("@Username", SqlDbType.VarChar).Value = usuario.Nombre_Usuario;
                     command.Parameters.Add("@Password", SqlDbType.VarChar).Value = usuario.Contraseña_Hash;
+                    command.Parameters.Add("@DVH", SqlDbType.BigInt).Value = usuario.DVH;
                     command.ExecuteNonQuery();
                 }
             }

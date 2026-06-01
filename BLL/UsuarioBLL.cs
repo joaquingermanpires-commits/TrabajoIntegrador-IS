@@ -35,6 +35,7 @@ namespace BLL
             nuevoUsuario.Nombre_Usuario = nombre;
             // Hashea la clave antes de guardarla para que nunca esté en texto plano
             nuevoUsuario.Contraseña_Hash = Criptografia.HashearClave(contraseñaLimpia);
+            nuevoUsuario.DVH = SERVICIOS.GestorDV.CalcularDVHUsuario(nuevoUsuario);
 
             usuarioDal.Alta(nuevoUsuario);
         }
@@ -64,6 +65,7 @@ namespace BLL
                 throw new Exception("Debe ingresar la nueva contraseña (o repetir la actual) para confirmar la modificación.");
 
             userModificado.Contraseña_Hash = Criptografia.HashearClave(nuevaContraseñaLimpia);
+            userModificado.DVH = SERVICIOS.GestorDV.CalcularDVHUsuario(userModificado);
 
             usuarioDal.Modificar(userModificado);
         }

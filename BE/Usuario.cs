@@ -14,9 +14,11 @@ namespace BE
         public string Contraseña_Hash { get; set; }
         public Idioma IdiomaPreferido { get; set; }
         public List<Permiso> Permisos { get; set; }
+        public long DVH { get; set; }
         public Usuario()
         {
             Permisos = new List<Permiso>();
         }
+
     }
 }
