@@ -76,6 +76,7 @@ namespace WindowsFormsApp4
                 dgvBitacora.Columns["Modulo"].Width = 120;
 
                 dgvBitacora.Columns["Mensaje"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                this.dgvBitacora.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCellsExceptHeader;
             }
         }
         //Metodos del formulario

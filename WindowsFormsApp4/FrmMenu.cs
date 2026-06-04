@@ -73,6 +73,10 @@ namespace WindowsFormsApp4
         {
             AbrirFormulario<FrmPermisos>();
         }
+        private void compositeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            AbrirFormulario<FrmComposite>();
+        }
         public void AbrirFormulario<T>() where T : Form, new()
         {
             //se busca que no se instancie 2 veces el mismo formulario
@@ -146,5 +150,6 @@ namespace WindowsFormsApp4
                 }
             }
         }
+
     }
 }

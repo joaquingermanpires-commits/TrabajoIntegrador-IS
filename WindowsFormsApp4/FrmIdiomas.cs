@@ -34,6 +34,7 @@ namespace WindowsFormsApp4
         }
         private void ActualizaDGVU()
         {
+            this.dgvTraducciones.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
             dgvTraducciones.AllowUserToAddRows = false;
             dgvTraducciones.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             if (cmbIdiomas.SelectedItem is IIdioma idiomaSeleccionado)

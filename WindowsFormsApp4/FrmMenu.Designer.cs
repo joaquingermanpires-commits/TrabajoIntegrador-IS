@@ -38,6 +38,7 @@
             this.backUpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.permisosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.compositeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -50,7 +51,8 @@
             this.idiomasToolStripMenuItem,
             this.bitacoraToolStripMenuItem,
             this.backUpToolStripMenuItem,
-            this.permisosToolStripMenuItem});
+            this.permisosToolStripMenuItem,
+            this.compositeToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(1144, 24);
@@ -117,6 +119,14 @@
             this.contextMenuStrip1.Name = "contextMenuStrip1";
             this.contextMenuStrip1.Size = new System.Drawing.Size(61, 4);
             // 
+            // compositeToolStripMenuItem
+            // 
+            this.compositeToolStripMenuItem.Name = "compositeToolStripMenuItem";
+            this.compositeToolStripMenuItem.Size = new System.Drawing.Size(77, 20);
+            this.compositeToolStripMenuItem.Tag = "FrmComposite";
+            this.compositeToolStripMenuItem.Text = "Composite";
+            this.compositeToolStripMenuItem.Click += new System.EventHandler(this.compositeToolStripMenuItem_Click);
+            // 
             // FrmMenu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -148,5 +158,6 @@
         private System.Windows.Forms.ToolStripMenuItem bitacoraToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem backUpToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem permisosToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem compositeToolStripMenuItem;
     }
 }
