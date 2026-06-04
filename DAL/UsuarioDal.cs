@@ -122,6 +122,49 @@ namespace DAL
             }
             return lista;
         }
+        public List<Usuario> ObtenerusuariosValidacion() 
+        {
+            List<Usuario> lista = new List<Usuario>();
+            string connectionString = ConfigurationManager.ConnectionStrings["IS"].ConnectionString;
+            using (var connection = new SqlConnection(connectionString)) 
+            {
+                connection.Open();
+                using (var command = new SqlCommand("Select ID_Usuarios, Nombre_Usuario, Contrasena_Hash, DVH From Usuario", connection))
+                {
+                    using (SqlDataReader reader = command.ExecuteReader()) {
+                        while (reader.Read()) 
+                        {
+                            Usuario user = new Usuario();
+                            user.ID_Usuario = reader.GetInt64(0);
+                            user.Nombre_Usuario = reader.IsDBNull(1) ?"": reader.GetString(1);
+                            user.Contraseña_Hash = reader.IsDBNull(2) ?"": reader.GetString(2);
+                            user.DVH = reader.IsDBNull(3) ? 0 : reader.GetInt64(3);
+                            lista.Add(user);
+                        }
+                    }
+                }   
+            }
+            return lista;
+        }
+        public long ObtenerDVV(string nombretabla) 
+        {
+            long dvv = 0;
+            string connectionString = ConfigurationManager.ConnectionStrings["IS"].ConnectionString;
+            using (var connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+                using (var command = new SqlCommand("SELECT DVV FROM DigitoVerificador WHERE Tabla = @Tabla", connection)) 
+                {
+                    command.Parameters.AddWithValue("@Tabla", nombretabla);
+                    object result = command.ExecuteScalar();
+                    if (result != null && result != DBNull.Value) 
+                    {
+                        dvv = Convert.ToInt64(result);
+                    }
+                }
+            }
+            return dvv;
+        }
         public void ActualizarIdiomaUsuario(long idUsuario, int idIdioma)
         {
             string connectionString = ConfigurationManager.ConnectionStrings["IS"].ConnectionString;

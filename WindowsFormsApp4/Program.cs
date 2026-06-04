@@ -16,6 +16,7 @@ namespace WindowsFormsApp4
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+            string resultadintegridad = Integrida
             Application.Run(new FrmLogin());
         }
     }
