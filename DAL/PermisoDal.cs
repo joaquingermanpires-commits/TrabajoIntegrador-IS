@@ -139,21 +139,35 @@ namespace DAL
                     cmdDelete.Parameters.AddWithValue("@IdUsuario", usuario.ID_Usuario);
                     cmdDelete.ExecuteNonQuery();
 
+                    // NUEVO: Usamos un HashSet para registrar qué IDs ya insertamos en este guardado
+                    HashSet<int> idsInsertados = new HashSet<int>();
+
                     // 2. Insertamos los nuevos usando SP
                     foreach (var permiso in usuario.Permisos)
                     {
+                        // Si la UI mandó un permiso repetido, lo saltamos y evitamos que explote SQL
+                        if (idsInsertados.Contains(permiso.ID_Permiso)) continue;
+
                         SqlCommand cmdInsert = new SqlCommand("SP_InsertarPermisoUsuario", con, tx);
                         cmdInsert.CommandType = CommandType.StoredProcedure;
                         cmdInsert.Parameters.AddWithValue("@IdUsuario", usuario.ID_Usuario);
                         cmdInsert.Parameters.AddWithValue("@IdPermiso", permiso.ID_Permiso);
                         cmdInsert.ExecuteNonQuery();
+
+                        // Lo marcamos como insertado
+                        idsInsertados.Add(permiso.ID_Permiso);
                     }
                     tx.Commit();
+                }
+                catch (SqlException sqlEx)
+                {
+                    tx.Rollback();
+                    throw new Exception("SQL Server rechazó la operación: " + sqlEx.Message);
                 }
                 catch (Exception ex)
                 {
                     tx.Rollback();
-                    throw new Exception("Error al guardar los permisos en la base de datos.", ex);
+                    throw new Exception("Error en C#: " + ex.Message);
                 }
             }
         }

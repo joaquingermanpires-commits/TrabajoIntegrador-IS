@@ -144,7 +144,8 @@ namespace WindowsFormsApp4
                     usuarioSeleccionado.Permisos = new List<Permiso>();
                     RecolectarPermisosMarcados(tvPermisos.Nodes, usuarioSeleccionado.Permisos);
                     PermisoBLL.GetInstance().GuardarPermisosUsuario(usuarioSeleccionado);
-                    BitacoraBLL.GetInstance().RegistrarBitacora(SERVICIOS.Singleton.GetInstance().GetUsuarioActual().Nombre_Usuario, "INFO", "FrmPermisos", $"Se modificaron los permisos del usuario: {usuarioSeleccionado.Nombre_Usuario}");
+                    string usuarioActual = SERVICIOS.Singleton.GetInstance().GetUsuario();
+                    BitacoraBLL.GetInstance().RegistrarBitacora(usuarioActual, "INFO", "FrmPermisos", $"Se modificaron los permisos del usuario: {usuarioSeleccionado.Nombre_Usuario}");
                     MessageBox.Show("Permisos actualizados correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 else

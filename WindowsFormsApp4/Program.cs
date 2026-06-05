@@ -14,7 +14,7 @@ namespace WindowsFormsApp4
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-
+            // SI TODO ESTÁ BIEN: Arranca el sistema normalmente
             // 1. EJECUTAMOS LA VERIFICACIÓN DE INTEGRIDAD
             string resultadoIntegridad = IntegridadBLL.GetInstance().VerificarIntegridad();
 

@@ -58,10 +58,11 @@ namespace WindowsFormsApp4
                 ActualizaDGVU();
                 InputContraseña.Clear();
                 inputNombre.Clear();
+                BLL.IntegridadBLL.GetInstance().RecalcularTodosLosDigitos();
             }
             catch (Exception ex) 
             {
-                MessageBox.Show("Error al Crear"); ;
+                MessageBox.Show(ex.Message, "Error al Crear", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 BitacoraBLL.GetInstance().RegistrarBitacora(usuario, "CRITICAL", "FrmGestion", $"Error del sistema: {ex.Message}");
             }
         }
@@ -76,6 +77,7 @@ namespace WindowsFormsApp4
                 ActualizaDGVU();
                 InputContraseña.Clear();
                 inputNombre.Clear();
+                BLL.IntegridadBLL.GetInstance().RecalcularTodosLosDigitos();
             }
             catch (Exception ex) 
             {
@@ -100,11 +102,10 @@ namespace WindowsFormsApp4
                 bll.ModificarUsuario(idSeleccionado, nuevoNombre, nuevaContrasena);
                 MessageBox.Show("El usuario ha sido modificado exitosamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 BitacoraBLL.GetInstance().RegistrarBitacora(usuario, "INFO", "FrmGestion", "Usuario modificado exitosamente.");
-                inputNombre.Clear();
-                InputContraseña.Clear();
                 ActualizaDGVU();
                 InputContraseña.Clear();
                 inputNombre.Clear();
+                BLL.IntegridadBLL.GetInstance().RecalcularTodosLosDigitos();
             }
             catch (Exception ex)
             {
@@ -151,15 +152,16 @@ namespace WindowsFormsApp4
         private void AplicarSeguridad() 
         {
             Usuario usuarioLogueado = Singleton.GetInstance().GetUsuarioActual();
-            BtnModif.Enabled = PermisoBLL.GetInstance().VerificarPermiso(usuarioLogueado, "btnModificar");
-            BtnAlta.Enabled = PermisoBLL.GetInstance().VerificarPermiso(usuarioLogueado, "btnAlta");
-            BtnBaja.Enabled = PermisoBLL.GetInstance().VerificarPermiso(usuarioLogueado, "btnBaja");
+            bool tieneUsuario = usuarioLogueado != null;
+            BtnModif.Enabled = tieneUsuario && PermisoBLL.GetInstance().VerificarPermiso(usuarioLogueado, "btnModificar");
+            BtnAlta.Enabled = tieneUsuario && PermisoBLL.GetInstance().VerificarPermiso(usuarioLogueado, "btnAlta");
+            BtnBaja.Enabled = tieneUsuario && PermisoBLL.GetInstance().VerificarPermiso(usuarioLogueado, "btnBaja");
         }
-        private void button1_Click(object sender, EventArgs e)
-        {
-            BLL.IntegridadBLL.GetInstance().RecalcularTodosLosDigitos();
-            MessageBox.Show("Base de datos restaurada y asegurada exitosamente.");
-        }
+        //private void button1_Click(object sender, EventArgs e)
+        //{
+        //    BLL.IntegridadBLL.GetInstance().RecalcularTodosLosDigitos();
+        //    MessageBox.Show("Base de datos restaurada y asegurada exitosamente.");
+        //}
 
         private void FrmGestion_Load(object sender, EventArgs e)
         {

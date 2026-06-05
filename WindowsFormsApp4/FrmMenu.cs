@@ -28,20 +28,19 @@ namespace WindowsFormsApp4
             {
                 this.Text = "Sistema de Gestión - Sesión iniciada por: " + nombreUsuario;
             }
+            AplicarSeguridad();
         }
         //Permisos
         private void AplicarSeguridad()
         {
             Usuario usuarioLogueado = Singleton.GetInstance().GetUsuarioActual();
-            if (usuarioLogueado != null)
-            {
-                compositeToolStripMenuItem.Visible = PermisoBLL.GetInstance().VerificarPermiso(usuarioLogueado, "MenuComposite");
-                bitacoraToolStripMenuItem.Visible = PermisoBLL.GetInstance().VerificarPermiso(usuarioLogueado, "MenuBitacora");
-                backUpToolStripMenuItem.Visible = PermisoBLL.GetInstance().VerificarPermiso(usuarioLogueado, "MenuBackup");
-                permisosToolStripMenuItem.Visible = PermisoBLL.GetInstance().VerificarPermiso(usuarioLogueado, "MenuPermisos");
-                gestiónDeUsuariosToolStripMenuItem.Visible = PermisoBLL.GetInstance().VerificarPermiso(usuarioLogueado, "MenuUsuarios");
-                idiomasToolStripMenuItem.Visible = PermisoBLL.GetInstance().VerificarPermiso(usuarioLogueado, "MenuIdiomas");
-            }
+            bool tieneUsuario = usuarioLogueado != null;
+            compositeToolStripMenuItem.Visible = tieneUsuario && PermisoBLL.GetInstance().VerificarPermiso(usuarioLogueado, "MenuComposite");
+            bitacoraToolStripMenuItem.Visible = tieneUsuario && PermisoBLL.GetInstance().VerificarPermiso(usuarioLogueado, "MenuBitacora");
+            backUpToolStripMenuItem.Visible = tieneUsuario && PermisoBLL.GetInstance().VerificarPermiso(usuarioLogueado, "MenuBackup");
+            permisosToolStripMenuItem.Visible = tieneUsuario && PermisoBLL.GetInstance().VerificarPermiso(usuarioLogueado, "MenuPermisos");
+            gestiónDeUsuariosToolStripMenuItem.Visible = tieneUsuario && PermisoBLL.GetInstance().VerificarPermiso(usuarioLogueado, "MenuUsuarios");
+            idiomasToolStripMenuItem.Visible = tieneUsuario && PermisoBLL.GetInstance().VerificarPermiso(usuarioLogueado, "MenuIdiomas");
         }
         //Controles ToolStripMenu
         private void gestiónDeUsuariosToolStripMenuItem_Click(object sender, EventArgs e)

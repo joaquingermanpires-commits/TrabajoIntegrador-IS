@@ -37,7 +37,8 @@ namespace BLL
         }
         public bool VerificarPermiso(Usuario usuario, string permisoSistema)
         {
-            if (usuario == null || usuario.Permisos == null) return false;
+            // Si el usuario no tiene permisos cargados en memoria, denegamos el acceso directamente
+            if (usuario == null || usuario.Permisos == null || usuario.Permisos.Count == 0) return false;
 
             foreach (var permiso in usuario.Permisos)
             {
@@ -48,12 +49,17 @@ namespace BLL
             }
             return false;
         }
+
         private bool BuscarPermisoRecursivo(Permiso permisoPadre, string permisoSistema)
         {
-            if (permisoPadre.Permiso_Sistema == permisoSistema)
+            // Chequeo robusto: Evitamos NullReference si es Familia, limpiamos espacios y comparamos en mayúsculas
+            if (!string.IsNullOrWhiteSpace(permisoPadre.Permiso_Sistema) &&
+                permisoPadre.Permiso_Sistema.Trim().ToUpper() == permisoSistema.Trim().ToUpper())
             {
                 return true;
             }
+
+            // Iteramos los hijos recursivamente
             foreach (var hijo in permisoPadre.ObtenerHijos())
             {
                 if (BuscarPermisoRecursivo(hijo, permisoSistema))

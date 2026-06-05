@@ -39,8 +39,8 @@ namespace WindowsFormsApp4
         private void CargarArbolesBase()
         {
             tvPermisos.Nodes.Clear();
-            lbFamilia.Items.Clear();
-            lbPatente.Items.Clear();
+            lbFamilia.DataSource = null;
+            lbPatente.DataSource = null;
             List<Familia> familiasCompletas = PermisoBLL.GetInstance().ObtenerFamiliasCompletas();
             foreach (Familia f in familiasCompletas)
             {
