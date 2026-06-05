@@ -77,5 +77,20 @@ namespace BLL
 
             permisoDal.GuardarPermisosUsuario(usuario);
         }
+        public void GuardarNuevaFamilia(Familia familiaNueva)
+        {
+            // Reglas de negocio
+            if (familiaNueva == null)
+                throw new Exception("La familia no puede ser nula.");
+
+            if (string.IsNullOrWhiteSpace(familiaNueva.Nombre))
+                throw new Exception("Debe ingresar un nombre para la nueva familia.");
+
+            if (familiaNueva.ObtenerHijos().Count == 0)
+                throw new Exception("La familia debe tener al menos un permiso o patente asignada en el carrito.");
+
+            // Mandamos a la DAL
+            permisoDal.GuardarNuevaFamilia(familiaNueva);
+        }
     }
 }

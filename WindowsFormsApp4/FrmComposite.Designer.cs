@@ -31,14 +31,14 @@
             this.lbFamilia = new System.Windows.Forms.ListBox();
             this.lbPatente = new System.Windows.Forms.ListBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.button1 = new System.Windows.Forms.Button();
+            this.FamiliaTxt = new System.Windows.Forms.TextBox();
+            this.btnCrear = new System.Windows.Forms.Button();
             this.BtnFamilia = new System.Windows.Forms.Button();
             this.BtnPatente = new System.Windows.Forms.Button();
             this.BtnGuardar = new System.Windows.Forms.Button();
             this.BtnEliminarS = new System.Windows.Forms.Button();
             this.tvPermisos = new System.Windows.Forms.TreeView();
-            this.treeView2 = new System.Windows.Forms.TreeView();
+            this.tvFamilia = new System.Windows.Forms.TreeView();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -48,7 +48,7 @@
             this.lbFamilia.FormattingEnabled = true;
             this.lbFamilia.Location = new System.Drawing.Point(22, 55);
             this.lbFamilia.Name = "lbFamilia";
-            this.lbFamilia.Size = new System.Drawing.Size(120, 147);
+            this.lbFamilia.Size = new System.Drawing.Size(120, 186);
             this.lbFamilia.TabIndex = 0;
             // 
             // lbPatente
@@ -56,7 +56,7 @@
             this.lbPatente.FormattingEnabled = true;
             this.lbPatente.Location = new System.Drawing.Point(148, 55);
             this.lbPatente.Name = "lbPatente";
-            this.lbPatente.Size = new System.Drawing.Size(120, 147);
+            this.lbPatente.Size = new System.Drawing.Size(120, 186);
             this.lbPatente.TabIndex = 1;
             // 
             // label1
@@ -69,89 +69,94 @@
             this.label1.Tag = "lblFamilia";
             this.label1.Text = "-";
             // 
-            // textBox1
+            // FamiliaTxt
             // 
-            this.textBox1.Location = new System.Drawing.Point(22, 29);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(119, 20);
-            this.textBox1.TabIndex = 3;
+            this.FamiliaTxt.Location = new System.Drawing.Point(22, 29);
+            this.FamiliaTxt.Name = "FamiliaTxt";
+            this.FamiliaTxt.Size = new System.Drawing.Size(119, 20);
+            this.FamiliaTxt.TabIndex = 3;
             // 
-            // button1
+            // btnCrear
             // 
-            this.button1.Location = new System.Drawing.Point(148, 27);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 4;
-            this.button1.Tag = "btnAgregar";
-            this.button1.Text = "-";
-            this.button1.UseVisualStyleBackColor = true;
+            this.btnCrear.Location = new System.Drawing.Point(148, 27);
+            this.btnCrear.Name = "btnCrear";
+            this.btnCrear.Size = new System.Drawing.Size(75, 23);
+            this.btnCrear.TabIndex = 4;
+            this.btnCrear.Tag = "btnAgregar";
+            this.btnCrear.Text = "-";
+            this.btnCrear.UseVisualStyleBackColor = true;
+            this.btnCrear.Click += new System.EventHandler(this.btnCrear_Click);
             // 
             // BtnFamilia
             // 
-            this.BtnFamilia.Location = new System.Drawing.Point(22, 212);
+            this.BtnFamilia.Location = new System.Drawing.Point(21, 247);
             this.BtnFamilia.Name = "BtnFamilia";
             this.BtnFamilia.Size = new System.Drawing.Size(120, 23);
             this.BtnFamilia.TabIndex = 5;
             this.BtnFamilia.Tag = "btnAgregarF";
             this.BtnFamilia.Text = "-";
             this.BtnFamilia.UseVisualStyleBackColor = true;
+            this.BtnFamilia.Click += new System.EventHandler(this.BtnFamilia_Click);
             // 
             // BtnPatente
             // 
-            this.BtnPatente.Location = new System.Drawing.Point(148, 212);
+            this.BtnPatente.Location = new System.Drawing.Point(147, 247);
             this.BtnPatente.Name = "BtnPatente";
             this.BtnPatente.Size = new System.Drawing.Size(120, 23);
             this.BtnPatente.TabIndex = 6;
             this.BtnPatente.Tag = "btnAgregarP";
             this.BtnPatente.Text = "-";
             this.BtnPatente.UseVisualStyleBackColor = true;
+            this.BtnPatente.Click += new System.EventHandler(this.BtnPatente_Click);
             // 
             // BtnGuardar
             // 
-            this.BtnGuardar.Location = new System.Drawing.Point(629, 223);
+            this.BtnGuardar.Location = new System.Drawing.Point(629, 251);
             this.BtnGuardar.Name = "BtnGuardar";
             this.BtnGuardar.Size = new System.Drawing.Size(156, 23);
             this.BtnGuardar.TabIndex = 7;
             this.BtnGuardar.Tag = "BtnGuardar";
             this.BtnGuardar.Text = "-";
             this.BtnGuardar.UseVisualStyleBackColor = true;
+            this.BtnGuardar.Click += new System.EventHandler(this.BtnGuardar_Click);
             // 
             // BtnEliminarS
             // 
-            this.BtnEliminarS.Location = new System.Drawing.Point(629, 195);
+            this.BtnEliminarS.Location = new System.Drawing.Point(629, 223);
             this.BtnEliminarS.Name = "BtnEliminarS";
             this.BtnEliminarS.Size = new System.Drawing.Size(156, 23);
             this.BtnEliminarS.TabIndex = 8;
             this.BtnEliminarS.Tag = "BtnEliminarS";
             this.BtnEliminarS.Text = "-";
             this.BtnEliminarS.UseVisualStyleBackColor = true;
+            this.BtnEliminarS.Click += new System.EventHandler(this.BtnEliminarS_Click);
             // 
             // tvPermisos
             // 
             this.tvPermisos.Location = new System.Drawing.Point(12, 12);
             this.tvPermisos.Name = "tvPermisos";
-            this.tvPermisos.Size = new System.Drawing.Size(303, 234);
+            this.tvPermisos.Size = new System.Drawing.Size(303, 269);
             this.tvPermisos.TabIndex = 9;
             // 
-            // treeView2
+            // tvFamilia
             // 
-            this.treeView2.Location = new System.Drawing.Point(629, 13);
-            this.treeView2.Name = "treeView2";
-            this.treeView2.Size = new System.Drawing.Size(156, 176);
-            this.treeView2.TabIndex = 10;
+            this.tvFamilia.Location = new System.Drawing.Point(629, 13);
+            this.tvFamilia.Name = "tvFamilia";
+            this.tvFamilia.Size = new System.Drawing.Size(156, 204);
+            this.tvFamilia.TabIndex = 10;
             // 
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.lbPatente);
             this.groupBox1.Controls.Add(this.lbFamilia);
             this.groupBox1.Controls.Add(this.label1);
-            this.groupBox1.Controls.Add(this.textBox1);
-            this.groupBox1.Controls.Add(this.button1);
+            this.groupBox1.Controls.Add(this.FamiliaTxt);
+            this.groupBox1.Controls.Add(this.btnCrear);
             this.groupBox1.Controls.Add(this.BtnPatente);
             this.groupBox1.Controls.Add(this.BtnFamilia);
             this.groupBox1.Location = new System.Drawing.Point(321, 5);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(289, 241);
+            this.groupBox1.Size = new System.Drawing.Size(289, 276);
             this.groupBox1.TabIndex = 11;
             this.groupBox1.TabStop = false;
             // 
@@ -159,9 +164,9 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(813, 258);
+            this.ClientSize = new System.Drawing.Size(813, 293);
             this.Controls.Add(this.groupBox1);
-            this.Controls.Add(this.treeView2);
+            this.Controls.Add(this.tvFamilia);
             this.Controls.Add(this.tvPermisos);
             this.Controls.Add(this.BtnEliminarS);
             this.Controls.Add(this.BtnGuardar);
@@ -182,14 +187,14 @@
         private System.Windows.Forms.ListBox lbFamilia;
         private System.Windows.Forms.ListBox lbPatente;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.TextBox FamiliaTxt;
+        private System.Windows.Forms.Button btnCrear;
         private System.Windows.Forms.Button BtnFamilia;
         private System.Windows.Forms.Button BtnPatente;
         private System.Windows.Forms.Button BtnGuardar;
         private System.Windows.Forms.Button BtnEliminarS;
         private System.Windows.Forms.TreeView tvPermisos;
-        private System.Windows.Forms.TreeView treeView2;
+        private System.Windows.Forms.TreeView tvFamilia;
         private System.Windows.Forms.GroupBox groupBox1;
     }
 }

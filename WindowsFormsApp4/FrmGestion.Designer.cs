@@ -216,6 +216,7 @@
             this.Tag = "FrmGestion";
             this.Text = "-";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FrmGestion_FormClosed);
+            this.Load += new System.EventHandler(this.FrmGestion_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvu)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

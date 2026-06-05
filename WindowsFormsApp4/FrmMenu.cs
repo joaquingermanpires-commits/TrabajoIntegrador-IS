@@ -35,6 +35,7 @@ namespace WindowsFormsApp4
             Usuario usuarioLogueado = Singleton.GetInstance().GetUsuarioActual();
             if (usuarioLogueado != null)
             {
+                compositeToolStripMenuItem.Visible = PermisoBLL.GetInstance().VerificarPermiso(usuarioLogueado, "MenuComposite");
                 bitacoraToolStripMenuItem.Visible = PermisoBLL.GetInstance().VerificarPermiso(usuarioLogueado, "MenuBitacora");
                 backUpToolStripMenuItem.Visible = PermisoBLL.GetInstance().VerificarPermiso(usuarioLogueado, "MenuBackup");
                 permisosToolStripMenuItem.Visible = PermisoBLL.GetInstance().VerificarPermiso(usuarioLogueado, "MenuPermisos");

@@ -3,6 +3,7 @@ using BE;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Data;
 using System.Data.SqlClient;
 
 namespace DAL
@@ -14,7 +15,8 @@ namespace DAL
             List<Patente> lista = new List<Patente>();
             using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["IS"].ConnectionString))
             {
-                SqlCommand cmd = new SqlCommand("SELECT ID_Permiso, Nombre, Permiso FROM Permiso WHERE EsFamilia = 0", con);
+                SqlCommand cmd = new SqlCommand("SP_ObtenerTodasLasPatentes", con);
+                cmd.CommandType = CommandType.StoredProcedure;
                 con.Open();
                 SqlDataReader reader = cmd.ExecuteReader();
                 while (reader.Read())
@@ -33,7 +35,8 @@ namespace DAL
             List<Familia> lista = new List<Familia>();
             using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["IS"].ConnectionString))
             {
-                SqlCommand cmd = new SqlCommand("SELECT ID_Permiso, Nombre, Permiso FROM Permiso WHERE EsFamilia = 1", con);
+                SqlCommand cmd = new SqlCommand("SP_ObtenerFamilias", con);
+                cmd.CommandType = CommandType.StoredProcedure;
                 con.Open();
                 SqlDataReader reader = cmd.ExecuteReader();
                 while (reader.Read())
@@ -51,12 +54,8 @@ namespace DAL
         {
             using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["IS"].ConnectionString))
             {
-                SqlCommand cmd = new SqlCommand(@"
-                    SELECT p.ID_Permiso, p.Nombre, p.Permiso, p.EsFamilia 
-                    FROM Permiso p
-                    INNER JOIN Permiso_Permiso pp ON p.ID_Permiso = pp.ID_Permiso_Hijo
-                    WHERE pp.ID_Permiso_Padre = @IdPadre", con);
-
+                SqlCommand cmd = new SqlCommand("SP_ObtenerHijosPermiso", con);
+                cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@IdPadre", familiaPadre.ID_Permiso);
                 con.Open();
                 SqlDataReader reader = cmd.ExecuteReader();
@@ -83,7 +82,6 @@ namespace DAL
                         patente.ID_Permiso = id;
                         patente.Nombre = nombre;
                         patente.Permiso_Sistema = permisoSis;
-
                         familiaPadre.AgregarHijo(patente);
                     }
                 }
@@ -94,10 +92,8 @@ namespace DAL
             List<Permiso> permisosDelUsuario = new List<Permiso>();
             using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["IS"].ConnectionString))
             {
-                SqlCommand cmd = new SqlCommand(@" SELECT p.ID_Permiso, p.Nombre, p.Permiso, p.EsFamilia 
-                FROM Permiso p
-                INNER JOIN Usuario_Permiso up ON p.ID_Permiso = up.ID_Permiso
-                WHERE up.ID_Usuario = @IdUsuario", con);
+                SqlCommand cmd = new SqlCommand("SP_ObtenerPermisosDeUsuario", con);
+                cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@IdUsuario", idUsuario);
                 con.Open();
                 SqlDataReader reader = cmd.ExecuteReader();
@@ -137,15 +133,18 @@ namespace DAL
                 SqlTransaction tx = con.BeginTransaction();
                 try
                 {
-                    // Borramos los permisos actuales que tenía el usuario en la BD
-                    SqlCommand cmdDelete = new SqlCommand("DELETE FROM Usuario_Permiso WHERE ID_Usuario = @IdUsuario", con, tx);
+                    // 1. Borramos los permisos actuales usando SP
+                    SqlCommand cmdDelete = new SqlCommand("SP_EliminarPermisosUsuario", con, tx);
+                    cmdDelete.CommandType = CommandType.StoredProcedure;
                     cmdDelete.Parameters.AddWithValue("@IdUsuario", usuario.ID_Usuario);
                     cmdDelete.ExecuteNonQuery();
-                    // Iteramos sobre su lista de permisos en memoria y los insertamos uno por uno
+
+                    // 2. Insertamos los nuevos usando SP
                     foreach (var permiso in usuario.Permisos)
                     {
-                        SqlCommand cmdInsert = new SqlCommand("INSERT INTO Usuario_Permiso (ID_Usuario, ID_Permiso) VALUES (@Id, @IdPermiso)", con, tx);
-                        cmdInsert.Parameters.AddWithValue("@Id", usuario.ID_Usuario);
+                        SqlCommand cmdInsert = new SqlCommand("SP_InsertarPermisoUsuario", con, tx);
+                        cmdInsert.CommandType = CommandType.StoredProcedure;
+                        cmdInsert.Parameters.AddWithValue("@IdUsuario", usuario.ID_Usuario);
                         cmdInsert.Parameters.AddWithValue("@IdPermiso", permiso.ID_Permiso);
                         cmdInsert.ExecuteNonQuery();
                     }
@@ -155,6 +154,50 @@ namespace DAL
                 {
                     tx.Rollback();
                     throw new Exception("Error al guardar los permisos en la base de datos.", ex);
+                }
+            }
+        }
+        public void GuardarNuevaFamilia(Familia familiaNueva)
+        {
+            using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["IS"].ConnectionString))
+            {
+                con.Open();
+                SqlTransaction tx = con.BeginTransaction();
+                try
+                {
+                    //Guarda la cabecera (Crear la Familia)
+                    SqlCommand cmdPadre = new SqlCommand("SP_CrearFamilia", con, tx);
+                    cmdPadre.CommandType = CommandType.StoredProcedure;
+                    cmdPadre.Parameters.AddWithValue("@Nombre", familiaNueva.Nombre);
+
+                    // Configuramos el parámetro OUTPUT para recibir el ID que SQL le asigna
+                    SqlParameter outParam = new SqlParameter("@IdNuevaFamilia", SqlDbType.Int);
+                    outParam.Direction = ParameterDirection.Output;
+                    cmdPadre.Parameters.Add(outParam);
+
+                    cmdPadre.ExecuteNonQuery();
+
+                    // Recuperamos el ID generado y se lo asignamos al objeto
+                    int idPadreGenerado = (int)cmdPadre.Parameters["@IdNuevaFamilia"].Value;
+                    familiaNueva.ID_Permiso = idPadreGenerado;
+
+                    // Guardr el detalle (Iterar el carrito y enlazar los hijos)
+                    foreach (var hijo in familiaNueva.ObtenerHijos())
+                    {
+                        SqlCommand cmdHijo = new SqlCommand("SP_AgregarPermisoAFamilia", con, tx);
+                        cmdHijo.CommandType = CommandType.StoredProcedure;
+                        cmdHijo.Parameters.AddWithValue("@IdPadre", idPadreGenerado);
+                        cmdHijo.Parameters.AddWithValue("@IdHijo", hijo.ID_Permiso);
+                        cmdHijo.ExecuteNonQuery();
+                    }
+
+                    // Si todo salió bien, confirmamos los cambios
+                    tx.Commit();
+                }
+                catch (Exception ex)
+                {
+                    tx.Rollback();
+                    throw new Exception("Error al guardar la nueva familia en la base de datos.", ex);
                 }
             }
         }

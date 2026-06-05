@@ -26,6 +26,7 @@ namespace WindowsFormsApp4
             bll = new UsuarioBLL();
             IdiomaBLL.GetInstance().Suscribir(this);
         }
+
         //Actualizacion de controles(dgv, txtbox)
         private void dgvu_CellClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -147,11 +148,22 @@ namespace WindowsFormsApp4
         {
             IdiomaBLL.GetInstance().Desuscribir(this);
         }
-
+        private void AplicarSeguridad() 
+        {
+            Usuario usuarioLogueado = Singleton.GetInstance().GetUsuarioActual();
+            BtnModif.Enabled = PermisoBLL.GetInstance().VerificarPermiso(usuarioLogueado, "btnModificar");
+            BtnAlta.Enabled = PermisoBLL.GetInstance().VerificarPermiso(usuarioLogueado, "btnAlta");
+            BtnBaja.Enabled = PermisoBLL.GetInstance().VerificarPermiso(usuarioLogueado, "btnBaja");
+        }
         private void button1_Click(object sender, EventArgs e)
         {
             BLL.IntegridadBLL.GetInstance().RecalcularTodosLosDigitos();
             MessageBox.Show("Base de datos restaurada y asegurada exitosamente.");
+        }
+
+        private void FrmGestion_Load(object sender, EventArgs e)
+        {
+            AplicarSeguridad();
         }
     }
 }
