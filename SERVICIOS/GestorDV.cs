@@ -1,4 +1,4 @@
-﻿using BE; // SERVICIOS sí puede conocer a BE
+﻿using BE;
 using System;
 
 namespace SERVICIOS

@@ -67,6 +67,7 @@ namespace DAL
                 }
             }
         }
+
         public void Modificar(Usuario usuario)
         {
             string connectionString = ConfigurationManager.ConnectionStrings["IS"].ConnectionString;
@@ -122,42 +123,47 @@ namespace DAL
             }
             return lista;
         }
-        public List<Usuario> ObtenerusuariosValidacion() 
+        // 1. Trae los usuarios con todos los datos sensibles para poder recalcular el DVH
+        public List<Usuario> ObtenerUsuariosParaValidacion()
         {
             List<Usuario> lista = new List<Usuario>();
             string connectionString = ConfigurationManager.ConnectionStrings["IS"].ConnectionString;
-            using (var connection = new SqlConnection(connectionString)) 
+            using (var connection = new SqlConnection(connectionString))
             {
                 connection.Open();
-                using (var command = new SqlCommand("Select ID_Usuarios, Nombre_Usuario, Contrasena_Hash, DVH From Usuario", connection))
+                // Usamos una query directa para no tocar tus otros SP
+                using (var command = new SqlCommand("SELECT ID_Usuario, Nombre_Usuario, Contrasena_Hash, DVH FROM Usuario", connection))
                 {
-                    using (SqlDataReader reader = command.ExecuteReader()) {
-                        while (reader.Read()) 
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
                         {
                             Usuario user = new Usuario();
                             user.ID_Usuario = reader.GetInt64(0);
-                            user.Nombre_Usuario = reader.IsDBNull(1) ?"": reader.GetString(1);
-                            user.Contraseña_Hash = reader.IsDBNull(2) ?"": reader.GetString(2);
+                            user.Nombre_Usuario = reader.IsDBNull(1) ? "" : reader.GetString(1);
+                            user.Contraseña_Hash = reader.IsDBNull(2) ? "" : reader.GetString(2);
                             user.DVH = reader.IsDBNull(3) ? 0 : reader.GetInt64(3);
                             lista.Add(user);
                         }
                     }
-                }   
+                }
             }
             return lista;
         }
-        public long ObtenerDVV(string nombretabla) 
+
+        // 2. Lee el DVV global de la tabla DigitoVerificador
+        public long ObtenerDVV(string nombreTabla)
         {
             long dvv = 0;
             string connectionString = ConfigurationManager.ConnectionStrings["IS"].ConnectionString;
             using (var connection = new SqlConnection(connectionString))
             {
                 connection.Open();
-                using (var command = new SqlCommand("SELECT DVV FROM DigitoVerificador WHERE Tabla = @Tabla", connection)) 
+                using (var command = new SqlCommand("SELECT DVV FROM DigitoVerificador WHERE Tabla = @Tabla", connection))
                 {
-                    command.Parameters.AddWithValue("@Tabla", nombretabla);
+                    command.Parameters.AddWithValue("@Tabla", nombreTabla);
                     object result = command.ExecuteScalar();
-                    if (result != null && result != DBNull.Value) 
+                    if (result != null && result != DBNull.Value)
                     {
                         dvv = Convert.ToInt64(result);
                     }
@@ -177,6 +183,34 @@ namespace DAL
                     command.Parameters.AddWithValue("@IdUsuario", idUsuario);
                     command.Parameters.AddWithValue("@IdIdioma", idIdioma);
                     command.ExecuteNonQuery();
+                }
+            }
+        }
+        public void ForzarRecalculoDVH(long idUsuario, long dvh)
+        {
+            string connectionString = ConfigurationManager.ConnectionStrings["IS"].ConnectionString;
+            using (var connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+                using (var cmd = new SqlCommand("UPDATE Usuario SET DVH = @DVH WHERE ID_Usuario = @Id", connection))
+                {
+                    cmd.Parameters.AddWithValue("@DVH", dvh);
+                    cmd.Parameters.AddWithValue("@Id", idUsuario);
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
+
+        public void ActualizarDVVGlobal()
+        {
+            string connectionString = ConfigurationManager.ConnectionStrings["IS"].ConnectionString;
+            using (var connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+                // Suma todos los DVH de la tabla y los guarda en el DVV
+                using (var cmd = new SqlCommand("UPDATE DigitoVerificador SET DVV = (SELECT ISNULL(SUM(DVH), 0) FROM Usuario) WHERE Tabla = 'Usuario'", connection))
+                {
+                    cmd.ExecuteNonQuery();
                 }
             }
         }

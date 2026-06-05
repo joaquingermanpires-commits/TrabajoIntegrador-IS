@@ -34,11 +34,13 @@ namespace BLL
             Usuario nuevoUsuario = new Usuario();
             nuevoUsuario.Nombre_Usuario = nombre;
             // Hashea la clave antes de guardarla para que nunca esté en texto plano
-            nuevoUsuario.Contraseña_Hash = Criptografia.HashearClave(contraseñaLimpia);
-            nuevoUsuario.DVH = SERVICIOS.GestorDV.CalcularDVHUsuario(nuevoUsuario);
+            nuevoUsuario.Contraseña_Hash = Criptografia.HashearClave(nuevoUsuario.Contraseña_Hash);
+            nuevoUsuario.DVH = GestorDV.CalcularDVHUsuario(nuevoUsuario);
 
             usuarioDal.Alta(nuevoUsuario);
+
         }
+
         public void ModificarUsuario(long id, string nuevoNombre, string nuevaContraseñaLimpia)
         {
             if (id <= 0) throw new Exception("ID de usuario inválido.");
@@ -46,7 +48,7 @@ namespace BLL
 
             if (id == 1)
             {
-                long idUsuarioLogueado = SERVICIOS.Singleton.GetInstance().GetIdUsuario();
+                long idUsuarioLogueado = Singleton.GetInstance().GetIdUsuario();
                 if (idUsuarioLogueado != 1)
                 {
                     throw new Exception("Acción denegada: Solo el administrador principal puede modificar su propia cuenta.");
@@ -65,7 +67,7 @@ namespace BLL
                 throw new Exception("Debe ingresar la nueva contraseña (o repetir la actual) para confirmar la modificación.");
 
             userModificado.Contraseña_Hash = Criptografia.HashearClave(nuevaContraseñaLimpia);
-            userModificado.DVH = SERVICIOS.GestorDV.CalcularDVHUsuario(userModificado);
+            userModificado.DVH = GestorDV.CalcularDVHUsuario(userModificado);
 
             usuarioDal.Modificar(userModificado);
         }

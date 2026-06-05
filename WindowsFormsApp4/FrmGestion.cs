@@ -147,5 +147,11 @@ namespace WindowsFormsApp4
         {
             IdiomaBLL.GetInstance().Desuscribir(this);
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            BLL.IntegridadBLL.GetInstance().RecalcularTodosLosDigitos();
+            MessageBox.Show("Base de datos restaurada y asegurada exitosamente.");
+        }
     }
 }
