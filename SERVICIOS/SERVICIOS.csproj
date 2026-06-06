@@ -49,6 +49,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ConfiguracionGlobal.cs" />
     <Compile Include="Criptografia.cs" />
     <Compile Include="GestorDV.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

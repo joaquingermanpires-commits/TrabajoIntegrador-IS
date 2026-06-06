@@ -9,7 +9,7 @@ namespace DAL
 {
     public class IdiomaDal
     {
-        //Lectura y Carga(Read) :
+        //Lectura y Carga(Read)
         public List<Idioma> ObtenerIdiomasDisponibles()
         {
             List<Idioma> lista = new List<Idioma>();
@@ -72,10 +72,9 @@ namespace DAL
             }
             return dt;
         }
-        //Gestión de Idiomas (Write):
+        //Gestión de Idiomas (Write)
         public void AgregarIdiomaCopiaDefault(string nombreIdioma)
         {
-            // Se usa para cargarle una traduccion por default
             string connectionString = ConfigurationManager.ConnectionStrings["IS"].ConnectionString;
             using (SqlConnection con = new SqlConnection(connectionString))
             {
@@ -102,7 +101,7 @@ namespace DAL
                 }
             }
         }
-        //Gestión de Etiquetas (Write):
+        //Gestión de Etiquetas (Write)
         public void AgregarEtiqueta(string nombreControl)
         {
             string connectionString = ConfigurationManager.ConnectionStrings["IS"].ConnectionString;
@@ -147,7 +146,7 @@ namespace DAL
                 }
             }
         }
-        //Gestión de Traducciones (Write):
+        //Gestión de Traducciones (Write)
         public void GuardarTraduccion(int idIdioma, string nombreControl, string texto)
         {
             using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["IS"].ConnectionString))

@@ -12,6 +12,7 @@ namespace DAL
 {
     public class UsuarioDal
     {
+        //Lectura y Carga de usuarios(Read)
         public Usuario Login(string Usuario_Nombre, string Contraseña_Hash)
         {
             string ConnectionString = ConfigurationManager.ConnectionStrings["IS"].ConnectionString;
@@ -48,54 +49,6 @@ namespace DAL
                 catch (SqlException ex)
                 {
                     throw new Exception("Error de base de datos.", ex);
-                }
-            }
-        }
-        public void Alta(Usuario usuario)
-        {
-            string connectionString = ConfigurationManager.ConnectionStrings["IS"].ConnectionString;
-            using (var connection = new SqlConnection(connectionString))
-            {
-                connection.Open();
-                using (var command = new SqlCommand("Usuario_Insert", connection))
-                {
-                    command.CommandType = CommandType.StoredProcedure;
-                    command.Parameters.Add("@Username", SqlDbType.VarChar).Value = usuario.Nombre_Usuario;
-                    command.Parameters.Add("@Password", SqlDbType.VarChar).Value = usuario.Contraseña_Hash;
-                    command.Parameters.Add("@DVH", SqlDbType.BigInt).Value = usuario.DVH;
-                    command.ExecuteNonQuery();
-                }
-            }
-        }
-
-        public void Modificar(Usuario usuario)
-        {
-            string connectionString = ConfigurationManager.ConnectionStrings["IS"].ConnectionString;
-            using (var connection = new SqlConnection(connectionString))
-            {
-                connection.Open();
-                using (var command = new SqlCommand("Usuario_Update", connection))
-                {
-                    command.CommandType = CommandType.StoredProcedure;
-                    command.Parameters.Add("@Id_Usuario", SqlDbType.BigInt).Value = usuario.ID_Usuario;
-                    command.Parameters.Add("@Username", SqlDbType.VarChar).Value = usuario.Nombre_Usuario;
-                    command.Parameters.Add("@Password", SqlDbType.VarChar).Value = usuario.Contraseña_Hash;
-                    command.Parameters.Add("@DVH", SqlDbType.BigInt).Value = usuario.DVH;
-                    command.ExecuteNonQuery();
-                }
-            }
-        }
-        public void Baja(long idUsuario)
-        {
-            string connectionString = ConfigurationManager.ConnectionStrings["IS"].ConnectionString;
-            using (var connection = new SqlConnection(connectionString))
-            {
-                connection.Open();
-                using (var command = new SqlCommand("Usuario_Delete", connection))
-                {
-                    command.CommandType = CommandType.StoredProcedure;
-                    command.Parameters.Add("@Id_Usuario", SqlDbType.BigInt).Value = idUsuario;
-                    command.ExecuteNonQuery();
                 }
             }
         }
@@ -138,10 +91,10 @@ namespace DAL
                         while (reader.Read())
                         {
                             Usuario user = new Usuario();
-                            user.ID_Usuario = Convert.ToInt64(reader[0]);
-                            user.Nombre_Usuario = reader.IsDBNull(1) ? "" : reader.GetString(1);
-                            user.Contraseña_Hash = reader.IsDBNull(2) ? "" : reader.GetString(2);
-                            user.DVH = reader.IsDBNull(3) ? 0 : Convert.ToInt64(reader[3]);
+                            user.ID_Usuario = reader.GetInt64(0);
+                            user.Nombre_Usuario = reader.IsDBNull(1) ? string.Empty : reader.GetString(1);
+                            user.Contraseña_Hash = reader.IsDBNull(2) ? string.Empty : reader.GetString(2);
+                            user.DVH = reader.IsDBNull(3) ? 0 : reader.GetInt64(3);
                             lista.Add(user);
                         }
                     }
@@ -169,6 +122,55 @@ namespace DAL
             }
             return dvv;
         }
+        //Gestion de usuarios (Write)
+        public void Alta(Usuario usuario)
+        {
+            string connectionString = ConfigurationManager.ConnectionStrings["IS"].ConnectionString;
+            using (var connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+                using (var command = new SqlCommand("Usuario_Insert", connection))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.Add("@Username", SqlDbType.VarChar).Value = usuario.Nombre_Usuario;
+                    command.Parameters.Add("@Password", SqlDbType.VarChar).Value = usuario.Contraseña_Hash;
+                    command.Parameters.Add("@DVH", SqlDbType.BigInt).Value = usuario.DVH;
+                    command.ExecuteNonQuery();
+                }
+            }
+        }
+        public void Modificar(Usuario usuario)
+        {
+            string connectionString = ConfigurationManager.ConnectionStrings["IS"].ConnectionString;
+            using (var connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+                using (var command = new SqlCommand("Usuario_Update", connection))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.Add("@Id_Usuario", SqlDbType.BigInt).Value = usuario.ID_Usuario;
+                    command.Parameters.Add("@Username", SqlDbType.VarChar).Value = usuario.Nombre_Usuario;
+                    command.Parameters.Add("@Password", SqlDbType.VarChar).Value = usuario.Contraseña_Hash;
+                    command.Parameters.Add("@DVH", SqlDbType.BigInt).Value = usuario.DVH;
+                    command.ExecuteNonQuery();
+                }
+            }
+        }
+        public void Baja(long idUsuario)
+        {
+            string connectionString = ConfigurationManager.ConnectionStrings["IS"].ConnectionString;
+            using (var connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+                using (var command = new SqlCommand("Usuario_Delete", connection))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.Add("@Id_Usuario", SqlDbType.BigInt).Value = idUsuario;
+                    command.ExecuteNonQuery();
+                }
+            }
+        }
+        //Calculo de Digito verificador
         public void ForzarRecalculoDVH(long idUsuario, long dvh)
         {
             string connectionString = ConfigurationManager.ConnectionStrings["IS"].ConnectionString;
@@ -197,6 +199,7 @@ namespace DAL
                 }
             }
         }
+        //Cambiar idioma
         public void ActualizarIdiomaUsuario(long idUsuario, int idIdioma)
         {
             string connectionString = ConfigurationManager.ConnectionStrings["IS"].ConnectionString;

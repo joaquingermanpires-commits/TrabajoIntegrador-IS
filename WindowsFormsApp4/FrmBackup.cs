@@ -18,7 +18,6 @@ namespace WindowsFormsApp4
         {
             try
             {
-                //Configuramos la ventana de guardado
                 SaveFileDialog saveFileDialog = new SaveFileDialog();
                 saveFileDialog.Filter = "Archivo de Copia de Seguridad SQL (*.bak)|*.bak";
                 saveFileDialog.Title = "Guardar Copia de Seguridad";
@@ -43,14 +42,12 @@ namespace WindowsFormsApp4
         {
             try
             {
-                // Alerta de seguridad para evitar accidentes
                 DialogResult confirmacion = MessageBox.Show(
                     "ADVERTENCIA: Restaurar una copia de seguridad sobrescribirá TODOS los datos actuales del sistema. Esta acción no se puede deshacer. ¿Desea continuar?",
                     "Confirmación Crítica", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
 
                 if (confirmacion == DialogResult.Yes)
                 {
-                    //se busca el archivo
                     OpenFileDialog openFileDialog = new OpenFileDialog();
                     openFileDialog.Filter = "Archivo de Copia de Seguridad SQL (*.bak)|*.bak";
                     openFileDialog.Title = "Seleccionar Copia de Seguridad para Restaurar";
@@ -58,13 +55,10 @@ namespace WindowsFormsApp4
                     if (openFileDialog.ShowDialog() == DialogResult.OK)
                     {
                         string rutaOrigen = openFileDialog.FileName;
-
-                        // Llamamos a la BLL (Esto patea a los usuarios y restaura)
                         BackupBLL.GetInstance().RealizarRestore(rutaOrigen);
                         string usuarioActual = SERVICIOS.Singleton.GetInstance().GetUsuario();
                         BitacoraBLL.GetInstance().RegistrarBitacora(usuarioActual, "CRITICAL", "FrmBackup", $"Sistema restaurado desde el archivo: {rutaOrigen}");
                         MessageBox.Show("El sistema ha sido restaurado exitosamente. Por seguridad, la aplicación se cerrará. Por favor, inicie sesión nuevamente.", "Restore Exitoso", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        // Forzamos el cierre de la app porque la base de datos acaba de cambiar por completo
                         Application.Restart();
                     }
                 }

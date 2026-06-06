@@ -103,6 +103,7 @@
             // 
             this.backUpToolStripMenuItem.Name = "backUpToolStripMenuItem";
             this.backUpToolStripMenuItem.Size = new System.Drawing.Size(59, 20);
+            this.backUpToolStripMenuItem.Tag = "FrmBackup";
             this.backUpToolStripMenuItem.Text = "BackUp";
             this.backUpToolStripMenuItem.Click += new System.EventHandler(this.backUpToolStripMenuItem_Click);
             // 

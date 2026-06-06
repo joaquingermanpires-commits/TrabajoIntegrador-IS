@@ -45,7 +45,7 @@
             this.gbBackup.TabIndex = 0;
             this.gbBackup.TabStop = false;
             this.gbBackup.Tag = "gbBackup";
-            this.gbBackup.Text = "gbBackup";
+            this.gbBackup.Text = "-";
             // 
             // btnBackup
             // 
@@ -54,7 +54,7 @@
             this.btnBackup.Size = new System.Drawing.Size(130, 23);
             this.btnBackup.TabIndex = 2;
             this.btnBackup.Tag = "btnBackup";
-            this.btnBackup.Text = "btnBackup";
+            this.btnBackup.Text = "-";
             this.btnBackup.UseVisualStyleBackColor = true;
             this.btnBackup.Click += new System.EventHandler(this.btnBackup_Click);
             // 
@@ -67,7 +67,7 @@
             this.gbRestore.TabIndex = 1;
             this.gbRestore.TabStop = false;
             this.gbRestore.Tag = "gbRestore";
-            this.gbRestore.Text = "gbRestore";
+            this.gbRestore.Text = "-";
             // 
             // btnRestore
             // 
@@ -76,7 +76,7 @@
             this.btnRestore.Size = new System.Drawing.Size(144, 23);
             this.btnRestore.TabIndex = 3;
             this.btnRestore.Tag = "btnRestore";
-            this.btnRestore.Text = "btnRestore";
+            this.btnRestore.Text = "-";
             this.btnRestore.UseVisualStyleBackColor = true;
             this.btnRestore.Click += new System.EventHandler(this.btnRestore_Click);
             // 
@@ -89,7 +89,8 @@
             this.Controls.Add(this.gbBackup);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "FrmBackup";
-            this.Text = "FrmBackup";
+            this.Tag = "FrmBackup";
+            this.Text = "-";
             this.gbBackup.ResumeLayout(false);
             this.gbRestore.ResumeLayout(false);
             this.ResumeLayout(false);

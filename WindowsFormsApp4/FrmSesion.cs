@@ -111,7 +111,7 @@ namespace WindowsFormsApp4
                         long idUsuarioLogueado = Singleton.GetInstance().GetIdUsuario();
                         if (idUsuarioLogueado > 0)
                         {
-                            UsuarioBLL usuarioBLL = new UsuarioBLL();
+                            UsuarioBLL usuarioBLL = UsuarioBLL.GetInstance();
                             usuarioBLL.ActualizarIdiomaPreferido(idUsuarioLogueado, idiomaSeleccionado);
                         }
                     }

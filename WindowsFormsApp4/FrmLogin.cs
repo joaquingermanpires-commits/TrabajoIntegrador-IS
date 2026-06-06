@@ -20,7 +20,7 @@ namespace WindowsFormsApp4
         public FrmLogin()
         {
             InitializeComponent();
-            usuarioBLL = new UsuarioBLL();
+            usuarioBLL = UsuarioBLL.GetInstance();
             IdiomaBLL.GetInstance().Suscribir(this);
             CargarComboIdiomas();
         }

@@ -17,16 +17,24 @@ namespace WindowsFormsApp4
 {
     public partial class FrmGestion : Form, IObservadorIdioma
     {
-        UsuarioBLL bll = new UsuarioBLL();
+        private UsuarioBLL bll;
+
         private string usuario = Singleton.GetInstance().GetUsuario();
         public FrmGestion()
         {
             InitializeComponent();
+            bll = UsuarioBLL.GetInstance();
             ActualizaDGVU();
-            bll = new UsuarioBLL();
             IdiomaBLL.GetInstance().Suscribir(this);
         }
-
+        private void AplicarSeguridad()
+        {
+            Usuario usuarioLogueado = Singleton.GetInstance().GetUsuarioActual();
+            bool tieneUsuario = usuarioLogueado != null;
+            BtnModif.Enabled = tieneUsuario && PermisoBLL.GetInstance().VerificarPermiso(usuarioLogueado, "btnModificar");
+            BtnAlta.Enabled = tieneUsuario && PermisoBLL.GetInstance().VerificarPermiso(usuarioLogueado, "btnAlta");
+            BtnBaja.Enabled = tieneUsuario && PermisoBLL.GetInstance().VerificarPermiso(usuarioLogueado, "btnBaja");
+        }
         //Actualizacion de controles(dgv, txtbox)
         private void dgvu_CellClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -149,20 +157,6 @@ namespace WindowsFormsApp4
         {
             IdiomaBLL.GetInstance().Desuscribir(this);
         }
-        private void AplicarSeguridad() 
-        {
-            Usuario usuarioLogueado = Singleton.GetInstance().GetUsuarioActual();
-            bool tieneUsuario = usuarioLogueado != null;
-            BtnModif.Enabled = tieneUsuario && PermisoBLL.GetInstance().VerificarPermiso(usuarioLogueado, "btnModificar");
-            BtnAlta.Enabled = tieneUsuario && PermisoBLL.GetInstance().VerificarPermiso(usuarioLogueado, "btnAlta");
-            BtnBaja.Enabled = tieneUsuario && PermisoBLL.GetInstance().VerificarPermiso(usuarioLogueado, "btnBaja");
-        }
-        //private void button1_Click(object sender, EventArgs e)
-        //{
-        //    BLL.IntegridadBLL.GetInstance().RecalcularTodosLosDigitos();
-        //    MessageBox.Show("Base de datos restaurada y asegurada exitosamente.");
-        //}
-
         private void FrmGestion_Load(object sender, EventArgs e)
         {
             AplicarSeguridad();

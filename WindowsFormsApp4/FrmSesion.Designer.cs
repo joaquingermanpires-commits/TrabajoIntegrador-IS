@@ -39,10 +39,10 @@
             this.lblSesionA.AutoSize = true;
             this.lblSesionA.Location = new System.Drawing.Point(40, 32);
             this.lblSesionA.Name = "lblSesionA";
-            this.lblSesionA.Size = new System.Drawing.Size(110, 13);
+            this.lblSesionA.Size = new System.Drawing.Size(10, 13);
             this.lblSesionA.TabIndex = 1;
             this.lblSesionA.Tag = "lblSesionA";
-            this.lblSesionA.Text = "Sesion iniciada como:";
+            this.lblSesionA.Text = "-";
             // 
             // lblSesionB
             // 
@@ -59,10 +59,10 @@
             this.lblidioma.AutoSize = true;
             this.lblidioma.Location = new System.Drawing.Point(40, 82);
             this.lblidioma.Name = "lblidioma";
-            this.lblidioma.Size = new System.Drawing.Size(112, 13);
+            this.lblidioma.Size = new System.Drawing.Size(10, 13);
             this.lblidioma.TabIndex = 3;
             this.lblidioma.Tag = "lblidioma";
-            this.lblidioma.Text = "Idiona actual: Español";
+            this.lblidioma.Text = "-";
             // 
             // cmbIdiomas
             // 

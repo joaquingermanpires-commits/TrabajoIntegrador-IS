@@ -14,9 +14,10 @@ namespace WindowsFormsApp4
         public FrmPermisos()
         {
             InitializeComponent();
-            usuarioBLL = new UsuarioBLL();
+            usuarioBLL = UsuarioBLL.GetInstance();
             IdiomaBLL.GetInstance().Suscribir(this);
         }
+        //Carga de controles
         private void FrmPermisos_Load(object sender, EventArgs e)
         {
             CargarArbolBase();
@@ -59,7 +60,7 @@ namespace WindowsFormsApp4
             }
         }
 
-        // EVENTO: SELECCIONAR UN USUARIO
+        // EVENTO SELECCIONAR UN USUARIO
         private void cmbUsuarios_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (cmbUsuarios.SelectedItem is Usuario usuarioSeleccionado)
@@ -134,7 +135,7 @@ namespace WindowsFormsApp4
                 MarcarHijos(nodoHijo, estado);
             }
         }
-        // EVENTO: GUARDAR PERMISOS
+        // EVENTO GUARDAR PERMISOS
         private void btnGuardarPermisos_Click(object sender, EventArgs e)
         {
             try

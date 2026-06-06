@@ -7,7 +7,6 @@ namespace BLL
 {
     public class BitacoraBLL
     {
-        // Implementación del patrón Singleton
         private static readonly BitacoraBLL _instancia = new BitacoraBLL();
         private BitacoraDal bitacoraDal = new BitacoraDal();
         private BitacoraBLL() { }

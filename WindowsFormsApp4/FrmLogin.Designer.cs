@@ -59,7 +59,7 @@
             this.btnIngresar.Size = new System.Drawing.Size(259, 49);
             this.btnIngresar.TabIndex = 2;
             this.btnIngresar.Tag = "btnIngresar";
-            this.btnIngresar.Text = "Ingresar";
+            this.btnIngresar.Text = "-";
             this.btnIngresar.UseVisualStyleBackColor = true;
             this.btnIngresar.Click += new System.EventHandler(this.btnIngresar_Click);
             // 
@@ -68,30 +68,30 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(19, 68);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(61, 13);
+            this.label1.Size = new System.Drawing.Size(10, 13);
             this.label1.TabIndex = 3;
             this.label1.Tag = "lblContraseña";
-            this.label1.Text = "Contraseña";
+            this.label1.Text = "-";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(19, 5);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(96, 13);
+            this.label2.Size = new System.Drawing.Size(10, 13);
             this.label2.TabIndex = 4;
             this.label2.Tag = "lblUsuario";
-            this.label2.Text = "Nombre de usuario";
+            this.label2.Text = "-";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(319, 28);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(112, 13);
+            this.label3.Size = new System.Drawing.Size(10, 13);
             this.label3.TabIndex = 6;
             this.label3.Tag = "lblidioma";
-            this.label3.Text = "Idiona actual: Español";
+            this.label3.Text = "-";
             // 
             // cmbIdiomas
             // 

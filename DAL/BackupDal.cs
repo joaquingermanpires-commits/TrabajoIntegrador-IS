@@ -20,12 +20,9 @@ namespace DAL
                 }
             }
         }
-
         public void RealizarRestore(string rutaOrigen)
         {
             string connectionStringOriginal = ConfigurationManager.ConnectionStrings["IS"].ConnectionString;
-
-            //Cambiamos dinámicamente la conexión para apuntar a "master"
             SqlConnectionStringBuilder builder = new SqlConnectionStringBuilder(connectionStringOriginal);
             builder.InitialCatalog = "master";
             using (SqlConnection con = new SqlConnection(builder.ConnectionString))

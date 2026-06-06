@@ -19,7 +19,7 @@ namespace WindowsFormsApp4
         public FrmComposite()
         {
             InitializeComponent();
-            usuarioBLL = new UsuarioBLL();
+            usuarioBLL = UsuarioBLL.GetInstance();
             IdiomaBLL.GetInstance().Suscribir(this);
         }
 
@@ -28,6 +28,7 @@ namespace WindowsFormsApp4
             CargarArbolesBase();
             BloquearModoEdicion();
         }
+        //Metodos de controles
         private void BloquearModoEdicion()
         {
             BtnPatente.Enabled = false;
@@ -69,40 +70,11 @@ namespace WindowsFormsApp4
                 }
             }
         }
-        public void ActualizarIdioma()
-        {
-            var traducciones = IdiomaBLL.GetInstance().ObtenerTraducciones();
-
-            if (this.Tag != null && !string.IsNullOrWhiteSpace(this.Tag.ToString()))
-            {
-                string claveTagFormulario = this.Tag.ToString();
-                if (traducciones.ContainsKey(claveTagFormulario)) this.Text = traducciones[claveTagFormulario];
-            }
-
-            TraducirControles(this.Controls, traducciones);
-        }
-        private void TraducirControles(Control.ControlCollection controles, Dictionary<string, string> traducciones)
-        {
-            foreach (Control c in controles)
-            {
-                if (c.Tag != null && !string.IsNullOrWhiteSpace(c.Tag.ToString()))
-                {
-                    string claveTag = c.Tag.ToString();
-                    if (traducciones.ContainsKey(claveTag)) c.Text = traducciones[claveTag];
-                }
-
-                if (c.Controls.Count > 0) TraducirControles(c.Controls, traducciones);
-            }
-        }
-        private void FrmPermisos_FormClosed(object sender, FormClosedEventArgs e)
-        {
-            IdiomaBLL.GetInstance().Desuscribir(this);
-        }
+        //Botones del formulario
         private void BtnGuardar_Click(object sender, EventArgs e)
         {
             try
             {
-                //Instanciamos la nueva Familia
                 Familia nuevaFamilia = new Familia();
                 nuevaFamilia.Nombre = FamiliaTxt.Text;
                 //Regla de negocio básica para la UI
@@ -111,11 +83,8 @@ namespace WindowsFormsApp4
                     MessageBox.Show("El carrito está vacío. Agregue permisos a la familia antes de guardar.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
-
-                //Llenamos la familia leyendo los nodos principales de tu TreeView carrito
                 foreach (TreeNode nodo in tvFamilia.Nodes)
                 {
-                    // Extraemos el objeto Permiso (puede ser Patente o Familia) que guardamos en el Tag
                     if (nodo.Tag is Permiso permisoDelCarrito)
                     {
                         nuevaFamilia.AgregarHijo(permisoDelCarrito);
@@ -152,7 +121,6 @@ namespace WindowsFormsApp4
         }
         private void BtnFamilia_Click(object sender, EventArgs e)
         {
-            // Verificamos que haya seleccionado un objeto de tipo Familia en el ListBox
             if (lbFamilia.SelectedItem is Familia familiaSeleccionada)
             {
                 TreeNode nodoCarrito = new TreeNode(familiaSeleccionada.Nombre);
@@ -177,10 +145,7 @@ namespace WindowsFormsApp4
         }
         private void btnCrear_Click(object sender, EventArgs e)
         {
-
-            // 2. Vaciamos el carrito temporal (asumiendo que usás el TreeView)
             tvFamilia.Nodes.Clear();
-            // 3. Habilitamos los controles para que el usuario empiece a trabajar
             btnCrear.Enabled = false;
             tvFamilia.Enabled = true;
             BtnPatente.Enabled = true;
@@ -188,12 +153,10 @@ namespace WindowsFormsApp4
             BtnEliminarS.Enabled = true;
             BtnGuardar.Enabled = true;
         }
-
         private void BtnEliminarFamilia_Click(object sender, EventArgs e)
         {
             try
             {
-                // 1. Verificamos que haya un NODO seleccionado y que adentro de su Tag haya un objeto Familia
                 if (lbFamilia.SelectedItem is BE.Familia familiaSeleccionada)
                 {
                     DialogResult respuesta = MessageBox.Show(
@@ -205,13 +168,10 @@ namespace WindowsFormsApp4
 
                     if (respuesta == DialogResult.Yes)
                     {
-                        // Llamamos a la BLL
                         BLL.PermisoBLL.GetInstance().EliminarFamilia(familiaSeleccionada);
                         string usuarioActual = SERVICIOS.Singleton.GetInstance().GetUsuario();
                         BLL.BitacoraBLL.GetInstance().RegistrarBitacora(usuarioActual, "WARNING", "FrmComposite", $"Se eliminó la familia {familiaSeleccionada.Nombre} con reasignación.");
-
                         MessageBox.Show("Familia eliminada correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
                         CargarArbolesBase();
                     }
                 }
@@ -224,6 +184,36 @@ namespace WindowsFormsApp4
             {
                 MessageBox.Show(ex.Message, "Error al eliminar", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+        //Metodos del formulario
+        public void ActualizarIdioma()
+        {
+            var traducciones = IdiomaBLL.GetInstance().ObtenerTraducciones();
+
+            if (this.Tag != null && !string.IsNullOrWhiteSpace(this.Tag.ToString()))
+            {
+                string claveTagFormulario = this.Tag.ToString();
+                if (traducciones.ContainsKey(claveTagFormulario)) this.Text = traducciones[claveTagFormulario];
+            }
+
+            TraducirControles(this.Controls, traducciones);
+        }
+        private void TraducirControles(Control.ControlCollection controles, Dictionary<string, string> traducciones)
+        {
+            foreach (Control c in controles)
+            {
+                if (c.Tag != null && !string.IsNullOrWhiteSpace(c.Tag.ToString()))
+                {
+                    string claveTag = c.Tag.ToString();
+                    if (traducciones.ContainsKey(claveTag)) c.Text = traducciones[claveTag];
+                }
+
+                if (c.Controls.Count > 0) TraducirControles(c.Controls, traducciones);
+            }
+        }
+        private void FrmPermisos_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            IdiomaBLL.GetInstance().Desuscribir(this);
         }
     }
 }

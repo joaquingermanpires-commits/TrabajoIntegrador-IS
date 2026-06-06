@@ -10,6 +10,7 @@ namespace DAL
 {
     public class PermisoDal
     {
+        //Carga y Lectura de permisos
         public List<Patente> ObtenerTodasLasPatentes()
         {
             List<Patente> lista = new List<Patente>();
@@ -87,6 +88,7 @@ namespace DAL
                 }
             }
         }
+        //Permisos de usuario
         public List<Permiso> ObtenerPermisosDeUsuario(long idUsuario)
         {
             List<Permiso> permisosDelUsuario = new List<Permiso>();
@@ -133,19 +135,13 @@ namespace DAL
                 SqlTransaction tx = con.BeginTransaction();
                 try
                 {
-                    // 1. Borramos los permisos actuales usando SP
                     SqlCommand cmdDelete = new SqlCommand("SP_EliminarPermisosUsuario", con, tx);
                     cmdDelete.CommandType = CommandType.StoredProcedure;
                     cmdDelete.Parameters.AddWithValue("@IdUsuario", usuario.ID_Usuario);
                     cmdDelete.ExecuteNonQuery();
-
-                    // NUEVO: Usamos un HashSet para registrar qué IDs ya insertamos en este guardado
                     HashSet<int> idsInsertados = new HashSet<int>();
-
-                    // 2. Insertamos los nuevos usando SP
                     foreach (var permiso in usuario.Permisos)
                     {
-                        // Si la UI mandó un permiso repetido, lo saltamos y evitamos que explote SQL
                         if (idsInsertados.Contains(permiso.ID_Permiso)) continue;
 
                         SqlCommand cmdInsert = new SqlCommand("SP_InsertarPermisoUsuario", con, tx);
@@ -153,8 +149,6 @@ namespace DAL
                         cmdInsert.Parameters.AddWithValue("@IdUsuario", usuario.ID_Usuario);
                         cmdInsert.Parameters.AddWithValue("@IdPermiso", permiso.ID_Permiso);
                         cmdInsert.ExecuteNonQuery();
-
-                        // Lo marcamos como insertado
                         idsInsertados.Add(permiso.ID_Permiso);
                     }
                     tx.Commit();
@@ -171,6 +165,7 @@ namespace DAL
                 }
             }
         }
+        //Crear Familia
         public void GuardarNuevaFamilia(Familia familiaNueva)
         {
             using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["IS"].ConnectionString))
@@ -179,23 +174,15 @@ namespace DAL
                 SqlTransaction tx = con.BeginTransaction();
                 try
                 {
-                    //Guarda la cabecera (Crear la Familia)
                     SqlCommand cmdPadre = new SqlCommand("SP_CrearFamilia", con, tx);
                     cmdPadre.CommandType = CommandType.StoredProcedure;
                     cmdPadre.Parameters.AddWithValue("@Nombre", familiaNueva.Nombre);
-
-                    // Configuramos el parámetro OUTPUT para recibir el ID que SQL le asigna
                     SqlParameter outParam = new SqlParameter("@IdNuevaFamilia", SqlDbType.Int);
                     outParam.Direction = ParameterDirection.Output;
                     cmdPadre.Parameters.Add(outParam);
-
                     cmdPadre.ExecuteNonQuery();
-
-                    // Recuperamos el ID generado y se lo asignamos al objeto
                     int idPadreGenerado = (int)cmdPadre.Parameters["@IdNuevaFamilia"].Value;
                     familiaNueva.ID_Permiso = idPadreGenerado;
-
-                    // Guardr el detalle (Iterar el carrito y enlazar los hijos)
                     foreach (var hijo in familiaNueva.ObtenerHijos())
                     {
                         SqlCommand cmdHijo = new SqlCommand("SP_AgregarPermisoAFamilia", con, tx);
@@ -204,8 +191,6 @@ namespace DAL
                         cmdHijo.Parameters.AddWithValue("@IdHijo", hijo.ID_Permiso);
                         cmdHijo.ExecuteNonQuery();
                     }
-
-                    // Si todo salió bien, confirmamos los cambios
                     tx.Commit();
                 }
                 catch (Exception ex)
@@ -215,6 +200,7 @@ namespace DAL
                 }
             }
         }
+        //Eliminar familia
         public void EliminarFamiliaSegura(int idFamilia)
         {
             using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["IS"].ConnectionString))

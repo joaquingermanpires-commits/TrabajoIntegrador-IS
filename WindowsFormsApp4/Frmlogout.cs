@@ -19,7 +19,7 @@ namespace WindowsFormsApp4
         public Frmlogout()
         {
             InitializeComponent();
-            usuarioBLL = new UsuarioBLL();
+            usuarioBLL = UsuarioBLL.GetInstance();
             IdiomaBLL.GetInstance().Suscribir(this);
         }
         //btn Cerrar sesion

@@ -14,13 +14,12 @@ namespace WindowsFormsApp4
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            // SI TODO ESTÁ BIEN: Arranca el sistema normalmente
-            // 1. EJECUTAMOS LA VERIFICACIÓN DE INTEGRIDAD
+            //EJECUTA LA VERIFICACIÓN DE INTEGRIDAD
             string resultadoIntegridad = IntegridadBLL.GetInstance().VerificarIntegridad();
 
             if (!string.IsNullOrEmpty(resultadoIntegridad))
             {
-                // SI HAY ERROR: Mostramos el mensaje crítico y cortamos la ejecución
+                //si hay error mostramos el mensaje crítico y cortamos la ejecución
                 MessageBox.Show(resultadoIntegridad + "\n\nEl sistema ha sido bloqueado por razones de seguridad. Comuníquese con el Administrador para realizar una restauración.",
                                 "Fallo Crítico de Seguridad (DVH/DVV)",
                                 MessageBoxButtons.OK,
@@ -29,7 +28,7 @@ namespace WindowsFormsApp4
             }
             else
             {
-                // SI TODO ESTÁ BIEN: Arranca el sistema normalmente
+                //No hay error
                 Application.Run(new FrmLogin());
             }
         }

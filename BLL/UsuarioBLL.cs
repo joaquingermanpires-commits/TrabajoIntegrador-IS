@@ -14,10 +14,15 @@ namespace BLL
 {
     public class UsuarioBLL
     {
+        private static readonly UsuarioBLL _instancia = new UsuarioBLL();
         private readonly UsuarioDal usuarioDal;
-        public UsuarioBLL() 
+        private UsuarioBLL()
         {
-        usuarioDal = new UsuarioDal();
+            usuarioDal = new UsuarioDal();
+        }
+        public static UsuarioBLL GetInstance()
+        {
+            return _instancia;
         }
         public Usuario Login(string Nombre_Usuario, string ContraseñaLimpia)
         {
@@ -26,6 +31,11 @@ namespace BLL
             string ContraseñaHasheado =   Criptografia.HashearClave(ContraseñaLimpia);
             return usuarioDal.Login(Nombre_Usuario, ContraseñaHasheado);
         }
+        public List<Usuario> ObtenerUsuarios()
+        {
+            return usuarioDal.ListarTodos();
+        }
+        //ABM ususarios
         public void CrearUsuario(string nombre, string contraseñaLimpia)
         {
             if (string.IsNullOrWhiteSpace(nombre) || string.IsNullOrWhiteSpace(contraseñaLimpia))       
@@ -40,22 +50,21 @@ namespace BLL
             usuarioDal.Alta(nuevoUsuario);
 
         }
-
         public void ModificarUsuario(long id, string nuevoNombre, string nuevaContraseñaLimpia)
         {
             if (id <= 0) throw new Exception("ID de usuario inválido.");
             if (string.IsNullOrWhiteSpace(nuevoNombre)) throw new Exception("El nombre no puede estar vacío.");
 
-            if (id == 1)
+            if (id == ConfiguracionGlobal.ID_ADMIN_PRINCIPAL)
             {
                 long idUsuarioLogueado = Singleton.GetInstance().GetIdUsuario();
-                if (idUsuarioLogueado != 1)
+                if (idUsuarioLogueado != ConfiguracionGlobal.ID_ADMIN_PRINCIPAL)
                 {
                     throw new Exception("Acción denegada: Solo el administrador principal puede modificar su propia cuenta.");
                 }
-                if (nuevoNombre.ToLower() != "admin1")
+                if (!nuevoNombre.Equals(ConfiguracionGlobal.NOMBRE_ADMIN_PRINCIPAL, StringComparison.OrdinalIgnoreCase))
                 {
-                    throw new Exception("Acción denegada: El nombre de usuario de la cuenta principal debe mantenerse como 'admin1'. Solo puede cambiar su contraseña.");
+                    throw new Exception("Acción denegada: El nombre de usuario de la cuenta principal debe mantenerse como 'admin1'.");
                 }
             }
             Usuario userModificado = new Usuario();
@@ -75,7 +84,7 @@ namespace BLL
         {
             if (id <= 0) throw new Exception("Seleccione un usuario válido para eliminar.");
 
-            if (id == 1)
+            if (id == ConfiguracionGlobal.ID_ADMIN_PRINCIPAL)
             {
                 throw new Exception("Acción denegada: El administrador principal (admin1) no puede ser eliminado del sistema bajo ninguna circunstancia.");
             }
@@ -88,6 +97,7 @@ namespace BLL
 
             usuarioDal.Baja(id);
         }
+        //Actualizacion de idioma
         public void ActualizarIdiomaPreferido(long idUsuario, IIdioma nuevoIdioma)
         {
             if (nuevoIdioma != null && idUsuario > 0)
@@ -95,9 +105,6 @@ namespace BLL
                 usuarioDal.ActualizarIdiomaUsuario(idUsuario, nuevoIdioma.ID_Idioma);
             }
         }
-        public List<Usuario> ObtenerUsuarios()
-        {
-            return usuarioDal.ListarTodos();
-        }
+
     }
 }

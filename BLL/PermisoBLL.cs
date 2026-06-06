@@ -15,6 +15,7 @@ namespace BLL
         {
             return _instancia;
         }
+        //Lectura de Permisos
         public List<Patente> ObtenerTodasLasPatentes()
         {
             return permisoDal.ObtenerTodasLasPatentes();
@@ -27,13 +28,6 @@ namespace BLL
                 permisoDal.LlenarFamiliaRecursivo(familia);
             }
             return familias;
-        }
-        public void CargarPermisosUsuario(Usuario usuario)
-        {
-            if (usuario != null)
-            {
-                usuario.Permisos = permisoDal.ObtenerPermisosDeUsuario(usuario.ID_Usuario);
-            }
         }
         public bool VerificarPermiso(Usuario usuario, string permisoSistema)
         {
@@ -49,7 +43,6 @@ namespace BLL
             }
             return false;
         }
-
         private bool BuscarPermisoRecursivo(Permiso permisoPadre, string permisoSistema)
         {
             // Chequeo robusto: Evitamos NullReference si es Familia, limpiamos espacios y comparamos en mayúsculas
@@ -70,6 +63,14 @@ namespace BLL
 
             return false;
         }
+        //Permisos de usuario
+        public void CargarPermisosUsuario(Usuario usuario)
+        {
+            if (usuario != null)
+            {
+                usuario.Permisos = permisoDal.ObtenerPermisosDeUsuario(usuario.ID_Usuario);
+            }
+        }
         public void GuardarPermisosUsuario(Usuario usuario)
         {
             if (usuario == null || usuario.ID_Usuario <= 0)
@@ -83,6 +84,7 @@ namespace BLL
 
             permisoDal.GuardarPermisosUsuario(usuario);
         }
+        //Creacion de permisos(Compuestos)
         public void GuardarNuevaFamilia(Familia familiaNueva)
         {
             // Reglas de negocio
