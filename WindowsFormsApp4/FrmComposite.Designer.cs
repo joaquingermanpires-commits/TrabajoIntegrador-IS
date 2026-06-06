@@ -40,23 +40,24 @@
             this.tvPermisos = new System.Windows.Forms.TreeView();
             this.tvFamilia = new System.Windows.Forms.TreeView();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.BtnEliminarFamilia = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // lbFamilia
             // 
             this.lbFamilia.FormattingEnabled = true;
-            this.lbFamilia.Location = new System.Drawing.Point(22, 55);
+            this.lbFamilia.Location = new System.Drawing.Point(23, 55);
             this.lbFamilia.Name = "lbFamilia";
-            this.lbFamilia.Size = new System.Drawing.Size(120, 186);
+            this.lbFamilia.Size = new System.Drawing.Size(136, 277);
             this.lbFamilia.TabIndex = 0;
             // 
             // lbPatente
             // 
             this.lbPatente.FormattingEnabled = true;
-            this.lbPatente.Location = new System.Drawing.Point(148, 55);
+            this.lbPatente.Location = new System.Drawing.Point(166, 55);
             this.lbPatente.Name = "lbPatente";
-            this.lbPatente.Size = new System.Drawing.Size(120, 186);
+            this.lbPatente.Size = new System.Drawing.Size(136, 277);
             this.lbPatente.TabIndex = 1;
             // 
             // label1
@@ -89,9 +90,9 @@
             // 
             // BtnFamilia
             // 
-            this.BtnFamilia.Location = new System.Drawing.Point(21, 247);
+            this.BtnFamilia.Location = new System.Drawing.Point(21, 333);
             this.BtnFamilia.Name = "BtnFamilia";
-            this.BtnFamilia.Size = new System.Drawing.Size(120, 23);
+            this.BtnFamilia.Size = new System.Drawing.Size(138, 23);
             this.BtnFamilia.TabIndex = 5;
             this.BtnFamilia.Tag = "btnAgregarF";
             this.BtnFamilia.Text = "-";
@@ -100,9 +101,9 @@
             // 
             // BtnPatente
             // 
-            this.BtnPatente.Location = new System.Drawing.Point(147, 247);
+            this.BtnPatente.Location = new System.Drawing.Point(166, 333);
             this.BtnPatente.Name = "BtnPatente";
-            this.BtnPatente.Size = new System.Drawing.Size(120, 23);
+            this.BtnPatente.Size = new System.Drawing.Size(136, 23);
             this.BtnPatente.TabIndex = 6;
             this.BtnPatente.Tag = "btnAgregarP";
             this.BtnPatente.Text = "-";
@@ -111,7 +112,7 @@
             // 
             // BtnGuardar
             // 
-            this.BtnGuardar.Location = new System.Drawing.Point(629, 251);
+            this.BtnGuardar.Location = new System.Drawing.Point(645, 344);
             this.BtnGuardar.Name = "BtnGuardar";
             this.BtnGuardar.Size = new System.Drawing.Size(156, 23);
             this.BtnGuardar.TabIndex = 7;
@@ -122,7 +123,7 @@
             // 
             // BtnEliminarS
             // 
-            this.BtnEliminarS.Location = new System.Drawing.Point(629, 223);
+            this.BtnEliminarS.Location = new System.Drawing.Point(645, 316);
             this.BtnEliminarS.Name = "BtnEliminarS";
             this.BtnEliminarS.Size = new System.Drawing.Size(156, 23);
             this.BtnEliminarS.TabIndex = 8;
@@ -135,18 +136,19 @@
             // 
             this.tvPermisos.Location = new System.Drawing.Point(12, 12);
             this.tvPermisos.Name = "tvPermisos";
-            this.tvPermisos.Size = new System.Drawing.Size(303, 269);
+            this.tvPermisos.Size = new System.Drawing.Size(303, 357);
             this.tvPermisos.TabIndex = 9;
             // 
             // tvFamilia
             // 
-            this.tvFamilia.Location = new System.Drawing.Point(629, 13);
+            this.tvFamilia.Location = new System.Drawing.Point(645, 12);
             this.tvFamilia.Name = "tvFamilia";
-            this.tvFamilia.Size = new System.Drawing.Size(156, 204);
+            this.tvFamilia.Size = new System.Drawing.Size(156, 298);
             this.tvFamilia.TabIndex = 10;
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.BtnEliminarFamilia);
             this.groupBox1.Controls.Add(this.lbPatente);
             this.groupBox1.Controls.Add(this.lbFamilia);
             this.groupBox1.Controls.Add(this.label1);
@@ -156,15 +158,26 @@
             this.groupBox1.Controls.Add(this.BtnFamilia);
             this.groupBox1.Location = new System.Drawing.Point(321, 5);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(289, 276);
+            this.groupBox1.Size = new System.Drawing.Size(308, 362);
             this.groupBox1.TabIndex = 11;
             this.groupBox1.TabStop = false;
+            // 
+            // BtnEliminarFamilia
+            // 
+            this.BtnEliminarFamilia.Location = new System.Drawing.Point(227, 27);
+            this.BtnEliminarFamilia.Name = "BtnEliminarFamilia";
+            this.BtnEliminarFamilia.Size = new System.Drawing.Size(75, 23);
+            this.BtnEliminarFamilia.TabIndex = 12;
+            this.BtnEliminarFamilia.Tag = "btnEliminar";
+            this.BtnEliminarFamilia.Text = "-";
+            this.BtnEliminarFamilia.UseVisualStyleBackColor = true;
+            this.BtnEliminarFamilia.Click += new System.EventHandler(this.BtnEliminarFamilia_Click);
             // 
             // FrmComposite
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(813, 293);
+            this.ClientSize = new System.Drawing.Size(813, 381);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.tvFamilia);
             this.Controls.Add(this.tvPermisos);
@@ -196,5 +209,6 @@
         private System.Windows.Forms.TreeView tvPermisos;
         private System.Windows.Forms.TreeView tvFamilia;
         private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.Button BtnEliminarFamilia;
     }
 }

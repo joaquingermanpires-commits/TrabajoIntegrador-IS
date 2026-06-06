@@ -98,5 +98,17 @@ namespace BLL
             // Mandamos a la DAL
             permisoDal.GuardarNuevaFamilia(familiaNueva);
         }
+        public void EliminarFamilia(Familia familia)
+        {
+            if (familia == null) throw new Exception("Debe seleccionar una familia para eliminar.");
+
+            // REGLA DE NEGOCIO CRÍTICA
+            if (familia.Nombre.ToUpper() == "ADMINISTRADOR GENERAL")
+            {
+                throw new Exception("Acción denegada: No se puede eliminar la familia base del sistema.");
+            }
+
+            permisoDal.EliminarFamiliaSegura(familia.ID_Permiso);
+        }
     }
 }

@@ -30,7 +30,6 @@ namespace WindowsFormsApp4
         }
         private void BloquearModoEdicion()
         {
-            tvFamilia.Enabled = false;
             BtnPatente.Enabled = false;
             BtnFamilia.Enabled = false;
             BtnEliminarS.Enabled = false;
@@ -127,7 +126,7 @@ namespace WindowsFormsApp4
                 BitacoraBLL.GetInstance().RegistrarBitacora(usuarioActual, "INFO", "FrmComposite", $"Se creó la familia compuesta: {nuevaFamilia.Nombre}");
                 MessageBox.Show("Familia compuesta creada y guardada exitosamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                // Limpieza de UI
+                btnCrear.Enabled = true;
                 FamiliaTxt.Clear();
                 tvFamilia.Nodes.Clear();
                 BloquearModoEdicion();
@@ -188,6 +187,43 @@ namespace WindowsFormsApp4
             BtnFamilia.Enabled = true;
             BtnEliminarS.Enabled = true;
             BtnGuardar.Enabled = true;
+        }
+
+        private void BtnEliminarFamilia_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                // 1. Verificamos que haya un NODO seleccionado y que adentro de su Tag haya un objeto Familia
+                if (lbFamilia.SelectedItem is BE.Familia familiaSeleccionada)
+                {
+                    DialogResult respuesta = MessageBox.Show(
+                        $"¿Está seguro que desea eliminar la familia '{familiaSeleccionada.Nombre}'?\n\n" +
+                        "Nota: Para evitar pérdida de accesos, los permisos que integran esta familia serán reasignados de forma individual a los usuarios que actualmente la poseen.",
+                        "Eliminación Segura de Composite",
+                        MessageBoxButtons.YesNo,
+                        MessageBoxIcon.Warning);
+
+                    if (respuesta == DialogResult.Yes)
+                    {
+                        // Llamamos a la BLL
+                        BLL.PermisoBLL.GetInstance().EliminarFamilia(familiaSeleccionada);
+                        string usuarioActual = SERVICIOS.Singleton.GetInstance().GetUsuario();
+                        BLL.BitacoraBLL.GetInstance().RegistrarBitacora(usuarioActual, "WARNING", "FrmComposite", $"Se eliminó la familia {familiaSeleccionada.Nombre} con reasignación.");
+
+                        MessageBox.Show("Familia eliminada correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                        CargarArbolesBase();
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Por favor, seleccione una familia del árbol para eliminarla.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error al eliminar", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }

@@ -34,7 +34,7 @@ namespace BLL
             Usuario nuevoUsuario = new Usuario();
             nuevoUsuario.Nombre_Usuario = nombre;
             // Hashea la clave antes de guardarla para que nunca esté en texto plano
-            nuevoUsuario.Contraseña_Hash = Criptografia.HashearClave(nuevoUsuario.Contraseña_Hash);
+            nuevoUsuario.Contraseña_Hash = Criptografia.HashearClave(contraseñaLimpia);
             nuevoUsuario.DVH = GestorDV.CalcularDVHUsuario(nuevoUsuario);
 
             usuarioDal.Alta(nuevoUsuario);

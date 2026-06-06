@@ -215,5 +215,18 @@ namespace DAL
                 }
             }
         }
+        public void EliminarFamiliaSegura(int idFamilia)
+        {
+            using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["IS"].ConnectionString))
+            {
+                con.Open();
+                using (SqlCommand cmd = new SqlCommand("SP_EliminarFamiliaConReasignacion", con))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@IdFamilia", idFamilia);
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
     }
 }
