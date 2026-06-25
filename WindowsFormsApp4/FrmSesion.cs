@@ -34,6 +34,7 @@ namespace WindowsFormsApp4
                     this.Text = traducciones[claveTagFormulario];
                 }
             }
+            CargarComboIdiomas();
             TraducirControles(this.Controls, traducciones);
         }
         private void TraducirControles(Control.ControlCollection controles, Dictionary<string, string> traducciones)

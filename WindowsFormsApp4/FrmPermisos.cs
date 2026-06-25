@@ -184,7 +184,8 @@ namespace WindowsFormsApp4
                 string claveTagFormulario = this.Tag.ToString();
                 if (traducciones.ContainsKey(claveTagFormulario)) this.Text = traducciones[claveTagFormulario];
             }
-
+            CargarUsuarios();
+            CargarArbolBase();
             TraducirControles(this.Controls, traducciones);
         }
         private void TraducirControles(Control.ControlCollection controles, Dictionary<string, string> traducciones)

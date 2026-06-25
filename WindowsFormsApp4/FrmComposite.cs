@@ -100,6 +100,7 @@ namespace WindowsFormsApp4
                 tvFamilia.Nodes.Clear();
                 BloquearModoEdicion();
                 CargarArbolesBase();
+                IdiomaBLL.GetInstance().Notificar();
             }
             catch (Exception ex)
             {
@@ -173,6 +174,7 @@ namespace WindowsFormsApp4
                         BLL.BitacoraBLL.GetInstance().RegistrarBitacora(usuarioActual, "WARNING", "FrmComposite", $"Se eliminó la familia {familiaSeleccionada.Nombre} con reasignación.");
                         MessageBox.Show("Familia eliminada correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         CargarArbolesBase();
+                        IdiomaBLL.GetInstance().Notificar();
                     }
                 }
                 else

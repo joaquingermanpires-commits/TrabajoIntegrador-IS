@@ -66,7 +66,8 @@ namespace WindowsFormsApp4
                 ActualizaDGVU();
                 InputContraseña.Clear();
                 inputNombre.Clear();
-                BLL.IntegridadBLL.GetInstance().RecalcularTodosLosDigitos();
+                IntegridadBLL.GetInstance().RecalcularTodosLosDigitos();
+                IdiomaBLL.GetInstance().Notificar();
             }
             catch (Exception ex) 
             {
@@ -85,7 +86,8 @@ namespace WindowsFormsApp4
                 ActualizaDGVU();
                 InputContraseña.Clear();
                 inputNombre.Clear();
-                BLL.IntegridadBLL.GetInstance().RecalcularTodosLosDigitos();
+                IntegridadBLL.GetInstance().RecalcularTodosLosDigitos();
+                IdiomaBLL.GetInstance().Notificar();
             }
             catch (Exception ex) 
             {
@@ -113,7 +115,8 @@ namespace WindowsFormsApp4
                 ActualizaDGVU();
                 InputContraseña.Clear();
                 inputNombre.Clear();
-                BLL.IntegridadBLL.GetInstance().RecalcularTodosLosDigitos();
+                IntegridadBLL.GetInstance().RecalcularTodosLosDigitos();
+                IdiomaBLL.GetInstance().Notificar();
             }
             catch (Exception ex)
             {

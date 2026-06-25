@@ -41,7 +41,7 @@ namespace BLL
         {
             observadores.Remove(obs);
         }
-        private void Notificar()
+        public void Notificar()
         {
             foreach (var obs in observadores)
             {

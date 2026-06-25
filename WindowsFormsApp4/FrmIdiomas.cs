@@ -153,15 +153,17 @@ namespace WindowsFormsApp4
                     IdiomaBLL.GetInstance().AgregarIdiomaCopiaDefault(txtNuevoIdioma.Text.Trim());
                     CargarComboIdiomas();
                     txtNuevoIdioma.Clear();
+                    IdiomaBLL.GetInstance().Notificar();
                     BitacoraBLL.GetInstance().RegistrarBitacora(usuario, "INFO", "FrmIdioma", "Nuevo Idioma guardado exitosamente.");
                     MessageBox.Show("Idioma agregado con éxito.");
                     ActualizaDGVU();
+                    
                 }
             }
             catch (Exception ex)
             {
                 BitacoraBLL.GetInstance().RegistrarBitacora(usuario, "CRITICAL", "FrmIdioma", $"Error del sistema: {ex.Message}");
-                MessageBox.Show(ex.Message, "Error al agregar idioma", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show( "Error al agregar idioma");
             }
         }
         private void btnEliminarIdioma_Click(object sender, EventArgs e)
@@ -184,6 +186,7 @@ namespace WindowsFormsApp4
 
                         MessageBox.Show("Idioma eliminado correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         CargarComboIdiomas();
+                        IdiomaBLL.GetInstance().Notificar();
                     }
                 }
                 else

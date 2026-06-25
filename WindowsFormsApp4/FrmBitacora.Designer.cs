@@ -52,6 +52,7 @@
             this.dgvBitacora.MultiSelect = false;
             this.dgvBitacora.Name = "dgvBitacora";
             this.dgvBitacora.ReadOnly = true;
+            this.dgvBitacora.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
             this.dgvBitacora.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvBitacora.Size = new System.Drawing.Size(760, 210);
             this.dgvBitacora.TabIndex = 0;

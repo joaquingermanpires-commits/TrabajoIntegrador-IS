@@ -36,10 +36,13 @@
             // 
             // tvPermisos
             // 
+            this.tvPermisos.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.tvPermisos.CheckBoxes = true;
             this.tvPermisos.Location = new System.Drawing.Point(164, 12);
             this.tvPermisos.Name = "tvPermisos";
-            this.tvPermisos.Size = new System.Drawing.Size(305, 127);
+            this.tvPermisos.Size = new System.Drawing.Size(617, 331);
             this.tvPermisos.TabIndex = 0;
             this.tvPermisos.Tag = "tvPermisos";
             this.tvPermisos.AfterCheck += new System.Windows.Forms.TreeViewEventHandler(this.tvPermisos_AfterCheck);
@@ -60,7 +63,7 @@
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(10, 13);
             this.label1.TabIndex = 2;
-            this.label1.Tag = "lblPermisos";
+            this.label1.Tag = "lblUsuario";
             this.label1.Text = "-";
             // 
             // btnGuardarPermisos
@@ -78,7 +81,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(496, 160);
+            this.ClientSize = new System.Drawing.Size(808, 364);
             this.Controls.Add(this.btnGuardarPermisos);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.cmbUsuarios);

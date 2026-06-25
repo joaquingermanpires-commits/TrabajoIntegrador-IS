@@ -34,13 +34,10 @@
             this.txtEtiqueta = new System.Windows.Forms.TextBox();
             this.btnCambiarTraducciones = new System.Windows.Forms.Button();
             this.btnAgregarIdioma = new System.Windows.Forms.Button();
-            this.btnAgregarEtiqueta = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.txtTraduccion = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.btnModificarEtiqueta = new System.Windows.Forms.Button();
-            this.btnEliminarEtiqueta = new System.Windows.Forms.Button();
             this.btnEliminarIdioma = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTraducciones)).BeginInit();
             this.SuspendLayout();
@@ -60,6 +57,7 @@
             this.dgvTraducciones.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvTraducciones.Location = new System.Drawing.Point(17, 109);
             this.dgvTraducciones.Name = "dgvTraducciones";
+            this.dgvTraducciones.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
             this.dgvTraducciones.Size = new System.Drawing.Size(261, 150);
             this.dgvTraducciones.TabIndex = 1;
             this.dgvTraducciones.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvTraducciones_CellClick);
@@ -100,17 +98,6 @@
             this.btnAgregarIdioma.UseVisualStyleBackColor = true;
             this.btnAgregarIdioma.Click += new System.EventHandler(this.btnAgregarIdioma_Click);
             // 
-            // btnAgregarEtiqueta
-            // 
-            this.btnAgregarEtiqueta.Location = new System.Drawing.Point(18, 291);
-            this.btnAgregarEtiqueta.Name = "btnAgregarEtiqueta";
-            this.btnAgregarEtiqueta.Size = new System.Drawing.Size(75, 23);
-            this.btnAgregarEtiqueta.TabIndex = 6;
-            this.btnAgregarEtiqueta.Tag = "btnAgregar";
-            this.btnAgregarEtiqueta.Text = "-";
-            this.btnAgregarEtiqueta.UseVisualStyleBackColor = true;
-            this.btnAgregarEtiqueta.Click += new System.EventHandler(this.btnAgregarEtiqueta_Click);
-            // 
             // label1
             // 
             this.label1.AutoSize = true;
@@ -148,28 +135,6 @@
             this.label3.Tag = "lblTraduccion";
             this.label3.Text = "-";
             // 
-            // btnModificarEtiqueta
-            // 
-            this.btnModificarEtiqueta.Location = new System.Drawing.Point(199, 291);
-            this.btnModificarEtiqueta.Name = "btnModificarEtiqueta";
-            this.btnModificarEtiqueta.Size = new System.Drawing.Size(75, 23);
-            this.btnModificarEtiqueta.TabIndex = 11;
-            this.btnModificarEtiqueta.Tag = "btnModificar";
-            this.btnModificarEtiqueta.Text = "-";
-            this.btnModificarEtiqueta.UseVisualStyleBackColor = true;
-            this.btnModificarEtiqueta.Click += new System.EventHandler(this.btnModificarEtiqueta_Click);
-            // 
-            // btnEliminarEtiqueta
-            // 
-            this.btnEliminarEtiqueta.Location = new System.Drawing.Point(109, 291);
-            this.btnEliminarEtiqueta.Name = "btnEliminarEtiqueta";
-            this.btnEliminarEtiqueta.Size = new System.Drawing.Size(75, 23);
-            this.btnEliminarEtiqueta.TabIndex = 12;
-            this.btnEliminarEtiqueta.Tag = "btnEliminar";
-            this.btnEliminarEtiqueta.Text = "-";
-            this.btnEliminarEtiqueta.UseVisualStyleBackColor = true;
-            this.btnEliminarEtiqueta.Click += new System.EventHandler(this.btnEliminarEtiqueta_Click);
-            // 
             // btnEliminarIdioma
             // 
             this.btnEliminarIdioma.Location = new System.Drawing.Point(164, 42);
@@ -187,13 +152,10 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(291, 391);
             this.Controls.Add(this.btnEliminarIdioma);
-            this.Controls.Add(this.btnEliminarEtiqueta);
-            this.Controls.Add(this.btnModificarEtiqueta);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.txtTraduccion);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.btnAgregarEtiqueta);
             this.Controls.Add(this.btnAgregarIdioma);
             this.Controls.Add(this.btnCambiarTraducciones);
             this.Controls.Add(this.txtEtiqueta);
@@ -220,13 +182,10 @@
         private System.Windows.Forms.TextBox txtEtiqueta;
         private System.Windows.Forms.Button btnCambiarTraducciones;
         private System.Windows.Forms.Button btnAgregarIdioma;
-        private System.Windows.Forms.Button btnAgregarEtiqueta;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox txtTraduccion;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Button btnModificarEtiqueta;
-        private System.Windows.Forms.Button btnEliminarEtiqueta;
         private System.Windows.Forms.Button btnEliminarIdioma;
     }
 }
