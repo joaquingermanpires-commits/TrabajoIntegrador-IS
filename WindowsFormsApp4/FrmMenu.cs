@@ -77,6 +77,10 @@ namespace WindowsFormsApp4
         {
             AbrirFormulario<FrmComposite>();
         }
+        private void historialTraduccionesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            AbrirFormulario<FrmHistorial>();
+        }
         public void AbrirFormulario<T>() where T : Form, new()
         {
             //se busca que no se instancie 2 veces el mismo formulario
@@ -150,6 +154,5 @@ namespace WindowsFormsApp4
                 }
             }
         }
-
     }
 }

@@ -162,5 +162,74 @@ namespace DAL
                 }
             }
         }
+        // 1. Guardar traducción conectando con el SP
+        public void GuardarTraduccion(int idIdioma, int idEtiqueta, string textoNuevo, string usuarioActual)
+        {
+            string connectionString = ConfigurationManager.ConnectionStrings["IS"].ConnectionString;
+            using (SqlConnection con = new SqlConnection(connectionString))
+            {
+                using (SqlCommand cmd = new SqlCommand("SP_GuardarTraduccionConHistorial", con))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    cmd.Parameters.Add("@IdIdioma", SqlDbType.Int).Value = idIdioma;
+                    cmd.Parameters.Add("@IdEtiqueta", SqlDbType.Int).Value = idEtiqueta;
+                    cmd.Parameters.Add("@TextoNuevo", SqlDbType.NVarChar).Value = textoNuevo;
+                    cmd.Parameters.Add("@Usuario", SqlDbType.VarChar).Value = usuarioActual ?? "Admin";
+
+                    con.Open();
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
+
+        // 2. Obtener historial para el DGV
+        public DataTable ObtenerHistorialTraducciones()
+        {
+            DataTable dt = new DataTable();
+            string connectionString = ConfigurationManager.ConnectionStrings["IS"].ConnectionString;
+
+            using (SqlConnection con = new SqlConnection(connectionString))
+            {
+                using (SqlCommand cmd = new SqlCommand("SP_ObtenerHistorialTraducciones", con))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    SqlDataAdapter da = new SqlDataAdapter(cmd);
+                    da.Fill(dt);
+                }
+            }
+            return dt;
+        }
+
+        // 3. Método auxiliar para traducir Nombre a ID
+        public int ObtenerIdEtiqueta(string nombreControl)
+        {
+            using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["IS"].ConnectionString))
+            {
+                string sql = "SELECT ID_Etiqueta FROM Etiqueta WHERE Nombre_Control = @Nombre";
+                SqlCommand cmd = new SqlCommand(sql, con);
+                cmd.Parameters.AddWithValue("@Nombre", nombreControl);
+                con.Open();
+                return (int)cmd.ExecuteScalar();
+            }
+        }
+
+        // 4. Traer el valor actual de una traducción
+        public string ObtenerTextoTraduccion(int idIdioma, int idEtiqueta)
+        {
+            string connectionString = ConfigurationManager.ConnectionStrings["IS"].ConnectionString;
+            using (SqlConnection con = new SqlConnection(connectionString))
+            {
+                string sql = "SELECT Texto FROM Traduccion WHERE ID_Idioma = @IdIdioma AND ID_Etiqueta = @IdEtiqueta";
+                using (SqlCommand cmd = new SqlCommand(sql, con))
+                {
+                    cmd.Parameters.AddWithValue("@IdIdioma", idIdioma);
+                    cmd.Parameters.AddWithValue("@IdEtiqueta", idEtiqueta);
+                    con.Open();
+                    object resultado = cmd.ExecuteScalar();
+                    return resultado != null ? resultado.ToString() : string.Empty;
+                }
+            }
+        }
     }
 }

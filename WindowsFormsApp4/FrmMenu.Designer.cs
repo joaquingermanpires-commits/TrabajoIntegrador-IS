@@ -38,6 +38,7 @@
             this.backUpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.permisosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.compositeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.historialTraduccionesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -52,7 +53,8 @@
             this.bitacoraToolStripMenuItem,
             this.backUpToolStripMenuItem,
             this.permisosToolStripMenuItem,
-            this.compositeToolStripMenuItem});
+            this.compositeToolStripMenuItem,
+            this.historialTraduccionesToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(1144, 24);
@@ -123,6 +125,14 @@
             this.compositeToolStripMenuItem.Text = "Composite";
             this.compositeToolStripMenuItem.Click += new System.EventHandler(this.compositeToolStripMenuItem_Click);
             // 
+            // historialTraduccionesToolStripMenuItem
+            // 
+            this.historialTraduccionesToolStripMenuItem.Name = "historialTraduccionesToolStripMenuItem";
+            this.historialTraduccionesToolStripMenuItem.Size = new System.Drawing.Size(24, 20);
+            this.historialTraduccionesToolStripMenuItem.Tag = "historialTraducciones";
+            this.historialTraduccionesToolStripMenuItem.Text = "-";
+            this.historialTraduccionesToolStripMenuItem.Click += new System.EventHandler(this.historialTraduccionesToolStripMenuItem_Click);
+            // 
             // contextMenuStrip1
             // 
             this.contextMenuStrip1.Name = "contextMenuStrip1";
@@ -160,5 +170,6 @@
         private System.Windows.Forms.ToolStripMenuItem backUpToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem permisosToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem compositeToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem historialTraduccionesToolStripMenuItem;
     }
 }

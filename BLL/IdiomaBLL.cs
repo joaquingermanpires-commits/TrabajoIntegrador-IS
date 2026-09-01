@@ -116,7 +116,7 @@ namespace BLL
             }
             idiomaDal.EliminarEtiqueta(nombreControl);
         }
-        public void GuardarTraduccionIndividual(int idIdioma, string nombreControl, string texto)
+        public void GuardarTraduccionIndividual(int idIdioma, string nombreControl, string textoNuevo)
         {
             if (idIdioma <= 0)
             {
@@ -126,11 +126,37 @@ namespace BLL
             {
                 throw new Exception("Debe seleccionar una etiqueta de la grilla para asignarle una traducción.");
             }
-            if (string.IsNullOrWhiteSpace(texto))
+            if (string.IsNullOrWhiteSpace(textoNuevo))
             {
                 throw new Exception("El texto de la traducción no puede estar vacío.");
             }
-            idiomaDal.GuardarTraduccion(idIdioma, nombreControl, texto);
+            DAL.IdiomaDal dal = new DAL.IdiomaDal();
+            int idEtiqueta = dal.ObtenerIdEtiqueta(nombreControl);
+
+            string usuarioActual = SERVICIOS.Singleton.GetInstance().GetUsuario();
+            dal.GuardarTraduccion(idIdioma, idEtiqueta, textoNuevo, usuarioActual);
+        }
+        // 1. Guarda la traducción realizando la conversión de string a int
+
+        // 2. Trae el historial para la UI
+        public DataTable ObtenerHistorial()
+        {
+            DAL.IdiomaDal dal = new DAL.IdiomaDal();
+            return dal.ObtenerHistorialTraducciones();
+        }
+
+        // 3. Trae un texto específico
+        public string ObtenerTraduccionActual(int idIdioma, int idEtiqueta)
+        {
+            DAL.IdiomaDal dal = new DAL.IdiomaDal();
+            return dal.ObtenerTextoTraduccion(idIdioma, idEtiqueta);
+        }
+        public void RestablecerTraduccion(int idIdioma, int idEtiqueta, string textoRestaurado)
+        {
+            // Reutilizamos la DAL que ya tiene la lógica del Stored Procedure con Transacción
+            string usuarioActual = SERVICIOS.Singleton.GetInstance().GetUsuario();
+            DAL.IdiomaDal dal = new DAL.IdiomaDal();
+            dal.GuardarTraduccion(idIdioma, idEtiqueta, textoRestaurado, usuarioActual);
         }
     }
 }

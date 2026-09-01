@@ -64,6 +64,12 @@
     <Compile Include="FrmComposite.Designer.cs">
       <DependentUpon>FrmComposite.cs</DependentUpon>
     </Compile>
+    <Compile Include="FrmHistorial.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmHistorial.Designer.cs">
+      <DependentUpon>FrmHistorial.cs</DependentUpon>
+    </Compile>
     <Compile Include="FrmIdiomas.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -116,6 +122,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FrmComposite.resx">
       <DependentUpon>FrmComposite.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmHistorial.resx">
+      <DependentUpon>FrmHistorial.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FrmIdiomas.resx">
       <DependentUpon>FrmIdiomas.cs</DependentUpon>
