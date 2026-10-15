@@ -50,11 +50,17 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Bitacora.cs" />
+    <Compile Include="Evento.cs" />
     <Compile Include="Familia.cs" />
     <Compile Include="Idioma.cs" />
+    <Compile Include="Mesa.cs" />
     <Compile Include="Patente.cs" />
+    <Compile Include="PreferenciaDietetica.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Reserva.cs" />
+    <Compile Include="Restaurante.cs" />
     <Compile Include="Traduccion.cs" />
+    <Compile Include="Transaccion.cs" />
     <Compile Include="Usuario.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
