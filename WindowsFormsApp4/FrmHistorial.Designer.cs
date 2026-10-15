@@ -114,6 +114,7 @@
             this.Controls.Add(this.txtValorActual);
             this.Controls.Add(this.txtValorViejo);
             this.Controls.Add(this.dgvHistorial);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "FrmHistorial";
             this.Tag = "historialTraducciones";
             this.Text = "-";
