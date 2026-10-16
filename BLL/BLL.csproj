@@ -45,18 +45,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BackupBLL.cs" />
-    <Compile Include="BitacoraBLL.cs" />
-    <Compile Include="EventoBLL.cs" />
-    <Compile Include="IdiomaBLL.cs" />
-    <Compile Include="IntegridadBLL.cs" />
-    <Compile Include="MesaBLL.cs" />
-    <Compile Include="PermisoBLL.cs" />
+    <Compile Include="Tecnico\BackupBLL.cs" />
+    <Compile Include="Tecnico\BitacoraBLL.cs" />
+    <Compile Include="Negocio\EventoBLL.cs" />
+    <Compile Include="Tecnico\IdiomaBLL.cs" />
+    <Compile Include="Tecnico\IntegridadBLL.cs" />
+    <Compile Include="Negocio\MesaBLL.cs" />
+    <Compile Include="Tecnico\PermisoBLL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ReservaBLL.cs" />
-    <Compile Include="RestauranteBLL.cs" />
-    <Compile Include="TransaccionBLL.cs" />
-    <Compile Include="UsuarioBLL.cs" />
+    <Compile Include="Negocio\ReservaBLL.cs" />
+    <Compile Include="Negocio\RestauranteBLL.cs" />
+    <Compile Include="Negocio\TransaccionBLL.cs" />
+    <Compile Include="Tecnico\UsuarioBLL.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>

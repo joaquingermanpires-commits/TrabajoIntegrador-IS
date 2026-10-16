@@ -49,19 +49,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Bitacora.cs" />
-    <Compile Include="Evento.cs" />
-    <Compile Include="Familia.cs" />
-    <Compile Include="Idioma.cs" />
-    <Compile Include="Mesa.cs" />
-    <Compile Include="Patente.cs" />
-    <Compile Include="PreferenciaDietetica.cs" />
+    <Compile Include="Tecnico\Bitacora.cs" />
+    <Compile Include="Negocio\Evento.cs" />
+    <Compile Include="Tecnico\Familia.cs" />
+    <Compile Include="Tecnico\Idioma.cs" />
+    <Compile Include="Negocio\Mesa.cs" />
+    <Compile Include="Tecnico\Patente.cs" />
+    <Compile Include="Negocio\PreferenciaDietetica.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Reserva.cs" />
-    <Compile Include="Restaurante.cs" />
-    <Compile Include="Traduccion.cs" />
-    <Compile Include="Transaccion.cs" />
-    <Compile Include="Usuario.cs" />
+    <Compile Include="Negocio\Reserva.cs" />
+    <Compile Include="Negocio\Restaurante.cs" />
+    <Compile Include="Tecnico\Traduccion.cs" />
+    <Compile Include="Negocio\Transaccion.cs" />
+    <Compile Include="Tecnico\Usuario.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>

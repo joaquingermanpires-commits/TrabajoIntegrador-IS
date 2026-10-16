@@ -53,17 +53,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BackupDal.cs" />
-    <Compile Include="BitacoraDal.cs" />
-    <Compile Include="EventoDal.cs" />
-    <Compile Include="IdiomaDal.cs" />
-    <Compile Include="MesaDal.cs" />
-    <Compile Include="PermisoDal.cs" />
+    <Compile Include="Tecnico\BackupDal.cs" />
+    <Compile Include="Tecnico\BitacoraDal.cs" />
+    <Compile Include="Negocio\EventoDal.cs" />
+    <Compile Include="Tecnico\IdiomaDal.cs" />
+    <Compile Include="Negocio\MesaDal.cs" />
+    <Compile Include="Tecnico\PermisoDal.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ReservaDal.cs" />
-    <Compile Include="RestauranteDal.cs" />
-    <Compile Include="TransaccionDal.cs" />
-    <Compile Include="UsuarioDal.cs" />
+    <Compile Include="Negocio\ReservaDal.cs" />
+    <Compile Include="Negocio\RestauranteDal.cs" />
+    <Compile Include="Negocio\TransaccionDal.cs" />
+    <Compile Include="Tecnico\UsuarioDal.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -97,5 +97,6 @@
       <Name>BE</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
