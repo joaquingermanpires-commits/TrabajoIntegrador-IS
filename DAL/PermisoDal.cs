@@ -14,7 +14,8 @@ namespace DAL
         public List<Patente> ObtenerTodasLasPatentes()
         {
             List<Patente> lista = new List<Patente>();
-            using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["IS"].ConnectionString))
+            string connectionString = ConfigurationManager.ConnectionStrings["IS"].ConnectionString;
+            using (SqlConnection con = new SqlConnection(connectionString))
             {
                 SqlCommand cmd = new SqlCommand("SP_ObtenerTodasLasPatentes", con);
                 cmd.CommandType = CommandType.StoredProcedure;
@@ -34,7 +35,8 @@ namespace DAL
         public List<Familia> ObtenerFamilias()
         {
             List<Familia> lista = new List<Familia>();
-            using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["IS"].ConnectionString))
+            string connectionString = ConfigurationManager.ConnectionStrings["IS"].ConnectionString;
+            using (SqlConnection con = new SqlConnection(connectionString))
             {
                 SqlCommand cmd = new SqlCommand("SP_ObtenerFamilias", con);
                 cmd.CommandType = CommandType.StoredProcedure;
@@ -53,7 +55,8 @@ namespace DAL
         }
         public void LlenarFamiliaRecursivo(Familia familiaPadre)
         {
-            using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["IS"].ConnectionString))
+            string connectionString = ConfigurationManager.ConnectionStrings["IS"].ConnectionString;
+            using (SqlConnection con = new SqlConnection(connectionString))
             {
                 SqlCommand cmd = new SqlCommand("SP_ObtenerHijosPermiso", con);
                 cmd.CommandType = CommandType.StoredProcedure;
@@ -92,7 +95,8 @@ namespace DAL
         public List<Permiso> ObtenerPermisosDeUsuario(long idUsuario)
         {
             List<Permiso> permisosDelUsuario = new List<Permiso>();
-            using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["IS"].ConnectionString))
+            string connectionString = ConfigurationManager.ConnectionStrings["IS"].ConnectionString;
+            using (SqlConnection con = new SqlConnection(connectionString))
             {
                 SqlCommand cmd = new SqlCommand("SP_ObtenerPermisosDeUsuario", con);
                 cmd.CommandType = CommandType.StoredProcedure;
@@ -129,7 +133,8 @@ namespace DAL
         }
         public void GuardarPermisosUsuario(Usuario usuario)
         {
-            using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["IS"].ConnectionString))
+            string connectionString = ConfigurationManager.ConnectionStrings["IS"].ConnectionString;
+            using (SqlConnection con = new SqlConnection(connectionString))
             {
                 con.Open();
                 SqlTransaction tx = con.BeginTransaction();
@@ -168,7 +173,8 @@ namespace DAL
         //Crear Familia
         public void GuardarNuevaFamilia(Familia familiaNueva)
         {
-            using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["IS"].ConnectionString))
+            string connectionString = ConfigurationManager.ConnectionStrings["IS"].ConnectionString;
+            using (SqlConnection con = new SqlConnection(connectionString))
             {
                 con.Open();
                 SqlTransaction tx = con.BeginTransaction();
@@ -203,7 +209,8 @@ namespace DAL
         //Eliminar familia
         public void EliminarFamiliaSegura(int idFamilia)
         {
-            using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["IS"].ConnectionString))
+            string connectionString = ConfigurationManager.ConnectionStrings["IS"].ConnectionString;
+            using (SqlConnection con = new SqlConnection(connectionString))
             {
                 con.Open();
                 using (SqlCommand cmd = new SqlCommand("SP_EliminarFamiliaConReasignacion", con))

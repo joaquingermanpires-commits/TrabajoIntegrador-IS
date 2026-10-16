@@ -55,9 +55,14 @@
   <ItemGroup>
     <Compile Include="BackupDal.cs" />
     <Compile Include="BitacoraDal.cs" />
+    <Compile Include="EventoDal.cs" />
     <Compile Include="IdiomaDal.cs" />
+    <Compile Include="MesaDal.cs" />
     <Compile Include="PermisoDal.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ReservaDal.cs" />
+    <Compile Include="RestauranteDal.cs" />
+    <Compile Include="TransaccionDal.cs" />
     <Compile Include="UsuarioDal.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

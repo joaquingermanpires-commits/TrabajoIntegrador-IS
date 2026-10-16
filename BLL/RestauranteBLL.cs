@@ -29,7 +29,6 @@ namespace BLL
             return dalRestaurante.ObtenerRestaurantePorId_SP(idRestaurante);
         }
 
-        // Responsabilidad de Hacer: Validaciones fuertes de negocio
         private void ValidarReglasConfiguracion(Restaurante r)
         {
             if (r.TiempoMaximoPermitido <= r.TiempoMinimoPermitido)

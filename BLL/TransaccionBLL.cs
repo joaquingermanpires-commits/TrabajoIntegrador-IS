@@ -10,7 +10,7 @@ namespace BLL
 {
     public class TransaccionBLL
     {
-        private TransaccionDaL dalTransaccion = new TransaccionDal();
+        private TransaccionDal dalTransaccion = new TransaccionDal();
 
         public Transaccion ProcesarPreAutorizacion(int idReserva, int cantidadComensales, string tokenPago)
         {

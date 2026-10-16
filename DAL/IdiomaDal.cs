@@ -58,7 +58,8 @@ namespace DAL
         public DataTable ObtenerDiccionarioCompleto(int idIdioma)
         {
             DataTable dt = new DataTable();
-            using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["IS"].ConnectionString))
+            string connectionString = ConfigurationManager.ConnectionStrings["IS"].ConnectionString;
+            using (SqlConnection con = new SqlConnection(connectionString))
             {
                 using (SqlCommand cmd = new SqlCommand("SP_ObtenerDiccionarioCompleto", con))
                 {
@@ -105,7 +106,6 @@ namespace DAL
         public void AgregarEtiqueta(string nombreControl)
         {
             string connectionString = ConfigurationManager.ConnectionStrings["IS"].ConnectionString;
-
             using (SqlConnection con = new SqlConnection(connectionString))
             {
                 using (SqlCommand cmd = new SqlCommand("SP_AgregarEtiqueta", con))
@@ -119,7 +119,8 @@ namespace DAL
         }
         public void ModificarEtiqueta(string nombreViejo, string nombreNuevo)
         {
-            using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["IS"].ConnectionString))
+            string connectionString = ConfigurationManager.ConnectionStrings["IS"].ConnectionString;
+            using (SqlConnection con = new SqlConnection(connectionString))
             {
                 using (SqlCommand cmd = new SqlCommand("SP_ModificarEtiqueta", con))
                 {
@@ -134,7 +135,6 @@ namespace DAL
         public void EliminarEtiqueta(string nombreControl)
         {
             string connectionString = ConfigurationManager.ConnectionStrings["IS"].ConnectionString;
-
             using (SqlConnection con = new SqlConnection(connectionString))
             {
                 using (SqlCommand cmd = new SqlCommand("SP_EliminarEtiqueta", con))
@@ -149,7 +149,8 @@ namespace DAL
         //Gestión de Traducciones (Write)
         public void GuardarTraduccion(int idIdioma, string nombreControl, string texto)
         {
-            using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["IS"].ConnectionString))
+            string connectionString = ConfigurationManager.ConnectionStrings["IS"].ConnectionString;
+            using (SqlConnection con = new SqlConnection(connectionString))
             {
                 using (SqlCommand cmd = new SqlCommand("SP_ActualizarTraduccion", con))
                 {
@@ -188,7 +189,6 @@ namespace DAL
         {
             DataTable dt = new DataTable();
             string connectionString = ConfigurationManager.ConnectionStrings["IS"].ConnectionString;
-
             using (SqlConnection con = new SqlConnection(connectionString))
             {
                 using (SqlCommand cmd = new SqlCommand("SP_ObtenerHistorialTraducciones", con))
@@ -204,7 +204,8 @@ namespace DAL
         // 3. Método auxiliar para traducir Nombre a ID
         public int ObtenerIdEtiqueta(string nombreControl)
         {
-            using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["IS"].ConnectionString))
+            string connectionString = ConfigurationManager.ConnectionStrings["IS"].ConnectionString;
+            using (SqlConnection con = new SqlConnection(connectionString))
             {
                 string sql = "SELECT ID_Etiqueta FROM Etiqueta WHERE Nombre_Control = @Nombre";
                 SqlCommand cmd = new SqlCommand(sql, con);

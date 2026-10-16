@@ -57,7 +57,6 @@ namespace DAL
         {
             List<Bitacora> lista = new List<Bitacora>();
             string connectionString = ConfigurationManager.ConnectionStrings["IS"].ConnectionString;
-
             using (SqlConnection con = new SqlConnection(connectionString))
             {
                 using (SqlCommand cmd = new SqlCommand("SP_ConsultarBitacoraFiltros", con))

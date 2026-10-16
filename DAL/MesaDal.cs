@@ -1,0 +1,99 @@
+﻿using BE;
+using System;
+using System.Collections.Generic;
+using System.Configuration;
+using System.Data;
+using System.Data.SqlClient;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace DAL
+{
+    public class MesaDal
+    {
+
+        public bool InsertarMesa_SP(Mesa mesa)
+        {
+            string connectionString = ConfigurationManager.ConnectionStrings["IS"].ConnectionString;
+            using (SqlConnection con = new SqlConnection(connectionString))
+            {
+                using (SqlCommand cmd = new SqlCommand("InsertarMesa_SP", con))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@ID_Restaurante", mesa.ID_Restaurante);
+                    cmd.Parameters.AddWithValue("@Capacidad", mesa.CapacidadPersonas);
+                    cmd.Parameters.AddWithValue("@Codigo", mesa.CodigoUbicacion);
+                    cmd.Parameters.AddWithValue("@Habilitada", mesa.Habilitada);
+
+                    con.Open();
+                    return cmd.ExecuteNonQuery() > 0;
+                }
+            }
+        }
+
+        public bool ActualizarMesa_SP(Mesa mesa)
+        {
+            string connectionString = ConfigurationManager.ConnectionStrings["IS"].ConnectionString;
+            using (SqlConnection con = new SqlConnection(connectionString))
+            {
+                using (SqlCommand cmd = new SqlCommand("ActualizarMesa_SP", con))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@ID_Mesa", mesa.ID_Mesa);
+                    cmd.Parameters.AddWithValue("@Capacidad", mesa.CapacidadPersonas);
+                    cmd.Parameters.AddWithValue("@Codigo", mesa.CodigoUbicacion);
+                    cmd.Parameters.AddWithValue("@Habilitada", mesa.Habilitada);
+
+                    con.Open();
+                    return cmd.ExecuteNonQuery() > 0;
+                }
+            }
+        }
+
+        public bool EliminarMesa_SP(int idMesa)
+        {
+            string connectionString = ConfigurationManager.ConnectionStrings["IS"].ConnectionString;
+            using (SqlConnection con = new SqlConnection(connectionString))
+            {
+                using (SqlCommand cmd = new SqlCommand("EliminarMesa_SP", con))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@ID_Mesa", idMesa);
+                    con.Open();
+                    return cmd.ExecuteNonQuery() > 0;
+                }
+            }
+        }
+
+        public List<Mesa> ObtenerMesasPorRestaurante_SP(int idRestaurante)
+        {
+            string connectionString = ConfigurationManager.ConnectionStrings["IS"].ConnectionString;
+            List<Mesa> lista = new List<Mesa>();
+            using (SqlConnection con = new SqlConnection(connectionString))
+            {
+                using (SqlCommand cmd = new SqlCommand("ObtenerMesas_SP", con))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@ID_Restaurante", idRestaurante);
+                    con.Open();
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            lista.Add(new Mesa
+                            {
+                                ID_Mesa = Convert.ToInt32(reader["ID_Mesa"]),
+                                ID_Restaurante = Convert.ToInt32(reader["ID_Restaurante"]),
+                                CapacidadPersonas = Convert.ToInt32(reader["CapacidadPersonas"]),
+                                CodigoUbicacion = reader["CodigoUbicacion"].ToString(),
+                                Habilitada = Convert.ToBoolean(reader["Habilitada"])
+                            });
+                        }
+                    }
+                }
+            }
+            return lista;
+        }
+    }
+}

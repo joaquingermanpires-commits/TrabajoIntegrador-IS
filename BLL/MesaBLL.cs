@@ -20,7 +20,6 @@ namespace BLL
             if (string.IsNullOrWhiteSpace(mesa.CodigoUbicacion))
                 throw new Exception("El código de ubicación es obligatorio.");
 
-            // La validación de Código duplicado se delega a una restricción UNIQUE en la base de datos (DAL)
             return dalMesa.InsertarMesa_SP(mesa);
         }
 
@@ -35,7 +34,6 @@ namespace BLL
         public bool BajaMesa(int idMesa)
         {
             // Regla: No se puede borrar si tiene reservas futuras asignadas. 
-            // Esto lo verificaremos con un SP en la DAL que evalúe las dependencias.
             return dalMesa.EliminarMesa_SP(idMesa);
         }
 
