@@ -25,7 +25,8 @@ namespace DAL
                     cmd.Parameters.AddWithValue("@Capacidad", mesa.CapacidadPersonas);
                     cmd.Parameters.AddWithValue("@Codigo", mesa.CodigoUbicacion);
                     cmd.Parameters.AddWithValue("@Habilitada", mesa.Habilitada);
-
+                    cmd.Parameters.AddWithValue("@PosicionX", mesa.PosicionX);
+                    cmd.Parameters.AddWithValue("@PosicionY", mesa.PosicionY);
                     con.Open();
                     return cmd.ExecuteNonQuery() > 0;
                 }
@@ -44,7 +45,8 @@ namespace DAL
                     cmd.Parameters.AddWithValue("@Capacidad", mesa.CapacidadPersonas);
                     cmd.Parameters.AddWithValue("@Codigo", mesa.CodigoUbicacion);
                     cmd.Parameters.AddWithValue("@Habilitada", mesa.Habilitada);
-
+                    cmd.Parameters.AddWithValue("@PosicionX", mesa.PosicionX);
+                    cmd.Parameters.AddWithValue("@PosicionY", mesa.PosicionY);
                     con.Open();
                     return cmd.ExecuteNonQuery() > 0;
                 }
@@ -87,7 +89,9 @@ namespace DAL
                                 ID_Restaurante = Convert.ToInt32(reader["ID_Restaurante"]),
                                 CapacidadPersonas = Convert.ToInt32(reader["CapacidadPersonas"]),
                                 CodigoUbicacion = reader["CodigoUbicacion"].ToString(),
-                                Habilitada = Convert.ToBoolean(reader["Habilitada"])
+                                Habilitada = Convert.ToBoolean(reader["Habilitada"]),
+                                PosicionX = Convert.ToInt32(reader["PosicionX"]),
+                                PosicionY = Convert.ToInt32(reader["PosicionY"])
                             });
                         }
                     }

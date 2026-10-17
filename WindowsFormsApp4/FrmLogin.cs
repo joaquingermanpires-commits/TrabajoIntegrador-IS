@@ -11,6 +11,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Krypton.Toolkit;
 
 namespace WindowsFormsApp4
 {
@@ -20,6 +21,8 @@ namespace WindowsFormsApp4
         public FrmLogin()
         {
             InitializeComponent();
+            this.BackColor = ColorTranslator.FromHtml("#F3F6FA");
+            this.Font = new Font("Segoe UI", 10);
             usuarioBLL = UsuarioBLL.GetInstance();
             IdiomaBLL.GetInstance().Suscribir(this);
             CargarComboIdiomas();
@@ -114,6 +117,11 @@ namespace WindowsFormsApp4
         {
             IdiomaBLL.GetInstance().Desuscribir(this);
             Application.Exit();
+        }
+
+        private void kryptonCustomPaletteBase1_PalettePaint(object sender, PaletteLayoutEventArgs e)
+        {
+
         }
     }
 }

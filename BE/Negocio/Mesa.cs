@@ -13,7 +13,8 @@ namespace BE
         public int CapacidadPersonas { get; set; }
         public string CodigoUbicacion { get; set; }
         public bool Habilitada { get; set; }
-
+        public int PosicionX { get; set; }
+        public int PosicionY { get; set; }
         public void OcuparMesa()
         {
             this.Habilitada = false;
