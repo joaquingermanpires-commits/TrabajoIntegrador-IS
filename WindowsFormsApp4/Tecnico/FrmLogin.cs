@@ -119,9 +119,5 @@ namespace WindowsFormsApp4
             Application.Exit();
         }
 
-        private void kryptonCustomPaletteBase1_PalettePaint(object sender, PaletteLayoutEventArgs e)
-        {
-
-        }
     }
 }

@@ -8,20 +8,39 @@ namespace BE
 {
     public class Mesa
     {
+        public delegate void MesaModificadaEventHandler(Mesa mesa);
+        public event MesaModificadaEventHandler OnMesaModificada;
         public int ID_Mesa { get; set; }
         public int ID_Restaurante { get; set; }
         public int CapacidadPersonas { get; set; }
-        public string CodigoUbicacion { get; set; }
-        public bool Habilitada { get; set; }
         public int PosicionX { get; set; }
         public int PosicionY { get; set; }
-        public void OcuparMesa()
+
+        private string _codigoUbicacion;
+        public string CodigoUbicacion
         {
-            this.Habilitada = false;
+            get { return _codigoUbicacion; }
+            set
+            {
+                _codigoUbicacion = value;
+                NotificarObservadores(); 
+            }
         }
-        public void LiberarMesa()
+
+        private bool _habilitada;
+        public bool Habilitada
         {
-            this.Habilitada = true;
+            get { return _habilitada; }
+            set
+            {
+                _habilitada = value;
+                NotificarObservadores(); 
+            }
+        }
+
+        private void NotificarObservadores()
+        {
+            OnMesaModificada?.Invoke(this);
         }
     }
 }

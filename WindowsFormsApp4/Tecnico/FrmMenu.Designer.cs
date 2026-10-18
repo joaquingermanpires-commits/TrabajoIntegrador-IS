@@ -28,8 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
-            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.gestiónDeUsuariosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cerrarSesiónToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.informacionDeLaSesionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -39,29 +37,9 @@
             this.permisosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.compositeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.historialTraduccionesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.kryptonCustomPaletteBase1 = new Krypton.Toolkit.KryptonCustomPaletteBase(this.components);
+            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // menuStrip1
-            // 
-            this.menuStrip1.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.gestiónDeUsuariosToolStripMenuItem,
-            this.cerrarSesiónToolStripMenuItem,
-            this.informacionDeLaSesionToolStripMenuItem,
-            this.idiomasToolStripMenuItem,
-            this.bitacoraToolStripMenuItem,
-            this.backUpToolStripMenuItem,
-            this.permisosToolStripMenuItem,
-            this.compositeToolStripMenuItem,
-            this.historialTraduccionesToolStripMenuItem});
-            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
-            this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1144, 24);
-            this.menuStrip1.TabIndex = 1;
-            this.menuStrip1.Text = "menuStrip1";
             // 
             // gestiónDeUsuariosToolStripMenuItem
             // 
@@ -135,10 +113,24 @@
             this.historialTraduccionesToolStripMenuItem.Text = "-";
             this.historialTraduccionesToolStripMenuItem.Click += new System.EventHandler(this.historialTraduccionesToolStripMenuItem_Click);
             // 
-            // contextMenuStrip1
+            // menuStrip1
             // 
-            this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(61, 4);
+            this.menuStrip1.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.gestiónDeUsuariosToolStripMenuItem,
+            this.cerrarSesiónToolStripMenuItem,
+            this.informacionDeLaSesionToolStripMenuItem,
+            this.idiomasToolStripMenuItem,
+            this.bitacoraToolStripMenuItem,
+            this.backUpToolStripMenuItem,
+            this.permisosToolStripMenuItem,
+            this.compositeToolStripMenuItem,
+            this.historialTraduccionesToolStripMenuItem});
+            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.Size = new System.Drawing.Size(1144, 24);
+            this.menuStrip1.TabIndex = 1;
+            this.menuStrip1.Text = "menuStrip1";
             // 
             // FrmMenu
             // 
@@ -164,9 +156,7 @@
 
         #endregion
 
-        private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem gestiónDeUsuariosToolStripMenuItem;
-        private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
         private System.Windows.Forms.ToolStripMenuItem cerrarSesiónToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem informacionDeLaSesionToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem idiomasToolStripMenuItem;
@@ -175,6 +165,6 @@
         private System.Windows.Forms.ToolStripMenuItem permisosToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem compositeToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem historialTraduccionesToolStripMenuItem;
-        private Krypton.Toolkit.KryptonCustomPaletteBase kryptonCustomPaletteBase1;
+        private System.Windows.Forms.MenuStrip menuStrip1;
     }
 }

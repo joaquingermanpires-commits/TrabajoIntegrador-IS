@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             this.txtUsuario = new System.Windows.Forms.TextBox();
             this.txtContraseña = new System.Windows.Forms.TextBox();
             this.btnIngresar = new System.Windows.Forms.Button();
@@ -36,8 +35,6 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.cmbIdiomas = new System.Windows.Forms.ComboBox();
-            this.kryptonManager1 = new Krypton.Toolkit.KryptonManager(this.components);
-            this.kryptonCustomPaletteBase1 = new Krypton.Toolkit.KryptonCustomPaletteBase(this.components);
             this.SuspendLayout();
             // 
             // txtUsuario
@@ -106,16 +103,6 @@
             this.cmbIdiomas.TabIndex = 7;
             this.cmbIdiomas.SelectedIndexChanged += new System.EventHandler(this.cmbIdiomas_SelectedIndexChanged);
             // 
-            // kryptonManager1
-            // 
-            this.kryptonManager1.GlobalPaletteMode = Krypton.Toolkit.PaletteMode.Office2010Blue;
-            // 
-            // kryptonCustomPaletteBase1
-            // 
-            this.kryptonCustomPaletteBase1.BaseRenderMode = Krypton.Toolkit.RendererMode.Office2010;
-            this.kryptonCustomPaletteBase1.UseThemeFormChromeBorderWidth = Krypton.Toolkit.InheritBool.True;
-            this.kryptonCustomPaletteBase1.PalettePaint += new System.EventHandler<Krypton.Toolkit.PaletteLayoutEventArgs>(this.kryptonCustomPaletteBase1_PalettePaint);
-            // 
             // FrmLogin
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -145,8 +132,6 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.ComboBox cmbIdiomas;
-        private Krypton.Toolkit.KryptonManager kryptonManager1;
-        private Krypton.Toolkit.KryptonCustomPaletteBase kryptonCustomPaletteBase1;
     }
 }
 

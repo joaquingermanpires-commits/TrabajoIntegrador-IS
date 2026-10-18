@@ -12,6 +12,8 @@
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -33,15 +35,41 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Krypton.Toolkit, Version=105.26.7.201, Culture=neutral, PublicKeyToken=a87e673e9ecb6e8e, processorArchitecture=MSIL">
-      <HintPath>..\packages\Krypton.Toolkit.105.26.7.201\lib\net472\Krypton.Toolkit.dll</HintPath>
+    <Reference Include="Krypton.Toolkit, Version=105.26.4.110, Culture=neutral, PublicKeyToken=a87e673e9ecb6e8e, processorArchitecture=MSIL">
+      <HintPath>..\packages\Krypton.Toolkit.105.26.4.110\lib\net472\Krypton.Toolkit.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Bcl.HashCode, Version=1.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Bcl.HashCode.1.1.1\lib\net461\Microsoft.Bcl.HashCode.dll</HintPath>
+    <Reference Include="Microsoft.Bcl.HashCode, Version=6.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Bcl.HashCode.6.0.0\lib\net462\Microsoft.Bcl.HashCode.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Buffers, Version=4.0.5.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Buffers.4.6.1\lib\net462\System.Buffers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Collections.Immutable, Version=10.0.0.13, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Collections.Immutable.10.0.13\lib\net462\System.Collections.Immutable.dll</HintPath>
+    </Reference>
     <Reference Include="System.Core" />
     <Reference Include="System.Design" />
+    <Reference Include="System.Formats.Nrbf, Version=10.0.0.13, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Formats.Nrbf.10.0.13\lib\net462\System.Formats.Nrbf.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Memory, Version=4.0.5.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Memory.4.6.3\lib\net462\System.Memory.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Numerics.Vectors, Version=4.1.6.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Numerics.Vectors.4.6.1\lib\net462\System.Numerics.Vectors.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Reflection.Metadata, Version=10.0.0.13, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Reflection.Metadata.10.0.13\lib\net462\System.Reflection.Metadata.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Resources.Extensions, Version=4.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Resources.Extensions.4.6.0\lib\netstandard2.0\System.Resources.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=6.0.3.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.6.1.2\lib\net462\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ValueTuple" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -54,106 +82,124 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Factories\MesaGraficaFactory.cs" />
-    <Compile Include="FrmBackup.cs">
+    <Compile Include="Negocio\FrmGestionMesas.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FrmBackup.Designer.cs">
+    <Compile Include="Negocio\FrmGestionMesas.Designer.cs">
+      <DependentUpon>FrmGestionMesas.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Tecnico\FrmBackup.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Tecnico\FrmBackup.Designer.cs">
       <DependentUpon>FrmBackup.cs</DependentUpon>
     </Compile>
-    <Compile Include="FrmBitacora.cs">
+    <Compile Include="Tecnico\FrmBitacora.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FrmBitacora.Designer.cs">
+    <Compile Include="Tecnico\FrmBitacora.Designer.cs">
       <DependentUpon>FrmBitacora.cs</DependentUpon>
     </Compile>
-    <Compile Include="FrmComposite.cs">
+    <Compile Include="Tecnico\FrmComposite.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FrmComposite.Designer.cs">
+    <Compile Include="Tecnico\FrmComposite.Designer.cs">
       <DependentUpon>FrmComposite.cs</DependentUpon>
     </Compile>
-    <Compile Include="FrmHistorial.cs">
+    <Compile Include="Tecnico\FrmHistorial.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FrmHistorial.Designer.cs">
+    <Compile Include="Tecnico\FrmHistorial.Designer.cs">
       <DependentUpon>FrmHistorial.cs</DependentUpon>
     </Compile>
-    <Compile Include="FrmIdiomas.cs">
+    <Compile Include="Tecnico\FrmIdiomas.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FrmIdiomas.Designer.cs">
+    <Compile Include="Tecnico\FrmIdiomas.Designer.cs">
       <DependentUpon>FrmIdiomas.cs</DependentUpon>
     </Compile>
-    <Compile Include="FrmPermisos.cs">
+    <Compile Include="Tecnico\FrmPermisos.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FrmPermisos.Designer.cs">
+    <Compile Include="Tecnico\FrmPermisos.Designer.cs">
       <DependentUpon>FrmPermisos.cs</DependentUpon>
     </Compile>
-    <Compile Include="FrmSesion.cs">
+    <Compile Include="Tecnico\FrmSesion.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FrmSesion.Designer.cs">
+    <Compile Include="Tecnico\FrmSesion.Designer.cs">
       <DependentUpon>FrmSesion.cs</DependentUpon>
     </Compile>
-    <Compile Include="Frmlogout.cs">
+    <Compile Include="Tecnico\Frmlogout.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Frmlogout.Designer.cs">
+    <Compile Include="Tecnico\Frmlogout.Designer.cs">
       <DependentUpon>Frmlogout.cs</DependentUpon>
     </Compile>
-    <Compile Include="FrmGestion.cs">
+    <Compile Include="Tecnico\FrmGestion.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FrmGestion.Designer.cs">
+    <Compile Include="Tecnico\FrmGestion.Designer.cs">
       <DependentUpon>FrmGestion.cs</DependentUpon>
     </Compile>
-    <Compile Include="FrmMenu.cs">
+    <Compile Include="Tecnico\FrmMenu.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FrmMenu.Designer.cs">
+    <Compile Include="Tecnico\FrmMenu.Designer.cs">
       <DependentUpon>FrmMenu.cs</DependentUpon>
     </Compile>
-    <Compile Include="FrmLogin.cs">
+    <Compile Include="Tecnico\FrmLogin.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FrmLogin.Designer.cs">
+    <Compile Include="Tecnico\FrmLogin.Designer.cs">
       <DependentUpon>FrmLogin.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Negocio\FrmNuevaReserva.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Negocio\FrmNuevaReserva.Designer.cs">
+      <DependentUpon>FrmNuevaReserva.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="FrmBackup.resx">
+    <EmbeddedResource Include="Negocio\FrmGestionMesas.resx">
+      <DependentUpon>FrmGestionMesas.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Tecnico\FrmBackup.resx">
       <DependentUpon>FrmBackup.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FrmBitacora.resx">
+    <EmbeddedResource Include="Tecnico\FrmBitacora.resx">
       <DependentUpon>FrmBitacora.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FrmComposite.resx">
+    <EmbeddedResource Include="Tecnico\FrmComposite.resx">
       <DependentUpon>FrmComposite.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FrmHistorial.resx">
+    <EmbeddedResource Include="Tecnico\FrmHistorial.resx">
       <DependentUpon>FrmHistorial.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FrmIdiomas.resx">
+    <EmbeddedResource Include="Tecnico\FrmIdiomas.resx">
       <DependentUpon>FrmIdiomas.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FrmLogin.resx">
+    <EmbeddedResource Include="Tecnico\FrmLogin.resx">
       <DependentUpon>FrmLogin.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Frmlogout.resx">
+    <EmbeddedResource Include="Tecnico\Frmlogout.resx">
       <DependentUpon>Frmlogout.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FrmGestion.resx">
+    <EmbeddedResource Include="Tecnico\FrmGestion.resx">
       <DependentUpon>FrmGestion.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FrmMenu.resx">
+    <EmbeddedResource Include="Tecnico\FrmMenu.resx">
       <DependentUpon>FrmMenu.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FrmPermisos.resx">
+    <EmbeddedResource Include="Tecnico\FrmPermisos.resx">
       <DependentUpon>FrmPermisos.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FrmSesion.resx">
+    <EmbeddedResource Include="Tecnico\FrmSesion.resx">
       <DependentUpon>FrmSesion.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Negocio\FrmNuevaReserva.resx">
+      <DependentUpon>FrmNuevaReserva.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -203,5 +249,13 @@
   <ItemGroup>
     <None Include="Resources\MesaLibre.png" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="..\packages\System.ValueTuple.4.6.2\build\net471\System.ValueTuple.targets" Condition="Exists('..\packages\System.ValueTuple.4.6.2\build\net471\System.ValueTuple.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>Este proyecto hace referencia a los paquetes NuGet que faltan en este equipo. Use la restauración de paquetes NuGet para descargarlos. Para obtener más información, consulte http://go.microsoft.com/fwlink/?LinkID=322105. El archivo que falta es {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\System.ValueTuple.4.6.2\build\net471\System.ValueTuple.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\System.ValueTuple.4.6.2\build\net471\System.ValueTuple.targets'))" />
+  </Target>
 </Project>

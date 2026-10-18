@@ -1,9 +1,10 @@
-﻿using BLL;
+﻿ using BLL;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using WindowsFormsApp4.Negocio;
 
 namespace WindowsFormsApp4
 {
@@ -28,8 +29,9 @@ namespace WindowsFormsApp4
             }
             else
             {
-                //No hay error
-                Application.Run(new FrmLogin());
+                ////No hay error
+                //Application.Run(new FrmLogin());
+                Application.Run(new FrmNuevaReserva());
             }
         }
     }
