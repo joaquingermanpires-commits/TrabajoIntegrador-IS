@@ -82,6 +82,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Factories\MesaGraficaFactory.cs" />
+    <Compile Include="Negocio\FrmConfiguracionLocal.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Negocio\FrmConfiguracionLocal.Designer.cs">
+      <DependentUpon>FrmConfiguracionLocal.cs</DependentUpon>
+    </Compile>
     <Compile Include="Negocio\FrmGestionMesas.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -162,6 +168,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Negocio\FrmConfiguracionLocal.resx">
+      <DependentUpon>FrmConfiguracionLocal.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Negocio\FrmGestionMesas.resx">
       <DependentUpon>FrmGestionMesas.cs</DependentUpon>
     </EmbeddedResource>

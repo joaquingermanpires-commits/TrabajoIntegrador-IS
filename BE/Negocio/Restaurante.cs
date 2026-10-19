@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BE.Negocio;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -20,12 +21,13 @@ namespace BE
         public List<Mesa> Mesas { get; set; }
         public List<Evento> Eventos { get; set; }
         public List<PreferenciaDietetica> Preferencias { get; set; }
-
+        public List<HorarioAtencion> HorariosAtencion { get; set; }
         public Restaurante()
         {
             Mesas = new List<Mesa>();
             Eventos = new List<Evento>();
             Preferencias = new List<PreferenciaDietetica>();
+            HorariosAtencion = new List<HorarioAtencion>();
         }
     }
 }

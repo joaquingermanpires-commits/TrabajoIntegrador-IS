@@ -99,21 +99,19 @@ namespace DAL
             }
             return lista;
         }
-        public List<Mesa> ObtenerMesasDisponibles(int idRestaurante, DateTime fecha, TimeSpan hora, int comensales, int minutosEstadia)
+        public List<Mesa> ObtenerMesasDisponibles(int idRestaurante, DateTime fechaHoraSolicitada, int comensales, int minutosEstadia)
         {
-            string connectionString = ConfigurationManager.ConnectionStrings["IS"].ConnectionString;
             List<Mesa> lista = new List<Mesa>();
+            string connectionString = ConfigurationManager.ConnectionStrings["IS"].ConnectionString;
             using (SqlConnection con = new SqlConnection(connectionString))
             {
+                // Este es el Stored Procedure que haremos juntos más adelante
                 using (SqlCommand cmd = new SqlCommand("ObtenerMesasDisponibles_SP", con))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.AddWithValue("@ID_Restaurante", idRestaurante);
-                    cmd.Parameters.AddWithValue("@Fecha", fecha.Date);
-                    cmd.Parameters.AddWithValue("@Hora", hora);
+                    cmd.Parameters.AddWithValue("@FechaHoraSolicitada", fechaHoraSolicitada);
                     cmd.Parameters.AddWithValue("@CantidadComensales", comensales);
-
-                    // NUEVO: Enviamos el tiempo que el comensal quiere quedarse
                     cmd.Parameters.AddWithValue("@MinutosEstadia", minutosEstadia);
 
                     con.Open();
@@ -127,7 +125,10 @@ namespace DAL
                                 ID_Restaurante = Convert.ToInt32(reader["ID_Restaurante"]),
                                 CapacidadPersonas = Convert.ToInt32(reader["CapacidadPersonas"]),
                                 CodigoUbicacion = reader["CodigoUbicacion"].ToString(),
+
+                                // Este booleano vendrá pre-calculado desde el SP de SQL
                                 Habilitada = Convert.ToBoolean(reader["Habilitada"]),
+
                                 PosicionX = Convert.ToInt32(reader["PosicionX"]),
                                 PosicionY = Convert.ToInt32(reader["PosicionY"])
                             });

@@ -12,7 +12,6 @@ namespace DAL
 {
     public class RestauranteDal
     {
-
         public bool InsertarRestaurante_SP(Restaurante restaurante)
         {
             string connectionString = ConfigurationManager.ConnectionStrings["IS"].ConnectionString;
@@ -33,7 +32,6 @@ namespace DAL
                 }
             }
         }
-
         public bool ActualizarConfiguracion_SP(Restaurante restaurante)
         {
             string connectionString = ConfigurationManager.ConnectionStrings["IS"].ConnectionString;
@@ -52,7 +50,6 @@ namespace DAL
                 }
             }
         }
-
         public Restaurante ObtenerRestaurantePorId_SP(int idRestaurante)
         {
             Restaurante r = null;
@@ -83,6 +80,24 @@ namespace DAL
                 }
             }
             return r;
+        }
+        public bool ActualizarReglasRestaurante(Restaurante restaurante)
+        {
+            string connectionString = ConfigurationManager.ConnectionStrings["IS"].ConnectionString;
+            using (SqlConnection con = new SqlConnection(connectionString))
+            {
+                using (SqlCommand cmd = new SqlCommand("ActualizarReglasRestaurante_SP", con))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@ID_Restaurante", restaurante.ID_Restaurante);
+                    cmd.Parameters.AddWithValue("@TiempoMinimoPermitido", restaurante.TiempoMinimoPermitido);
+                    cmd.Parameters.AddWithValue("@TiempoMaximoPermitido", restaurante.TiempoMaximoPermitido);
+                    cmd.Parameters.AddWithValue("@PorcentajeMaximoOcupacion", restaurante.PorcentajeMaximoOcupacion);
+
+                    con.Open();
+                    return cmd.ExecuteNonQuery() > 0;
+                }
+            }
         }
     }
 }

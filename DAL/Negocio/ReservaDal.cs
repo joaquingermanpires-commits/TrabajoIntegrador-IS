@@ -12,8 +12,6 @@ namespace DAL
 {
     public class ReservaDal
     {
-
-
         public int InsertarReserva_SP(Reserva r)
         {
             string connectionString = ConfigurationManager.ConnectionStrings["IS"].ConnectionString;
@@ -41,7 +39,6 @@ namespace DAL
                 }
             }
         }
-
         public bool ActualizarEstado_SP(Reserva r)
         {
             string connectionString = ConfigurationManager.ConnectionStrings["IS"].ConnectionString;
@@ -60,7 +57,6 @@ namespace DAL
                 }
             }
         }
-
         public Reserva ObtenerReservaPorId_SP(int idReserva)
         {
             Reserva r = null;
@@ -83,7 +79,6 @@ namespace DAL
             }
             return r;
         }
-
         public List<Reserva> ObtenerReservasExpiradas_SP()
         {
             List<Reserva> lista = new List<Reserva>();
@@ -105,7 +100,6 @@ namespace DAL
             }
             return lista;
         }
-
         public bool VerificarCupo_SP(int idRestaurante, DateTime fecha, int comensales)
         {
             string connectionString = ConfigurationManager.ConnectionStrings["IS"].ConnectionString;
@@ -130,7 +124,6 @@ namespace DAL
                 }
             }
         }
-
         public Transaccion ObtenerTransaccionAsociada_SP(int idReserva)
         {
             TransaccionDal transaccionDal = new TransaccionDal();
@@ -162,7 +155,6 @@ namespace DAL
             }
             return t;
         }
-
         private Reserva MapearLector(SqlDataReader reader)
         {
             return new Reserva
@@ -176,6 +168,29 @@ namespace DAL
                 Estado = reader["Estado"].ToString(),
                 FechaHoraCheckIn = reader["FechaHoraCheckIn"] != DBNull.Value ? (DateTime?)Convert.ToDateTime(reader["FechaHoraCheckIn"]) : null
             };
+        }
+        public DateTime ObtenerFechaUltimaReservaPorDia(int idRestaurante, int diaSemana)
+        {
+            DateTime ultimaFecha = DateTime.Today;
+            string connectionString = ConfigurationManager.ConnectionStrings["IS"].ConnectionString;
+            using (SqlConnection con = new SqlConnection(connectionString))
+            {
+                using (SqlCommand cmd = new SqlCommand("ObtenerUltimaReservaPorDia_SP", con))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@ID_Restaurante", idRestaurante);
+                    cmd.Parameters.AddWithValue("@DiaSemana", diaSemana);
+
+                    con.Open();
+                    object result = cmd.ExecuteScalar();
+
+                    if (result != null && result != DBNull.Value)
+                    {
+                        ultimaFecha = Convert.ToDateTime(result).AddDays(1);
+                    }
+                }
+            }
+            return ultimaFecha;
         }
     }
 }

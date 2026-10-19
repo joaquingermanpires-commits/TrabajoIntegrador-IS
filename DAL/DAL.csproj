@@ -85,6 +85,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Negocio\HorarioAtencionDal.cs" />
     <Compile Include="Tecnico\BackupDal.cs" />
     <Compile Include="Tecnico\BitacoraDal.cs" />
     <Compile Include="Negocio\EventoDal.cs" />

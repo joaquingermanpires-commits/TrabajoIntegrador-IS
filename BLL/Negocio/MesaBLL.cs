@@ -41,13 +41,17 @@ namespace BLL
         {
             return dalMesa.ObtenerMesasPorRestaurante_SP(idRestaurante);
         }
-        public List<Mesa> ObtenerMesasDisponibles(int idRestaurante, DateTime fecha, TimeSpan hora, int comensales, int minutosEstadia)
+        public List<Mesa> ObtenerMesasDisponibles(int idRestaurante, DateTime fechaHoraSolicitada, int comensales, int minutosEstadia)
         {
-            if (fecha.Date < DateTime.Today)
-                throw new Exception("No se pueden buscar mesas en fechas pasadas.");
+            // Validaciones de negocio
+            if (fechaHoraSolicitada < DateTime.Now)
+                throw new Exception("No se pueden buscar mesas en horarios pasados.");
+
+            if (comensales <= 0)
+                throw new Exception("La cantidad de comensales debe ser mayor a cero.");
 
             MesaDal dalMesa = new MesaDal();
-            return dalMesa.ObtenerMesasDisponibles(idRestaurante, fecha, hora, comensales, minutosEstadia);
+            return dalMesa.ObtenerMesasDisponibles(idRestaurante, fechaHoraSolicitada, comensales, minutosEstadia);
         }
     }
 }

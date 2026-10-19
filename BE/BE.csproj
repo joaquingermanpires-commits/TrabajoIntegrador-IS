@@ -49,6 +49,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Negocio\HorarioAtencion.cs" />
     <Compile Include="Tecnico\Bitacora.cs" />
     <Compile Include="Negocio\Evento.cs" />
     <Compile Include="Tecnico\Familia.cs" />

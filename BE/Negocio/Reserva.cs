@@ -14,6 +14,7 @@ namespace BE
         public int? ID_Mesa { get; set; }
         public DateTime FechaHoraSolicitada { get; set; }
         public int CantidadComensales { get; set; }
+        public int DuracionMinutos { get; set; }
         public string Estado { get; set; } // Pendiente, Confirmada, Cancelada, CheckIn, NoShow
         public DateTime? FechaHoraCheckIn { get; set; }
         public Transaccion SeguroFinanciero { get; set; }

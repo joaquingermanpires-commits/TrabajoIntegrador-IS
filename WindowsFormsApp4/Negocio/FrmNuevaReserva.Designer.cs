@@ -33,6 +33,7 @@
             this.kryptonTextBox1 = new Krypton.Toolkit.KryptonTextBox();
             this.panelReserva = new Krypton.Toolkit.KryptonPanel();
             this.kryptonLabel1 = new Krypton.Toolkit.KryptonLabel();
+            this.btnBuscarMesas = new Krypton.Toolkit.KryptonButton();
             this.numTiempoEstadia = new Krypton.Toolkit.KryptonNumericUpDown();
             this.numComensales = new Krypton.Toolkit.KryptonNumericUpDown();
             this.btnConfirmarReserva = new Krypton.Toolkit.KryptonButton();
@@ -71,7 +72,7 @@
             0,
             0});
             this.kryptonNumericUpDown1.Name = "kryptonNumericUpDown1";
-            this.kryptonNumericUpDown1.Size = new System.Drawing.Size(120, 19);
+            this.kryptonNumericUpDown1.Size = new System.Drawing.Size(120, 22);
             this.kryptonNumericUpDown1.TabIndex = 0;
             this.kryptonNumericUpDown1.Value = new decimal(new int[] {
             0,
@@ -83,13 +84,14 @@
             // 
             this.kryptonTextBox1.Location = new System.Drawing.Point(23, 170);
             this.kryptonTextBox1.Name = "kryptonTextBox1";
-            this.kryptonTextBox1.Size = new System.Drawing.Size(100, 20);
+            this.kryptonTextBox1.Size = new System.Drawing.Size(100, 23);
             this.kryptonTextBox1.TabIndex = 6;
             this.kryptonTextBox1.Text = "kryptonTextBox1";
             // 
             // panelReserva
             // 
             this.panelReserva.Controls.Add(this.kryptonLabel1);
+            this.panelReserva.Controls.Add(this.btnBuscarMesas);
             this.panelReserva.Controls.Add(this.numTiempoEstadia);
             this.panelReserva.Controls.Add(this.numComensales);
             this.panelReserva.Controls.Add(this.btnConfirmarReserva);
@@ -110,6 +112,16 @@
             this.kryptonLabel1.Size = new System.Drawing.Size(90, 25);
             this.kryptonLabel1.TabIndex = 7;
             this.kryptonLabel1.Values.Text = "Tiempo";
+            // 
+            // btnBuscarMesas
+            // 
+            this.btnBuscarMesas.Location = new System.Drawing.Point(793, 13);
+            this.btnBuscarMesas.Name = "btnBuscarMesas";
+            this.btnBuscarMesas.Size = new System.Drawing.Size(90, 25);
+            this.btnBuscarMesas.TabIndex = 0;
+            this.btnBuscarMesas.Values.DropDownArrowColor = System.Drawing.Color.Empty;
+            this.btnBuscarMesas.Values.Text = "btnBuscarMesas";
+            this.btnBuscarMesas.Click += new System.EventHandler(this.btnBuscarMesas_Click);
             // 
             // numTiempoEstadia
             // 
@@ -172,7 +184,7 @@
             this.btnConfirmarReserva.Size = new System.Drawing.Size(90, 25);
             this.btnConfirmarReserva.TabIndex = 4;
             this.btnConfirmarReserva.Values.DropDownArrowColor = System.Drawing.Color.Empty;
-            this.btnConfirmarReserva.Values.Text = "kryptonButton1";
+            this.btnConfirmarReserva.Values.Text = "btnConfirmarReserva";
             this.btnConfirmarReserva.Click += new System.EventHandler(this.btnConfirmarReserva_Click);
             // 
             // txtTokenTarjeta
@@ -181,7 +193,7 @@
             this.txtTokenTarjeta.Name = "txtTokenTarjeta";
             this.txtTokenTarjeta.Size = new System.Drawing.Size(100, 23);
             this.txtTokenTarjeta.TabIndex = 3;
-            this.txtTokenTarjeta.Text = "kryptonTextBox2";
+            this.txtTokenTarjeta.Text = "txtTokenTarjeta";
             // 
             // dtpHoraReserva
             // 
@@ -194,7 +206,7 @@
             // 
             // dtpFechaReserva
             // 
-            this.dtpFechaReserva.Location = new System.Drawing.Point(4, 58);
+            this.dtpFechaReserva.Location = new System.Drawing.Point(4, 50);
             this.dtpFechaReserva.Name = "dtpFechaReserva";
             this.dtpFechaReserva.Size = new System.Drawing.Size(134, 21);
             this.dtpFechaReserva.TabIndex = 1;
@@ -203,9 +215,9 @@
             // 
             this.lblMesaElegida.Location = new System.Drawing.Point(4, 18);
             this.lblMesaElegida.Name = "lblMesaElegida";
-            this.lblMesaElegida.Size = new System.Drawing.Size(90, 25);
+            this.lblMesaElegida.Size = new System.Drawing.Size(92, 25);
             this.lblMesaElegida.TabIndex = 0;
-            this.lblMesaElegida.Values.Text = "kryptonLabel1";
+            this.lblMesaElegida.Values.Text = "lblMesaElegida";
             // 
             // FrmNuevaReserva
             // 
@@ -239,5 +251,6 @@
         private Krypton.Toolkit.KryptonNumericUpDown numComensales;
         private Krypton.Toolkit.KryptonLabel kryptonLabel1;
         private Krypton.Toolkit.KryptonNumericUpDown numTiempoEstadia;
+        private Krypton.Toolkit.KryptonButton btnBuscarMesas;
     }
 }

@@ -45,6 +45,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Negocio\HorarioAtencionBLL.cs" />
     <Compile Include="Tecnico\BackupBLL.cs" />
     <Compile Include="Tecnico\BitacoraBLL.cs" />
     <Compile Include="Negocio\EventoBLL.cs" />
