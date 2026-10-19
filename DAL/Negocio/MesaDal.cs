@@ -99,5 +99,43 @@ namespace DAL
             }
             return lista;
         }
+        public List<Mesa> ObtenerMesasDisponibles(int idRestaurante, DateTime fecha, TimeSpan hora, int comensales, int minutosEstadia)
+        {
+            string connectionString = ConfigurationManager.ConnectionStrings["IS"].ConnectionString;
+            List<Mesa> lista = new List<Mesa>();
+            using (SqlConnection con = new SqlConnection(connectionString))
+            {
+                using (SqlCommand cmd = new SqlCommand("ObtenerMesasDisponibles_SP", con))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@ID_Restaurante", idRestaurante);
+                    cmd.Parameters.AddWithValue("@Fecha", fecha.Date);
+                    cmd.Parameters.AddWithValue("@Hora", hora);
+                    cmd.Parameters.AddWithValue("@CantidadComensales", comensales);
+
+                    // NUEVO: Enviamos el tiempo que el comensal quiere quedarse
+                    cmd.Parameters.AddWithValue("@MinutosEstadia", minutosEstadia);
+
+                    con.Open();
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            lista.Add(new Mesa
+                            {
+                                ID_Mesa = Convert.ToInt32(reader["ID_Mesa"]),
+                                ID_Restaurante = Convert.ToInt32(reader["ID_Restaurante"]),
+                                CapacidadPersonas = Convert.ToInt32(reader["CapacidadPersonas"]),
+                                CodigoUbicacion = reader["CodigoUbicacion"].ToString(),
+                                Habilitada = Convert.ToBoolean(reader["Habilitada"]),
+                                PosicionX = Convert.ToInt32(reader["PosicionX"]),
+                                PosicionY = Convert.ToInt32(reader["PosicionY"])
+                            });
+                        }
+                    }
+                }
+            }
+            return lista;
+        }
     }
 }

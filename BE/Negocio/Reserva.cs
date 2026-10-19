@@ -12,14 +12,11 @@ namespace BE
         public long ID_Usuario { get; set; } // El Comensal
         public int ID_Restaurante { get; set; }
         public int? ID_Mesa { get; set; }
-
         public DateTime FechaHoraSolicitada { get; set; }
         public int CantidadComensales { get; set; }
         public string Estado { get; set; } // Pendiente, Confirmada, Cancelada, CheckIn, NoShow
         public DateTime? FechaHoraCheckIn { get; set; }
-
         public Transaccion SeguroFinanciero { get; set; }
-
         public Reserva()
         {
             this.Estado = "Pendiente";

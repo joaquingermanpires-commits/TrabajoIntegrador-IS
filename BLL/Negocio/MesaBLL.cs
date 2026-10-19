@@ -41,5 +41,13 @@ namespace BLL
         {
             return dalMesa.ObtenerMesasPorRestaurante_SP(idRestaurante);
         }
+        public List<Mesa> ObtenerMesasDisponibles(int idRestaurante, DateTime fecha, TimeSpan hora, int comensales, int minutosEstadia)
+        {
+            if (fecha.Date < DateTime.Today)
+                throw new Exception("No se pueden buscar mesas en fechas pasadas.");
+
+            MesaDal dalMesa = new MesaDal();
+            return dalMesa.ObtenerMesasDisponibles(idRestaurante, fecha, hora, comensales, minutosEstadia);
+        }
     }
 }
