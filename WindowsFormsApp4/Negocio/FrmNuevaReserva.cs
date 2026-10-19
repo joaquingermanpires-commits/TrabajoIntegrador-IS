@@ -81,7 +81,7 @@ namespace WindowsFormsApp4.Negocio
 
             // ATENCIÓN: Esta línea va a tirar un error de compilación temporal porque todavía 
             // no creamos este método exacto en tu BLL. Lo haremos en el próximo paso.
-            List<Mesa> mesasDisponibles = bllMesa.ObtenerMesasDisponibles(idRestauranteActual, fechaHoraSolicitada, comensales, minutosEstadia);
+            IList<Mesa> mesasDisponibles = bllMesa.ObtenerMesasDisponibles(idRestauranteActual, fechaHoraSolicitada, comensales, minutosEstadia);
 
             foreach (Mesa mesaBE in mesasDisponibles)
             {

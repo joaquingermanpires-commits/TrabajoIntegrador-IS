@@ -1,39 +1,41 @@
 ﻿using BE;
 using System;
 using DAL;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BLL
 {
     public class RestauranteBLL
     {
         private RestauranteDal dalRestaurante = new RestauranteDal();
+
         public bool RegistrarRestaurante(Restaurante restaurante)
         {
             ValidarReglasConfiguracion(restaurante);
             return dalRestaurante.InsertarRestaurante_SP(restaurante);
         }
+
         public bool ActualizarConfiguracion(Restaurante restaurante)
         {
             ValidarReglasConfiguracion(restaurante);
             return dalRestaurante.ActualizarConfiguracion_SP(restaurante);
         }
+
         public Restaurante ObtenerPerfilRestaurante(int idRestaurante)
         {
             return dalRestaurante.ObtenerRestaurantePorId_SP(idRestaurante);
         }
+
         public void ActualizarReglasGlobales(Restaurante restaurante)
         {
             ValidarReglasConfiguracion(restaurante);
-            RestauranteDal dal = new RestauranteDal();
-            if (!dal.ActualizarReglasRestaurante(restaurante))
+
+            // CAMBIO: Se eliminó el 'new RestauranteDal()' redundante. Usamos el de la clase.
+            if (!dalRestaurante.ActualizarReglasRestaurante(restaurante))
             {
                 throw new Exception("No se pudieron actualizar las reglas en la base de datos.");
             }
         }
+
         private void ValidarReglasConfiguracion(Restaurante r)
         {
             if (r.TiempoMinimoPermitido < 15)

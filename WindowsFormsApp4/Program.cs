@@ -31,7 +31,7 @@ namespace WindowsFormsApp4
             {
                 ////No hay error
                 //Application.Run(new FrmLogin());
-                Application.Run(new FrmConfiguracionLocal());
+                Application.Run(new FrmNuevaReserva());
             }
         }
     }

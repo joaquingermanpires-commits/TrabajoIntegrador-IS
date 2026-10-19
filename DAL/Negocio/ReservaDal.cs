@@ -4,17 +4,14 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DAL
 {
     public class ReservaDal
     {
+        private readonly string connectionString = ConfigurationManager.ConnectionStrings["IS"].ConnectionString;
         public int InsertarReserva_SP(Reserva r)
         {
-            string connectionString = ConfigurationManager.ConnectionStrings["IS"].ConnectionString;
             using (SqlConnection con = new SqlConnection(connectionString))
             {
                 using (SqlCommand cmd = new SqlCommand("InsertarReserva_SP", con))
@@ -24,9 +21,8 @@ namespace DAL
                     cmd.Parameters.AddWithValue("@ID_Restaurante", r.ID_Restaurante);
                     cmd.Parameters.AddWithValue("@FechaHoraSolicitada", r.FechaHoraSolicitada);
                     cmd.Parameters.AddWithValue("@CantidadComensales", r.CantidadComensales);
-                    cmd.Parameters.AddWithValue("@Estado", r.Estado);
+                    cmd.Parameters.AddWithValue("@Estado", r.Estado.ToString());
 
-                    // Parámetro de salida para recuperar el ID generado
                     SqlParameter outputId = new SqlParameter("@NuevoID", SqlDbType.Int)
                     {
                         Direction = ParameterDirection.Output
@@ -41,17 +37,15 @@ namespace DAL
         }
         public bool ActualizarEstado_SP(Reserva r)
         {
-            string connectionString = ConfigurationManager.ConnectionStrings["IS"].ConnectionString;
             using (SqlConnection con = new SqlConnection(connectionString))
             {
                 using (SqlCommand cmd = new SqlCommand("ActualizarEstadoReserva_SP", con))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.AddWithValue("@ID_Reserva", r.ID_Reserva);
-                    cmd.Parameters.AddWithValue("@Estado", r.Estado);
+                    cmd.Parameters.AddWithValue("@Estado", r.Estado.ToString());
                     cmd.Parameters.AddWithValue("@ID_Mesa", (object)r.ID_Mesa ?? DBNull.Value);
                     cmd.Parameters.AddWithValue("@FechaHoraCheckIn", (object)r.FechaHoraCheckIn ?? DBNull.Value);
-
                     con.Open();
                     return cmd.ExecuteNonQuery() > 0;
                 }
@@ -60,7 +54,6 @@ namespace DAL
         public Reserva ObtenerReservaPorId_SP(int idReserva)
         {
             Reserva r = null;
-            string connectionString = ConfigurationManager.ConnectionStrings["IS"].ConnectionString;
             using (SqlConnection con = new SqlConnection(connectionString))
             {
                 using (SqlCommand cmd = new SqlCommand("ObtenerReserva_SP", con))
@@ -79,10 +72,9 @@ namespace DAL
             }
             return r;
         }
-        public List<Reserva> ObtenerReservasExpiradas_SP()
+        public IList<Reserva> ObtenerReservasExpiradas_SP()
         {
-            List<Reserva> lista = new List<Reserva>();
-            string connectionString = ConfigurationManager.ConnectionStrings["IS"].ConnectionString;
+            IList<Reserva> lista = new List<Reserva>();
             using (SqlConnection con = new SqlConnection(connectionString))
             {
                 using (SqlCommand cmd = new SqlCommand("ObtenerReservasExpiradas_SP", con))
@@ -100,9 +92,9 @@ namespace DAL
             }
             return lista;
         }
+
         public bool VerificarCupo_SP(int idRestaurante, DateTime fecha, int comensales)
         {
-            string connectionString = ConfigurationManager.ConnectionStrings["IS"].ConnectionString;
             using (SqlConnection con = new SqlConnection(connectionString))
             {
                 using (SqlCommand cmd = new SqlCommand("VerificarCupo_SP", con))
@@ -111,13 +103,11 @@ namespace DAL
                     cmd.Parameters.AddWithValue("@ID_Restaurante", idRestaurante);
                     cmd.Parameters.AddWithValue("@FechaHora", fecha);
                     cmd.Parameters.AddWithValue("@CantidadComensales", comensales);
-
                     SqlParameter outputCupo = new SqlParameter("@HayCupo", SqlDbType.Bit)
                     {
                         Direction = ParameterDirection.Output
                     };
                     cmd.Parameters.Add(outputCupo);
-
                     con.Open();
                     cmd.ExecuteNonQuery();
                     return Convert.ToBoolean(outputCupo.Value);
@@ -126,9 +116,7 @@ namespace DAL
         }
         public Transaccion ObtenerTransaccionAsociada_SP(int idReserva)
         {
-            TransaccionDal transaccionDal = new TransaccionDal();
             Transaccion t = null;
-            string connectionString = ConfigurationManager.ConnectionStrings["IS"].ConnectionString;
             using (SqlConnection con = new SqlConnection(connectionString))
             {
                 using (SqlCommand cmd = new SqlCommand("ObtenerTransaccionPorReserva_SP", con))
@@ -145,7 +133,7 @@ namespace DAL
                                 ID_Transaccion = Convert.ToInt32(reader["ID_Transaccion"]),
                                 ID_Reserva = Convert.ToInt32(reader["ID_Reserva"]),
                                 Monto = Convert.ToDecimal(reader["Monto"]),
-                                EstadoPago = reader["EstadoPago"].ToString(),
+                                Pago = (Transaccion.EstadoPago)Enum.Parse(typeof(Transaccion.EstadoPago), reader["EstadoPago"].ToString()),
                                 FechaTransaccion = Convert.ToDateTime(reader["FechaTransaccion"]),
                                 TokenTarjeta = reader["TokenTarjeta"].ToString()
                             };
@@ -154,6 +142,26 @@ namespace DAL
                 }
             }
             return t;
+        }
+        public DateTime ObtenerFechaUltimaReservaPorDia(int idRestaurante, int diaSemana)
+        {
+            DateTime ultimaFecha = DateTime.Today;
+            using (SqlConnection con = new SqlConnection(connectionString))
+            {
+                using (SqlCommand cmd = new SqlCommand("ObtenerUltimaReservaPorDia_SP", con))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@ID_Restaurante", idRestaurante);
+                    cmd.Parameters.AddWithValue("@DiaSemana", diaSemana);
+                    con.Open();
+                    object result = cmd.ExecuteScalar();
+                    if (result != null && result != DBNull.Value)
+                    {
+                        ultimaFecha = Convert.ToDateTime(result).AddDays(1);
+                    }
+                }
+            }
+            return ultimaFecha;
         }
         private Reserva MapearLector(SqlDataReader reader)
         {
@@ -165,32 +173,9 @@ namespace DAL
                 ID_Mesa = reader["ID_Mesa"] != DBNull.Value ? (int?)Convert.ToInt32(reader["ID_Mesa"]) : null,
                 FechaHoraSolicitada = Convert.ToDateTime(reader["FechaHoraSolicitada"]),
                 CantidadComensales = Convert.ToInt32(reader["CantidadComensales"]),
-                Estado = reader["Estado"].ToString(),
+                Estado = (Reserva.EstadoReserva)Enum.Parse(typeof(Reserva.EstadoReserva), reader["Estado"].ToString()),
                 FechaHoraCheckIn = reader["FechaHoraCheckIn"] != DBNull.Value ? (DateTime?)Convert.ToDateTime(reader["FechaHoraCheckIn"]) : null
             };
-        }
-        public DateTime ObtenerFechaUltimaReservaPorDia(int idRestaurante, int diaSemana)
-        {
-            DateTime ultimaFecha = DateTime.Today;
-            string connectionString = ConfigurationManager.ConnectionStrings["IS"].ConnectionString;
-            using (SqlConnection con = new SqlConnection(connectionString))
-            {
-                using (SqlCommand cmd = new SqlCommand("ObtenerUltimaReservaPorDia_SP", con))
-                {
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.AddWithValue("@ID_Restaurante", idRestaurante);
-                    cmd.Parameters.AddWithValue("@DiaSemana", diaSemana);
-
-                    con.Open();
-                    object result = cmd.ExecuteScalar();
-
-                    if (result != null && result != DBNull.Value)
-                    {
-                        ultimaFecha = Convert.ToDateTime(result).AddDays(1);
-                    }
-                }
-            }
-            return ultimaFecha;
         }
     }
 }

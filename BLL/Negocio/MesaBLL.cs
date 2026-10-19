@@ -2,9 +2,6 @@
 using DAL;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BLL
 {
@@ -34,14 +31,17 @@ namespace BLL
         public bool BajaMesa(int idMesa)
         {
             // Regla: No se puede borrar si tiene reservas futuras asignadas. 
+            // (Esta validación debería idealmente estar acá antes de llamar al DAL, 
+            // pero si tu SQL Server lo bloquea por Foreign Key, el try/catch de la UI lo atajará).
             return dalMesa.EliminarMesa_SP(idMesa);
         }
 
-        public List<Mesa> ObtenerMesas(int idRestaurante)
+        public IList<Mesa> ObtenerMesas(int idRestaurante)
         {
             return dalMesa.ObtenerMesasPorRestaurante_SP(idRestaurante);
         }
-        public List<Mesa> ObtenerMesasDisponibles(int idRestaurante, DateTime fechaHoraSolicitada, int comensales, int minutosEstadia)
+
+        public IList<Mesa> ObtenerMesasDisponibles(int idRestaurante, DateTime fechaHoraSolicitada, int comensales, int minutosEstadia)
         {
             // Validaciones de negocio
             if (fechaHoraSolicitada < DateTime.Now)
@@ -50,7 +50,7 @@ namespace BLL
             if (comensales <= 0)
                 throw new Exception("La cantidad de comensales debe ser mayor a cero.");
 
-            MesaDal dalMesa = new MesaDal();
+            // CAMBIO: Se eliminó la instancia duplicada 'MesaDal dalMesa = new MesaDal();'
             return dalMesa.ObtenerMesasDisponibles(idRestaurante, fechaHoraSolicitada, comensales, minutosEstadia);
         }
     }

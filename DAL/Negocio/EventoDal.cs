@@ -12,9 +12,9 @@ namespace DAL
 {
     public class EventoDal
     {
+        private readonly string connectionString = ConfigurationManager.ConnectionStrings["IS"].ConnectionString;
         public bool InsertarEvento_SP(Evento evento)
         {
-            string connectionString = ConfigurationManager.ConnectionStrings["IS"].ConnectionString;
             using (SqlConnection con = new SqlConnection(connectionString))
             {
                 using (SqlCommand cmd = new SqlCommand("InsertarEvento_SP", con))

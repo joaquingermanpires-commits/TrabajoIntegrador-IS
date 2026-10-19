@@ -4,13 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BE.Negocio
+namespace BE
 {
     public class HorarioAtencion
     {
         public int ID_Horario { get; set; }
         public int ID_Restaurante { get; set; }
-        public int DiaSemana { get; set; } //0=domingo, 1=lunes, etc.
+        public DayOfWeek DiaSemana { get; set; } //0=domingo, 1=lunes, etc.
         public bool Habilitado { get; set; }
         public TimeSpan HoraApertura { get; set; }
         public TimeSpan HoraCierre { get; set; }

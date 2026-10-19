@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static BE.Reserva;
 
 namespace BE
 {
@@ -11,17 +12,18 @@ namespace BE
         public int ID_Transaccion { get; set; }
         public int ID_Reserva { get; set; }
         public decimal Monto { get; set; }
-        public string EstadoPago { get; set; } // PreAutorizado, Liberado, Capturado
+        public enum EstadoPago { PreAutorizado, Liberado, Capturado }
+        public EstadoPago Pago { get; set; }
         public DateTime FechaTransaccion { get; set; }
         public string TokenTarjeta { get; set; }
         public void LiberarFondos()
         {
-            this.EstadoPago = "Liberado";
+            this.Pago = EstadoPago.Liberado;
         }
 
         public void CapturarPenalidad()
         {
-            this.EstadoPago = "Capturado";
+            this.Pago = EstadoPago.Capturado;
         }
     }
 }

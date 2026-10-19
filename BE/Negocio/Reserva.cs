@@ -15,30 +15,31 @@ namespace BE
         public DateTime FechaHoraSolicitada { get; set; }
         public int CantidadComensales { get; set; }
         public int DuracionMinutos { get; set; }
-        public string Estado { get; set; } // Pendiente, Confirmada, Cancelada, CheckIn, NoShow
+        public EstadoReserva Estado { get;  set; }
+        public enum EstadoReserva { Pendiente, Confirmada, Cancelada, CheckIn, NoShow }
         public DateTime? FechaHoraCheckIn { get; set; }
         public Transaccion SeguroFinanciero { get; set; }
         public Reserva()
         {
-            this.Estado = "Pendiente";
+            this.Estado = EstadoReserva.Pendiente;
         }
         public void ConfirmarReserva()
         {
-            this.Estado = "Confirmada";
-        }
-        public void RegistrarCheckInReal(DateTime horaLlegada, int idMesaAsignada)
-        {
-            this.Estado = "CheckIn";
-            this.FechaHoraCheckIn = horaLlegada;
-            this.ID_Mesa = idMesaAsignada;
+            this.Estado = EstadoReserva.Confirmada;
         }
         public void MarcarComoNoShow()
         {
-            this.Estado = "NoShow";
+            this.Estado = EstadoReserva.NoShow;
         }
         public void CancelarReserva()
         {
-            this.Estado = "Cancelada";
+            this.Estado = EstadoReserva.Cancelada;
+        }
+        public void RegistrarCheckInReal(DateTime horaLlegada, int idMesaAsignada)
+        {
+            this.Estado = EstadoReserva.CheckIn;
+            this.FechaHoraCheckIn = horaLlegada;
+            this.ID_Mesa = idMesaAsignada;
         }
     }
 }

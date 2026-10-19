@@ -41,7 +41,7 @@ namespace WindowsFormsApp4.Negocio
         private void CargarSalon()
         {
             panelSalon.Controls.Clear();
-            List<Mesa> mesasDelLocal = bllMesa.ObtenerMesas(idRestauranteActual);
+            IList<Mesa> mesasDelLocal = bllMesa.ObtenerMesas(idRestauranteActual);
             foreach (Mesa mesaBE in mesasDelLocal)
             {
                 AgregarMesaAlPanel(mesaBE);

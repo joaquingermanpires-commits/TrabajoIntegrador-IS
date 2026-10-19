@@ -1,29 +1,32 @@
-﻿using BE.Negocio;
+﻿using BE;
 using DAL;
 using DAL.Negocio;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BLL.Negocio
 {
     public class HorarioAtencionBLL
     {
-        public List<HorarioAtencion> ObtenerHorarios(int idRestaurante)
+        // CAMBIO: Declaramos las dependencias (DALs) una sola vez a nivel de clase
+        private HorarioAtencionDal dalHorario = new HorarioAtencionDal();
+        private ReservaDal dalReserva = new ReservaDal();
+
+        // CAMBIO: Devolvemos IList según nuestro nuevo estándar
+        public IList<HorarioAtencion> ObtenerHorarios(int idRestaurante)
         {
-            HorarioAtencionDal dal = new HorarioAtencionDal();
-            return dal.ObtenerHorarios(idRestaurante);
+            return dalHorario.ObtenerHorarios(idRestaurante);
         }
+
         public string ConfigurarHorario(HorarioAtencion nuevoHorario)
         {
             if (nuevoHorario.Habilitado && nuevoHorario.HoraApertura >= nuevoHorario.HoraCierre)
             {
                 throw new Exception("La hora de apertura no puede ser igual o posterior a la hora de cierre.");
             }
-            ReservaDal reservaDal = new ReservaDal();
-            DateTime fechaVigencia = reservaDal.ObtenerFechaUltimaReservaPorDia(nuevoHorario.ID_Restaurante, nuevoHorario.DiaSemana);
+
+            // Usamos la variable de clase dalReserva
+            DateTime fechaVigencia = dalReserva.ObtenerFechaUltimaReservaPorDia(nuevoHorario.ID_Restaurante, (int)nuevoHorario.DiaSemana);
 
             // REGLA DE NEGOCIO ESTRICTA: Deshabilitar días
             if (!nuevoHorario.Habilitado && fechaVigencia > DateTime.Today)
@@ -32,10 +35,10 @@ namespace BLL.Negocio
                 throw new Exception($"No se puede deshabilitar este día porque existen reservas a futuro. La última reserva está programada para el {diaUltimaReserva.ToShortDateString()}.");
             }
             nuevoHorario.ValidoDesde = fechaVigencia;
-            HorarioAtencionDal horarioDal = new HorarioAtencionDal();
-            if (horarioDal.InsertarHorario(nuevoHorario))
+
+            // Usamos la variable de clase dalHorario
+            if (dalHorario.InsertarHorario(nuevoHorario))
             {
-                // Si la fecha de vigencia es mayor a hoy, le avisamos al gerente
                 if (fechaVigencia > DateTime.Today)
                 {
                     return $"Cambio guardado exitosamente.\n\nNota: Debido a que existen reservas previas, este nuevo horario recién entrará en vigencia a partir del {fechaVigencia.ToShortDateString()}.";

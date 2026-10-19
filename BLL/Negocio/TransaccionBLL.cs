@@ -1,10 +1,6 @@
 ﻿using BE;
 using DAL;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BLL
 {
@@ -12,13 +8,13 @@ namespace BLL
     {
         private TransaccionDal dalTransaccion = new TransaccionDal();
 
+        // CAMBIO: Elevamos el número mágico a una constante de negocio a nivel de clase
+        private const decimal COSTO_SEGURO_POR_PERSONA = 5000.00m;
+
         public Transaccion ProcesarPreAutorizacion(int idReserva, int cantidadComensales, string tokenPago)
         {
-            // Regla de Negocio: Monto a retener por persona
-            decimal costoPorPersona = 5000.00m;
-            decimal montoTotal = costoPorPersona * cantidadComensales;
-
-            // Simulación de conexión a pasarela (Ej: MercadoPago)
+            // Regla de Negocio calculada limpiamente
+            decimal montoTotal = COSTO_SEGURO_POR_PERSONA * cantidadComensales;
             bool validacionPasarelaExcitosa = SimularPasarela(tokenPago, montoTotal);
 
             if (!validacionPasarelaExcitosa)
@@ -28,7 +24,7 @@ namespace BLL
             {
                 ID_Reserva = idReserva,
                 Monto = montoTotal,
-                EstadoPago = "PreAutorizado",
+                Pago = Transaccion.EstadoPago.PreAutorizado,
                 FechaTransaccion = DateTime.Now,
                 TokenTarjeta = tokenPago
             };
@@ -40,7 +36,7 @@ namespace BLL
         public void LiberarFondos(int idTransaccion)
         {
             Transaccion t = dalTransaccion.ObtenerTransaccion_SP(idTransaccion);
-            if (t != null && t.EstadoPago == "PreAutorizado")
+            if (t != null && t.Pago == Transaccion.EstadoPago.PreAutorizado)
             {
                 t.LiberarFondos();
                 dalTransaccion.ActualizarEstadoTransaccion_SP(t);
@@ -50,7 +46,7 @@ namespace BLL
         public void CapturarPenalidad(int idTransaccion)
         {
             Transaccion t = dalTransaccion.ObtenerTransaccion_SP(idTransaccion);
-            if (t != null && t.EstadoPago == "PreAutorizado")
+            if (t != null && t.Pago == Transaccion.EstadoPago.PreAutorizado)
             {
                 t.CapturarPenalidad();
                 dalTransaccion.ActualizarEstadoTransaccion_SP(t);

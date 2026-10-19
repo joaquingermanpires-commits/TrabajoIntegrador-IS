@@ -1,5 +1,4 @@
 ﻿using BE;
-using BE.Negocio;
 using BLL;
 using BLL.Negocio;
 using Krypton.Toolkit;
@@ -92,7 +91,7 @@ namespace WindowsFormsApp4.Negocio
                 HorarioAtencion nuevoHorario = new HorarioAtencion
                 {
                     ID_Restaurante = idRestauranteActual,
-                    DiaSemana = cmbDiaSemana.SelectedIndex, // 0=Dom, 1=Lun, etc.
+                    DiaSemana = (DayOfWeek)cmbDiaSemana.SelectedIndex, // 0=Dom, 1=Lun, etc.
                     Habilitado = chkHabilitado.Checked,
                     HoraApertura = dtpApertura.Value.TimeOfDay,
                     HoraCierre = dtpCierre.Value.TimeOfDay
