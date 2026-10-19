@@ -1,10 +1,9 @@
 ﻿using BE;
 using DAL;
-using DAL.Negocio;
 using System;
 using System.Collections.Generic;
 
-namespace BLL.Negocio
+namespace BLL
 {
     public class HorarioAtencionBLL
     {

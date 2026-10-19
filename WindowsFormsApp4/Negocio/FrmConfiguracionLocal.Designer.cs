@@ -29,24 +29,23 @@
         private void InitializeComponent()
         {
             this.kryptonGroupBox1 = new Krypton.Toolkit.KryptonGroupBox();
-            this.kryptonGroupBox2 = new Krypton.Toolkit.KryptonGroupBox();
-            this.kryptonGroupBox3 = new Krypton.Toolkit.KryptonGroupBox();
-            this.kryptonLabel1 = new Krypton.Toolkit.KryptonLabel();
-            this.kryptonLabel2 = new Krypton.Toolkit.KryptonLabel();
-            this.kryptonLabel3 = new Krypton.Toolkit.KryptonLabel();
-            this.numTiempoMinimo = new Krypton.Toolkit.KryptonNumericUpDown();
-            this.numTiempoMaximo = new Krypton.Toolkit.KryptonNumericUpDown();
-            this.numOcupacion = new Krypton.Toolkit.KryptonNumericUpDown();
             this.btnGuardarReglas = new Krypton.Toolkit.KryptonButton();
-            this.cmbDiaSemana = new Krypton.Toolkit.KryptonComboBox();
-            this.chkHabilitado = new Krypton.Toolkit.KryptonCheckBox();
-            this.dtpApertura = new Krypton.Toolkit.KryptonDateTimePicker();
-            this.dtpCierre = new Krypton.Toolkit.KryptonDateTimePicker();
-            this.btnGuardarHorario = new Krypton.Toolkit.KryptonButton();
+            this.numOcupacion = new Krypton.Toolkit.KryptonNumericUpDown();
+            this.numTiempoMaximo = new Krypton.Toolkit.KryptonNumericUpDown();
+            this.numTiempoMinimo = new Krypton.Toolkit.KryptonNumericUpDown();
+            this.kryptonLabel3 = new Krypton.Toolkit.KryptonLabel();
+            this.kryptonLabel2 = new Krypton.Toolkit.KryptonLabel();
+            this.kryptonLabel1 = new Krypton.Toolkit.KryptonLabel();
+            this.kryptonGroupBox2 = new Krypton.Toolkit.KryptonGroupBox();
             this.dgvHorarios = new System.Windows.Forms.DataGridView();
-            this.dgvPreferencias = new System.Windows.Forms.DataGridView();
-            this.kryptonTextBox1 = new Krypton.Toolkit.KryptonTextBox();
+            this.btnGuardarHorario = new Krypton.Toolkit.KryptonButton();
+            this.dtpCierre = new Krypton.Toolkit.KryptonDateTimePicker();
+            this.dtpApertura = new Krypton.Toolkit.KryptonDateTimePicker();
+            this.chkHabilitado = new Krypton.Toolkit.KryptonCheckBox();
+            this.cmbDiaSemana = new Krypton.Toolkit.KryptonComboBox();
+            this.kryptonGroupBox3 = new Krypton.Toolkit.KryptonGroupBox();
             this.btnAgregar = new Krypton.Toolkit.KryptonButton();
+            this.clbPreferencias = new Krypton.Toolkit.KryptonCheckedListBox();
             ((System.ComponentModel.ISupportInitialize)(this.kryptonGroupBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.kryptonGroupBox1.Panel)).BeginInit();
             this.kryptonGroupBox1.Panel.SuspendLayout();
@@ -55,13 +54,12 @@
             ((System.ComponentModel.ISupportInitialize)(this.kryptonGroupBox2.Panel)).BeginInit();
             this.kryptonGroupBox2.Panel.SuspendLayout();
             this.kryptonGroupBox2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvHorarios)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cmbDiaSemana)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.kryptonGroupBox3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.kryptonGroupBox3.Panel)).BeginInit();
             this.kryptonGroupBox3.Panel.SuspendLayout();
             this.kryptonGroupBox3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.cmbDiaSemana)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvHorarios)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvPreferencias)).BeginInit();
             this.SuspendLayout();
             // 
             // kryptonGroupBox1
@@ -80,80 +78,39 @@
             this.kryptonGroupBox1.Size = new System.Drawing.Size(171, 443);
             this.kryptonGroupBox1.TabIndex = 0;
             // 
-            // kryptonGroupBox2
+            // btnGuardarReglas
             // 
-            this.kryptonGroupBox2.Location = new System.Drawing.Point(178, 0);
+            this.btnGuardarReglas.Location = new System.Drawing.Point(29, 336);
+            this.btnGuardarReglas.Name = "btnGuardarReglas";
+            this.btnGuardarReglas.Size = new System.Drawing.Size(90, 25);
+            this.btnGuardarReglas.TabIndex = 6;
+            this.btnGuardarReglas.Values.DropDownArrowColor = System.Drawing.Color.Empty;
+            this.btnGuardarReglas.Values.Text = "Guardar";
+            this.btnGuardarReglas.Click += new System.EventHandler(this.btnGuardarReglas_Click);
             // 
-            // kryptonGroupBox2.Panel
+            // numOcupacion
             // 
-            this.kryptonGroupBox2.Panel.Controls.Add(this.dgvHorarios);
-            this.kryptonGroupBox2.Panel.Controls.Add(this.btnGuardarHorario);
-            this.kryptonGroupBox2.Panel.Controls.Add(this.dtpCierre);
-            this.kryptonGroupBox2.Panel.Controls.Add(this.dtpApertura);
-            this.kryptonGroupBox2.Panel.Controls.Add(this.chkHabilitado);
-            this.kryptonGroupBox2.Panel.Controls.Add(this.cmbDiaSemana);
-            this.kryptonGroupBox2.Size = new System.Drawing.Size(359, 443);
-            this.kryptonGroupBox2.TabIndex = 1;
-            // 
-            // kryptonGroupBox3
-            // 
-            this.kryptonGroupBox3.Location = new System.Drawing.Point(543, 0);
-            // 
-            // kryptonGroupBox3.Panel
-            // 
-            this.kryptonGroupBox3.Panel.Controls.Add(this.btnAgregar);
-            this.kryptonGroupBox3.Panel.Controls.Add(this.kryptonTextBox1);
-            this.kryptonGroupBox3.Panel.Controls.Add(this.dgvPreferencias);
-            this.kryptonGroupBox3.Size = new System.Drawing.Size(351, 443);
-            this.kryptonGroupBox3.TabIndex = 2;
-            // 
-            // kryptonLabel1
-            // 
-            this.kryptonLabel1.Location = new System.Drawing.Point(29, 20);
-            this.kryptonLabel1.Name = "kryptonLabel1";
-            this.kryptonLabel1.Size = new System.Drawing.Size(128, 25);
-            this.kryptonLabel1.TabIndex = 0;
-            this.kryptonLabel1.Values.Text = "Tiempo Mínimo (min)";
-            // 
-            // kryptonLabel2
-            // 
-            this.kryptonLabel2.Location = new System.Drawing.Point(29, 143);
-            this.kryptonLabel2.Name = "kryptonLabel2";
-            this.kryptonLabel2.Size = new System.Drawing.Size(130, 25);
-            this.kryptonLabel2.TabIndex = 1;
-            this.kryptonLabel2.Values.Text = "Tiempo Máximo (min)";
-            // 
-            // kryptonLabel3
-            // 
-            this.kryptonLabel3.Location = new System.Drawing.Point(29, 250);
-            this.kryptonLabel3.Name = "kryptonLabel3";
-            this.kryptonLabel3.Size = new System.Drawing.Size(136, 25);
-            this.kryptonLabel3.TabIndex = 2;
-            this.kryptonLabel3.Values.Text = "Ocupación Máxima (%)";
-            // 
-            // numTiempoMinimo
-            // 
-            this.numTiempoMinimo.Increment = new decimal(new int[] {
+            this.numOcupacion.Increment = new decimal(new int[] {
             1,
             0,
             0,
             0});
-            this.numTiempoMinimo.Location = new System.Drawing.Point(29, 51);
-            this.numTiempoMinimo.Maximum = new decimal(new int[] {
-            60,
+            this.numOcupacion.Location = new System.Drawing.Point(29, 281);
+            this.numOcupacion.Maximum = new decimal(new int[] {
+            100,
             0,
             0,
             0});
-            this.numTiempoMinimo.Minimum = new decimal(new int[] {
-            15,
+            this.numOcupacion.Minimum = new decimal(new int[] {
+            0,
             0,
             0,
             0});
-            this.numTiempoMinimo.Name = "numTiempoMinimo";
-            this.numTiempoMinimo.Size = new System.Drawing.Size(120, 22);
-            this.numTiempoMinimo.TabIndex = 3;
-            this.numTiempoMinimo.Value = new decimal(new int[] {
-            15,
+            this.numOcupacion.Name = "numOcupacion";
+            this.numOcupacion.Size = new System.Drawing.Size(120, 22);
+            this.numOcupacion.TabIndex = 5;
+            this.numOcupacion.Value = new decimal(new int[] {
+            0,
             0,
             0,
             0});
@@ -185,42 +142,115 @@
             0,
             0});
             // 
-            // numOcupacion
+            // numTiempoMinimo
             // 
-            this.numOcupacion.Increment = new decimal(new int[] {
+            this.numTiempoMinimo.Increment = new decimal(new int[] {
             1,
             0,
             0,
             0});
-            this.numOcupacion.Location = new System.Drawing.Point(29, 281);
-            this.numOcupacion.Maximum = new decimal(new int[] {
-            100,
+            this.numTiempoMinimo.Location = new System.Drawing.Point(29, 51);
+            this.numTiempoMinimo.Maximum = new decimal(new int[] {
+            60,
             0,
             0,
             0});
-            this.numOcupacion.Minimum = new decimal(new int[] {
-            0,
+            this.numTiempoMinimo.Minimum = new decimal(new int[] {
+            15,
             0,
             0,
             0});
-            this.numOcupacion.Name = "numOcupacion";
-            this.numOcupacion.Size = new System.Drawing.Size(120, 22);
-            this.numOcupacion.TabIndex = 5;
-            this.numOcupacion.Value = new decimal(new int[] {
-            0,
+            this.numTiempoMinimo.Name = "numTiempoMinimo";
+            this.numTiempoMinimo.Size = new System.Drawing.Size(120, 22);
+            this.numTiempoMinimo.TabIndex = 3;
+            this.numTiempoMinimo.Value = new decimal(new int[] {
+            15,
             0,
             0,
             0});
             // 
-            // btnGuardarReglas
+            // kryptonLabel3
             // 
-            this.btnGuardarReglas.Location = new System.Drawing.Point(29, 336);
-            this.btnGuardarReglas.Name = "btnGuardarReglas";
-            this.btnGuardarReglas.Size = new System.Drawing.Size(90, 25);
-            this.btnGuardarReglas.TabIndex = 6;
-            this.btnGuardarReglas.Values.DropDownArrowColor = System.Drawing.Color.Empty;
-            this.btnGuardarReglas.Values.Text = "Guardar";
-            this.btnGuardarReglas.Click += new System.EventHandler(this.btnGuardarReglas_Click);
+            this.kryptonLabel3.Location = new System.Drawing.Point(29, 250);
+            this.kryptonLabel3.Name = "kryptonLabel3";
+            this.kryptonLabel3.Size = new System.Drawing.Size(136, 25);
+            this.kryptonLabel3.TabIndex = 2;
+            this.kryptonLabel3.Values.Text = "Ocupación Máxima (%)";
+            // 
+            // kryptonLabel2
+            // 
+            this.kryptonLabel2.Location = new System.Drawing.Point(29, 143);
+            this.kryptonLabel2.Name = "kryptonLabel2";
+            this.kryptonLabel2.Size = new System.Drawing.Size(130, 25);
+            this.kryptonLabel2.TabIndex = 1;
+            this.kryptonLabel2.Values.Text = "Tiempo Máximo (min)";
+            // 
+            // kryptonLabel1
+            // 
+            this.kryptonLabel1.Location = new System.Drawing.Point(29, 20);
+            this.kryptonLabel1.Name = "kryptonLabel1";
+            this.kryptonLabel1.Size = new System.Drawing.Size(128, 25);
+            this.kryptonLabel1.TabIndex = 0;
+            this.kryptonLabel1.Values.Text = "Tiempo Mínimo (min)";
+            // 
+            // kryptonGroupBox2
+            // 
+            this.kryptonGroupBox2.Location = new System.Drawing.Point(178, 0);
+            // 
+            // kryptonGroupBox2.Panel
+            // 
+            this.kryptonGroupBox2.Panel.Controls.Add(this.dgvHorarios);
+            this.kryptonGroupBox2.Panel.Controls.Add(this.btnGuardarHorario);
+            this.kryptonGroupBox2.Panel.Controls.Add(this.dtpCierre);
+            this.kryptonGroupBox2.Panel.Controls.Add(this.dtpApertura);
+            this.kryptonGroupBox2.Panel.Controls.Add(this.chkHabilitado);
+            this.kryptonGroupBox2.Panel.Controls.Add(this.cmbDiaSemana);
+            this.kryptonGroupBox2.Size = new System.Drawing.Size(359, 443);
+            this.kryptonGroupBox2.TabIndex = 1;
+            // 
+            // dgvHorarios
+            // 
+            this.dgvHorarios.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvHorarios.Location = new System.Drawing.Point(15, 192);
+            this.dgvHorarios.Name = "dgvHorarios";
+            this.dgvHorarios.Size = new System.Drawing.Size(321, 217);
+            this.dgvHorarios.TabIndex = 6;
+            // 
+            // btnGuardarHorario
+            // 
+            this.btnGuardarHorario.Location = new System.Drawing.Point(48, 152);
+            this.btnGuardarHorario.Name = "btnGuardarHorario";
+            this.btnGuardarHorario.Size = new System.Drawing.Size(114, 25);
+            this.btnGuardarHorario.TabIndex = 4;
+            this.btnGuardarHorario.Values.DropDownArrowColor = System.Drawing.Color.Empty;
+            this.btnGuardarHorario.Values.Text = "Aplicar Horario";
+            this.btnGuardarHorario.Click += new System.EventHandler(this.btnGuardarHorario_Click);
+            // 
+            // dtpCierre
+            // 
+            this.dtpCierre.Format = System.Windows.Forms.DateTimePickerFormat.Time;
+            this.dtpCierre.Location = new System.Drawing.Point(177, 97);
+            this.dtpCierre.Name = "dtpCierre";
+            this.dtpCierre.ShowUpDown = true;
+            this.dtpCierre.Size = new System.Drawing.Size(115, 21);
+            this.dtpCierre.TabIndex = 3;
+            // 
+            // dtpApertura
+            // 
+            this.dtpApertura.Format = System.Windows.Forms.DateTimePickerFormat.Time;
+            this.dtpApertura.Location = new System.Drawing.Point(48, 97);
+            this.dtpApertura.Name = "dtpApertura";
+            this.dtpApertura.ShowUpDown = true;
+            this.dtpApertura.Size = new System.Drawing.Size(114, 21);
+            this.dtpApertura.TabIndex = 2;
+            // 
+            // chkHabilitado
+            // 
+            this.chkHabilitado.Location = new System.Drawing.Point(177, 38);
+            this.chkHabilitado.Name = "chkHabilitado";
+            this.chkHabilitado.Size = new System.Drawing.Size(96, 25);
+            this.chkHabilitado.TabIndex = 1;
+            this.chkHabilitado.Values.Text = "Abrir este día";
             // 
             // cmbDiaSemana
             // 
@@ -239,65 +269,16 @@
             this.cmbDiaSemana.TabIndex = 0;
             this.cmbDiaSemana.Text = "kryptonComboBox1";
             // 
-            // chkHabilitado
+            // kryptonGroupBox3
             // 
-            this.chkHabilitado.Location = new System.Drawing.Point(177, 38);
-            this.chkHabilitado.Name = "chkHabilitado";
-            this.chkHabilitado.Size = new System.Drawing.Size(96, 25);
-            this.chkHabilitado.TabIndex = 1;
-            this.chkHabilitado.Values.Text = "Abrir este día";
+            this.kryptonGroupBox3.Location = new System.Drawing.Point(543, 0);
             // 
-            // dtpApertura
+            // kryptonGroupBox3.Panel
             // 
-            this.dtpApertura.Format = System.Windows.Forms.DateTimePickerFormat.Time;
-            this.dtpApertura.Location = new System.Drawing.Point(48, 97);
-            this.dtpApertura.Name = "dtpApertura";
-            this.dtpApertura.ShowUpDown = true;
-            this.dtpApertura.Size = new System.Drawing.Size(114, 21);
-            this.dtpApertura.TabIndex = 2;
-            // 
-            // dtpCierre
-            // 
-            this.dtpCierre.Format = System.Windows.Forms.DateTimePickerFormat.Time;
-            this.dtpCierre.Location = new System.Drawing.Point(177, 97);
-            this.dtpCierre.Name = "dtpCierre";
-            this.dtpCierre.ShowUpDown = true;
-            this.dtpCierre.Size = new System.Drawing.Size(115, 21);
-            this.dtpCierre.TabIndex = 3;
-            // 
-            // btnGuardarHorario
-            // 
-            this.btnGuardarHorario.Location = new System.Drawing.Point(48, 152);
-            this.btnGuardarHorario.Name = "btnGuardarHorario";
-            this.btnGuardarHorario.Size = new System.Drawing.Size(114, 25);
-            this.btnGuardarHorario.TabIndex = 4;
-            this.btnGuardarHorario.Values.DropDownArrowColor = System.Drawing.Color.Empty;
-            this.btnGuardarHorario.Values.Text = "Aplicar Horario";
-            this.btnGuardarHorario.Click += new System.EventHandler(this.btnGuardarHorario_Click);
-            // 
-            // dgvHorarios
-            // 
-            this.dgvHorarios.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvHorarios.Location = new System.Drawing.Point(15, 192);
-            this.dgvHorarios.Name = "dgvHorarios";
-            this.dgvHorarios.Size = new System.Drawing.Size(321, 217);
-            this.dgvHorarios.TabIndex = 6;
-            // 
-            // dgvPreferencias
-            // 
-            this.dgvPreferencias.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvPreferencias.Location = new System.Drawing.Point(13, 18);
-            this.dgvPreferencias.Name = "dgvPreferencias";
-            this.dgvPreferencias.Size = new System.Drawing.Size(277, 150);
-            this.dgvPreferencias.TabIndex = 0;
-            // 
-            // kryptonTextBox1
-            // 
-            this.kryptonTextBox1.Location = new System.Drawing.Point(13, 192);
-            this.kryptonTextBox1.Name = "kryptonTextBox1";
-            this.kryptonTextBox1.Size = new System.Drawing.Size(173, 23);
-            this.kryptonTextBox1.TabIndex = 1;
-            this.kryptonTextBox1.Text = "kryptonTextBox1";
+            this.kryptonGroupBox3.Panel.Controls.Add(this.clbPreferencias);
+            this.kryptonGroupBox3.Panel.Controls.Add(this.btnAgregar);
+            this.kryptonGroupBox3.Size = new System.Drawing.Size(351, 443);
+            this.kryptonGroupBox3.TabIndex = 2;
             // 
             // btnAgregar
             // 
@@ -306,7 +287,15 @@
             this.btnAgregar.Size = new System.Drawing.Size(173, 25);
             this.btnAgregar.TabIndex = 2;
             this.btnAgregar.Values.DropDownArrowColor = System.Drawing.Color.Empty;
-            this.btnAgregar.Values.Text = "kryptonButton1";
+            this.btnAgregar.Values.Text = "Guardar Preferencias";
+            this.btnAgregar.Click += new System.EventHandler(this.btnAgregar_Click);
+            // 
+            // clbPreferencias
+            // 
+            this.clbPreferencias.Location = new System.Drawing.Point(11, 3);
+            this.clbPreferencias.Name = "clbPreferencias";
+            this.clbPreferencias.Size = new System.Drawing.Size(175, 148);
+            this.clbPreferencias.TabIndex = 3;
             // 
             // FrmConfiguracionLocal
             // 
@@ -329,14 +318,12 @@
             this.kryptonGroupBox2.Panel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.kryptonGroupBox2)).EndInit();
             this.kryptonGroupBox2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dgvHorarios)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cmbDiaSemana)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.kryptonGroupBox3.Panel)).EndInit();
             this.kryptonGroupBox3.Panel.ResumeLayout(false);
-            this.kryptonGroupBox3.Panel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.kryptonGroupBox3)).EndInit();
             this.kryptonGroupBox3.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.cmbDiaSemana)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvHorarios)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvPreferencias)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -360,7 +347,6 @@
         private Krypton.Toolkit.KryptonDateTimePicker dtpApertura;
         private Krypton.Toolkit.KryptonCheckBox chkHabilitado;
         private Krypton.Toolkit.KryptonButton btnAgregar;
-        private Krypton.Toolkit.KryptonTextBox kryptonTextBox1;
-        private System.Windows.Forms.DataGridView dgvPreferencias;
+        private Krypton.Toolkit.KryptonCheckedListBox clbPreferencias;
     }
 }

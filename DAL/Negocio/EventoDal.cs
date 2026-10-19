@@ -32,5 +32,37 @@ namespace DAL
                 }
             }
         }
+        public IList<Evento> ObtenerEventosActivos(int idRestaurante, DateTime fechaHora)
+        {
+            IList<Evento> lista = new List<Evento>();
+            using (SqlConnection con = new SqlConnection(connectionString))
+            {
+                using (SqlCommand cmd = new SqlCommand("ObtenerEventosActivos_SP", con))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@ID_Restaurante", idRestaurante);
+                    cmd.Parameters.AddWithValue("@FechaHoraConsulta", fechaHora);
+
+                    con.Open();
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            lista.Add(new Evento
+                            {
+                                ID_Evento = Convert.ToInt32(reader["ID_Evento"]),
+                                ID_Restaurante = Convert.ToInt32(reader["ID_Restaurante"]),
+                                Nombre = reader["Nombre"].ToString(),
+                                Descripcion = reader["Descripcion"].ToString(),
+                                FechaHoraInicio = Convert.ToDateTime(reader["FechaHoraInicio"]),
+                                FechaHoraFin = Convert.ToDateTime(reader["FechaHoraFin"]),
+                                PorcentajeDescuento = Convert.ToDecimal(reader["PorcentajeDescuento"])
+                            });
+                        }
+                    }
+                }
+            }
+            return lista;
+        }
     }
 }

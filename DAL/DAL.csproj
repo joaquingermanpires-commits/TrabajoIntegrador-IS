@@ -86,6 +86,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Negocio\HorarioAtencionDal.cs" />
+    <Compile Include="Negocio\PreferenciaDal.cs" />
     <Compile Include="Tecnico\BackupDal.cs" />
     <Compile Include="Tecnico\BitacoraDal.cs" />
     <Compile Include="Negocio\EventoDal.cs" />

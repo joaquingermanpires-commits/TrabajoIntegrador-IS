@@ -3,12 +3,6 @@ using BLL;
 using Krypton.Toolkit;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using WindowsFormsApp4.Factories;
 
@@ -18,55 +12,53 @@ namespace WindowsFormsApp4.Negocio
     {
         private int idRestauranteActual = 1;
         private MesaBLL bllMesa = new MesaBLL();
+        private ReservaBLL bllReserva = new ReservaBLL();
         private MesaGraficaFactory fabrica = new MesaGraficaEstandarFactory();
         private KryptonButton mesaSeleccionadaBtn = null;
-        private RestauranteBLL bllRestaurante = new RestauranteBLL();
-
-        // NUEVO: Variables para recordar los filtros exactos con los que se hizo la búsqueda
         private DateTime fechaHoraBusquedaActual;
         private int comensalesBusquedaActual;
         private int duracionBusquedaActual;
 
-        public FrmNuevaReserva()
+        public FrmNuevaReserva(int idRestaurante, DateTime fechaHoraSolicitada, int comensales)
         {
             InitializeComponent();
+            this.idRestauranteActual = idRestaurante;
+            this.fechaHoraBusquedaActual = fechaHoraSolicitada;
+            this.comensalesBusquedaActual = comensales;
+            dtpFechaReserva.Value = fechaHoraSolicitada.Date;
+            dtpHoraReserva.Value = fechaHoraSolicitada;
+            numComensales.Value = comensales;
+            dtpFechaReserva.Enabled = false;
+            dtpHoraReserva.Enabled = false;
+            numComensales.Enabled = false;
+            btnBuscarMesas.Visible = false;
         }
 
         private void FrmNuevaReserva_Load(object sender, EventArgs e)
         {
             panelReserva.Visible = true;
-
-            // 2. Ocultamos SOLAMENTE los controles de la tarjeta y la etiqueta de la mesa
             lblMesaElegida.Visible = false;
             txtTokenTarjeta.Visible = false;
             btnConfirmarReserva.Visible = false;
-
-            // Configuramos los límites (temporales) del tiempo
             numTiempoEstadia.Minimum = 45;
             numTiempoEstadia.Maximum = 240;
             numTiempoEstadia.Value = 120;
+            DibujarSalonConDisponibilidad(fechaHoraBusquedaActual, comensalesBusquedaActual, (int)numTiempoEstadia.Value);
         }
 
-        // NUEVO EVENTO: Se dispara al darle al botón de buscar
         private void btnBuscarMesas_Click(object sender, EventArgs e)
         {
             try
             {
-                // 1. Unificamos la fecha y la hora en un solo objeto DateTime (Arquitectura sólida)
                 DateTime fecha = dtpFechaReserva.Value.Date;
                 TimeSpan hora = dtpHoraReserva.Value.TimeOfDay;
                 fechaHoraBusquedaActual = fecha.Add(hora);
 
-                // 2. Guardamos la cantidad de personas y el tiempo que eligieron
                 comensalesBusquedaActual = (int)numComensales.Value;
                 duracionBusquedaActual = (int)numTiempoEstadia.Value;
 
-                mesaSeleccionadaBtn = null;
-                lblMesaElegida.Visible = false;
-                txtTokenTarjeta.Visible = false;
-                btnConfirmarReserva.Visible = false;
+                OcultarControlesConfirmacion();
 
-                // 3. Dibujamos pasándole los datos unificados
                 DibujarSalonConDisponibilidad(fechaHoraBusquedaActual, comensalesBusquedaActual, duracionBusquedaActual);
             }
             catch (Exception ex)
@@ -79,8 +71,6 @@ namespace WindowsFormsApp4.Negocio
         {
             panelSalon.Controls.Clear();
 
-            // ATENCIÓN: Esta línea va a tirar un error de compilación temporal porque todavía 
-            // no creamos este método exacto en tu BLL. Lo haremos en el próximo paso.
             IList<Mesa> mesasDisponibles = bllMesa.ObtenerMesasDisponibles(idRestauranteActual, fechaHoraSolicitada, comensales, minutosEstadia);
 
             foreach (Mesa mesaBE in mesasDisponibles)
@@ -98,7 +88,6 @@ namespace WindowsFormsApp4.Negocio
 
             if (mesaBE.Habilitada)
             {
-                // 3. Volvemos a mostrar los controles de confirmación
                 lblMesaElegida.Visible = true;
                 txtTokenTarjeta.Visible = true;
                 btnConfirmarReserva.Visible = true;
@@ -121,42 +110,35 @@ namespace WindowsFormsApp4.Negocio
                     return;
                 }
 
-                // 1. INSTANCIAMOS LA RESERVA CON LA NUEVA ESTRUCTURA BE
                 Reserva nuevaReserva = new Reserva
                 {
                     ID_Mesa = mesaBE.ID_Mesa,
                     ID_Restaurante = idRestauranteActual,
                     ID_Usuario = 1, // ID del comensal hardcodeado por ahora
-                    FechaHoraSolicitada = fechaHoraBusquedaActual, // Fecha y hora combinadas
+                    FechaHoraSolicitada = fechaHoraBusquedaActual,
                     CantidadComensales = comensalesBusquedaActual,
-                    DuracionMinutos = duracionBusquedaActual       // La nueva propiedad
+                    DuracionMinutos = duracionBusquedaActual
                 };
+                if (bllReserva.GenerarReserva(nuevaReserva, txtTokenTarjeta.Text))
+                {
+                    MessageBox.Show($"¡Reserva confirmada con éxito!\n\nMesa: {mesaBE.CodigoUbicacion}\nTe esperamos el {fechaHoraBusquedaActual.ToString("dd/MM/yyyy")} a las {fechaHoraBusquedaActual.ToString("HH:mm")}.",
+                                    "Reserva Exitosa", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                // nuevaReserva.ConfirmarReserva(); // Podrías llamar a tu método de estado aquí
-
-                /*
-                Descomentá esto cuando tengas listo el método GenerarReserva en tu ReservaBLL
-                (y acordate de pasarle el token de la tarjeta si tu BLL lo requiere)
-                
-                ReservaBLL bllReserva = new ReservaBLL();
-                bllReserva.GenerarReserva(nuevaReserva); 
-                */
-
-                // 2. ACTUALIZACIÓN VISUAL INMEDIATA (Observer)
-                mesaBE.Habilitada = false;
-
-                MessageBox.Show($"¡Reserva confirmada con éxito!\n\nMesa: {mesaBE.CodigoUbicacion}\nTe esperamos el {fechaHoraBusquedaActual.ToString("dd/MM/yyyy")} a las {fechaHoraBusquedaActual.ToString("HH:mm")}.",
-                                "Reserva Exitosa", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                lblMesaElegida.Visible = false;
-                txtTokenTarjeta.Visible = false;
-                btnConfirmarReserva.Visible = false;
-                mesaSeleccionadaBtn = null;
+                    this.Close();
+                }
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Error en la Reserva", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private void OcultarControlesConfirmacion()
+        {
+            lblMesaElegida.Visible = false;
+            txtTokenTarjeta.Visible = false;
+            btnConfirmarReserva.Visible = false;
+            mesaSeleccionadaBtn = null;
         }
     }
 }

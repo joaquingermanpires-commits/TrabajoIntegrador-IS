@@ -29,5 +29,22 @@ namespace BE
             Preferencias = new List<PreferenciaDietetica>();
             HorariosAtencion = new List<HorarioAtencion>();
         }
+        public string EventosResumen
+        {
+            get
+            {
+                if (Eventos == null || !Eventos.Any()) return "Sin eventos activos";
+                return string.Join(" | ", Eventos.Select(e => e.Nombre));
+            }
+        }
+
+        public string PreferenciasResumen
+        {
+            get
+            {
+                if (Preferencias == null || !Preferencias.Any()) return "Menú Estándar";
+                return string.Join(", ", Preferencias.Select(p => p.Descripcion));
+            }
+        }
     }
 }

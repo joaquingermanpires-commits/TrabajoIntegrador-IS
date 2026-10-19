@@ -82,6 +82,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Factories\MesaGraficaFactory.cs" />
+    <Compile Include="Negocio\FrmBuscadorRestaurantes.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Negocio\FrmBuscadorRestaurantes.Designer.cs">
+      <DependentUpon>FrmBuscadorRestaurantes.cs</DependentUpon>
+    </Compile>
     <Compile Include="Negocio\FrmConfiguracionLocal.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -168,6 +174,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Negocio\FrmBuscadorRestaurantes.resx">
+      <DependentUpon>FrmBuscadorRestaurantes.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Negocio\FrmConfiguracionLocal.resx">
       <DependentUpon>FrmConfiguracionLocal.cs</DependentUpon>
     </EmbeddedResource>

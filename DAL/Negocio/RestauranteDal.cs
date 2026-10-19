@@ -1,5 +1,6 @@
 ﻿using BE;
 using System;
+using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
@@ -91,6 +92,38 @@ namespace DAL
                     return cmd.ExecuteNonQuery() > 0;
                 }
             }
+        }
+        public IList<Restaurante> BuscarRestaurantesDisponibles(DateTime fechaHora, int comensales)
+        {
+            IList<Restaurante> lista = new List<Restaurante>();
+            using (SqlConnection con = new SqlConnection(connectionString))
+            {
+                using (SqlCommand cmd = new SqlCommand("BuscarRestaurantesDisponibles_SP", con))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@FechaHora", fechaHora);
+                    cmd.Parameters.AddWithValue("@CantidadComensales", comensales);
+
+                    con.Open();
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            lista.Add(new Restaurante
+                            {
+                                ID_Restaurante = Convert.ToInt32(reader["ID_Restaurante"]),
+                                ID_Usuario = Convert.ToInt64(reader["ID_Usuario"]),
+                                Nombre = reader["Nombre"].ToString(),
+                                Direccion = reader["Direccion"].ToString(),
+                                TiempoMinimoPermitido = Convert.ToInt32(reader["TiempoMinimoPermitido"]),
+                                TiempoMaximoPermitido = Convert.ToInt32(reader["TiempoMaximoPermitido"]),
+                                PorcentajeMaximoOcupacion = Convert.ToDecimal(reader["PorcentajeMaximoOcupacion"])
+                            });
+                        }
+                    }
+                }
+            }
+            return lista;
         }
     }
 }

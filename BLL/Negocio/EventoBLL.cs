@@ -22,5 +22,9 @@ namespace BLL
 
             return dalEvento.InsertarEvento_SP(evento);
         }
+        public IList<Evento> ObtenerEventosActivos(int idRestaurante, DateTime fechaHora)
+        {
+            return dalEvento.ObtenerEventosActivos(idRestaurante, fechaHora);
+        }
     }
 }

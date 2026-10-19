@@ -1,6 +1,7 @@
 ﻿using BE;
-using System;
 using DAL;
+using System;
+using System.Collections.Generic;
 
 namespace BLL
 {
@@ -46,6 +47,24 @@ namespace BLL
 
             if (r.PorcentajeMaximoOcupacion < 1 || r.PorcentajeMaximoOcupacion > 100)
                 throw new Exception("El porcentaje de ocupación debe estar entre el 1% y el 100%.");
+        }
+        public IList<Restaurante> BuscarRestaurantesDisponibles(DateTime fechaHora, int comensales)
+        {
+            if (fechaHora < DateTime.Now)
+                throw new Exception("No se pueden buscar reservas en el pasado.");
+            if (comensales <= 0)
+                throw new Exception("La cantidad de comensales debe ser de al menos 1 persona.");
+            IList<Restaurante> lista = dalRestaurante.BuscarRestaurantesDisponibles(fechaHora, comensales);
+            EventoBLL bllEvento = new EventoBLL();
+            PreferenciaBLL bllPreferencia = new PreferenciaBLL();
+
+            foreach (var r in lista)
+            {
+                r.Eventos = (List<Evento>)bllEvento.ObtenerEventosActivos(r.ID_Restaurante, fechaHora);
+                r.Preferencias = (List<PreferenciaDietetica>)bllPreferencia.ObtenerPreferenciasPorRestaurante(r.ID_Restaurante);
+            }
+
+            return lista;
         }
     }
 }
