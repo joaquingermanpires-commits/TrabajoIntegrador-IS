@@ -12,15 +12,11 @@ namespace BLL
 
         public bool GenerarReserva(Reserva reserva, string tokenTarjeta)
         {
-            // CAMBIO: Validaciones de barrera agregadas
             if (reserva.FechaHoraSolicitada < DateTime.Now)
                 throw new Exception("La fecha y hora de la reserva no puede ser en el pasado.");
-
             if (reserva.CantidadComensales <= 0)
                 throw new Exception("La cantidad de comensales debe ser mayor a cero.");
-
-            // valida el Cupo del Salón
-            if (!ValidarDisponibilidad(reserva.ID_Restaurante, reserva.FechaHoraSolicitada, reserva.CantidadComensales))
+            if (!ValidarDisponibilidad(reserva.ID_Restaurante, reserva.FechaHoraSolicitada, reserva.CantidadComensales))   // valida el Cupo del Salón
                 throw new Exception("No hay disponibilidad en el salón para la fecha y cantidad de comensales solicitada.");
 
             int idReservaGenerada = dalReserva.InsertarReserva_SP(reserva);
@@ -28,7 +24,6 @@ namespace BLL
 
             try
             {
-                // Procesa Seguro Financiero
                 Transaccion seguro = bllTransaccion.ProcesarPreAutorizacion(idReservaGenerada, reserva.CantidadComensales, tokenTarjeta);
                 reserva.SeguroFinanciero = seguro;
                 reserva.ConfirmarReserva();
@@ -37,7 +32,6 @@ namespace BLL
             }
             catch (Exception ex)
             {
-                // Si la tarjeta rebota, la reserva se cancela inmediatamente liberando el cupo
                 reserva.CancelarReserva();
                 dalReserva.ActualizarEstado_SP(reserva);
                 throw new Exception(ex.Message);
@@ -53,8 +47,6 @@ namespace BLL
 
             reserva.RegistrarCheckInReal(DateTime.Now, idMesaAsignada);
             dalReserva.ActualizarEstado_SP(reserva);
-
-            // CAMBIO: Validación defensiva (t != null)
             Transaccion t = dalReserva.ObtenerTransaccionAsociada_SP(idReserva);
             if (t != null)
             {
@@ -72,8 +64,6 @@ namespace BLL
             {
                 reserva.MarcarComoNoShow();
                 dalReserva.ActualizarEstado_SP(reserva);
-
-                // CAMBIO: Validación defensiva (t != null)
                 Transaccion t = dalReserva.ObtenerTransaccionAsociada_SP(idReserva);
                 if (t != null)
                 {
@@ -93,8 +83,6 @@ namespace BLL
             {
                 reserva.MarcarComoNoShow();
                 dalReserva.ActualizarEstado_SP(reserva);
-
-                // CAMBIO: Validación defensiva (t != null)
                 Transaccion t = dalReserva.ObtenerTransaccionAsociada_SP(reserva.ID_Reserva);
                 if (t != null)
                 {

@@ -122,12 +122,12 @@
             // 
             this.kryptonGroupBox1.Panel.Controls.Add(this.btnSeleccionarRestaurante);
             this.kryptonGroupBox1.Panel.Controls.Add(this.dgvRestaurantes);
-            this.kryptonGroupBox1.Size = new System.Drawing.Size(925, 319);
+            this.kryptonGroupBox1.Size = new System.Drawing.Size(925, 263);
             this.kryptonGroupBox1.TabIndex = 1;
             // 
             // btnSeleccionarRestaurante
             // 
-            this.btnSeleccionarRestaurante.Location = new System.Drawing.Point(11, 231);
+            this.btnSeleccionarRestaurante.Location = new System.Drawing.Point(11, 205);
             this.btnSeleccionarRestaurante.Name = "btnSeleccionarRestaurante";
             this.btnSeleccionarRestaurante.Size = new System.Drawing.Size(207, 25);
             this.btnSeleccionarRestaurante.TabIndex = 1;
@@ -144,14 +144,14 @@
             this.dgvRestaurantes.Name = "dgvRestaurantes";
             this.dgvRestaurantes.ReadOnly = true;
             this.dgvRestaurantes.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvRestaurantes.Size = new System.Drawing.Size(784, 150);
+            this.dgvRestaurantes.Size = new System.Drawing.Size(907, 150);
             this.dgvRestaurantes.TabIndex = 0;
             // 
             // FrmBuscadorRestaurantes
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(936, 450);
+            this.ClientSize = new System.Drawing.Size(936, 394);
             this.Controls.Add(this.kryptonGroupBox1);
             this.Controls.Add(this.kryptonHeaderGroup1);
             this.Name = "FrmBuscadorRestaurantes";

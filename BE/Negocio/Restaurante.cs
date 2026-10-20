@@ -17,7 +17,7 @@ namespace BE
         public int TiempoMinimoPermitido { get; set; }
         public int TiempoMaximoPermitido { get; set; }
         public decimal PorcentajeMaximoOcupacion { get; set; }
-
+        public string Telefono { get; set; }
         public List<Mesa> Mesas { get; set; }
         public List<Evento> Eventos { get; set; }
         public List<PreferenciaDietetica> Preferencias { get; set; }

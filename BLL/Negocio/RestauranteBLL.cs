@@ -29,8 +29,6 @@ namespace BLL
         public void ActualizarReglasGlobales(Restaurante restaurante)
         {
             ValidarReglasConfiguracion(restaurante);
-
-            // CAMBIO: Se eliminó el 'new RestauranteDal()' redundante. Usamos el de la clase.
             if (!dalRestaurante.ActualizarReglasRestaurante(restaurante))
             {
                 throw new Exception("No se pudieron actualizar las reglas en la base de datos.");
@@ -65,6 +63,25 @@ namespace BLL
             }
 
             return lista;
+        }
+        public IList<Restaurante> ObtenerTodos()
+        {
+            return dalRestaurante.ObtenerTodos();
+        }
+
+        public bool ActualizarRestaurante(Restaurante restaurante)
+        {
+            if (string.IsNullOrWhiteSpace(restaurante.Nombre)) throw new Exception("El nombre es obligatorio.");
+            return dalRestaurante.ActualizarRestauranteCompleto_SP(restaurante);
+        }
+
+        public bool EliminarRestaurante(int idRestaurante)
+        {
+            return dalRestaurante.EliminarRestaurante_SP(idRestaurante);
+        }
+        public Restaurante ObtenerRestaurantePorUsuario(long idUsuario)
+        {
+            return dalRestaurante.ObtenerRestaurantePorUsuario(idUsuario);
         }
     }
 }

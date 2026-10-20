@@ -37,32 +37,37 @@
             this.permisosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.compositeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.historialTraduccionesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
-            this.menuStrip1.SuspendLayout();
+            this.gestiónDeRestaurantes = new System.Windows.Forms.MenuStrip();
+            this.gestiónDeRestaurantesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.buscadorRestaurantesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.gestionMesasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.configuracionLocalToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.altaEventosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.gestiónDeRestaurantes.SuspendLayout();
             this.SuspendLayout();
             // 
             // gestiónDeUsuariosToolStripMenuItem
             // 
             this.gestiónDeUsuariosToolStripMenuItem.Name = "gestiónDeUsuariosToolStripMenuItem";
-            this.gestiónDeUsuariosToolStripMenuItem.Size = new System.Drawing.Size(122, 20);
+            this.gestiónDeUsuariosToolStripMenuItem.Size = new System.Drawing.Size(24, 20);
             this.gestiónDeUsuariosToolStripMenuItem.Tag = "FrmGestion";
-            this.gestiónDeUsuariosToolStripMenuItem.Text = "Gestión de usuarios";
+            this.gestiónDeUsuariosToolStripMenuItem.Text = "-";
             this.gestiónDeUsuariosToolStripMenuItem.Click += new System.EventHandler(this.gestiónDeUsuariosToolStripMenuItem_Click);
             // 
             // cerrarSesiónToolStripMenuItem
             // 
             this.cerrarSesiónToolStripMenuItem.Name = "cerrarSesiónToolStripMenuItem";
-            this.cerrarSesiónToolStripMenuItem.Size = new System.Drawing.Size(87, 20);
+            this.cerrarSesiónToolStripMenuItem.Size = new System.Drawing.Size(24, 20);
             this.cerrarSesiónToolStripMenuItem.Tag = "Frmlogout";
-            this.cerrarSesiónToolStripMenuItem.Text = "Cerrar sesión";
+            this.cerrarSesiónToolStripMenuItem.Text = "-";
             this.cerrarSesiónToolStripMenuItem.Click += new System.EventHandler(this.cerrarSesiónToolStripMenuItem_Click);
             // 
             // informacionDeLaSesionToolStripMenuItem
             // 
             this.informacionDeLaSesionToolStripMenuItem.Name = "informacionDeLaSesionToolStripMenuItem";
-            this.informacionDeLaSesionToolStripMenuItem.Size = new System.Drawing.Size(148, 20);
+            this.informacionDeLaSesionToolStripMenuItem.Size = new System.Drawing.Size(24, 20);
             this.informacionDeLaSesionToolStripMenuItem.Tag = "FrmSesion";
-            this.informacionDeLaSesionToolStripMenuItem.Text = "Informacion de la sesion";
+            this.informacionDeLaSesionToolStripMenuItem.Text = "-";
             this.informacionDeLaSesionToolStripMenuItem.Click += new System.EventHandler(this.informacionDeLaSesionToolStripMenuItem_Click);
             // 
             // idiomasToolStripMenuItem
@@ -113,10 +118,10 @@
             this.historialTraduccionesToolStripMenuItem.Text = "-";
             this.historialTraduccionesToolStripMenuItem.Click += new System.EventHandler(this.historialTraduccionesToolStripMenuItem_Click);
             // 
-            // menuStrip1
+            // gestiónDeRestaurantes
             // 
-            this.menuStrip1.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.gestiónDeRestaurantes.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.gestiónDeRestaurantes.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.gestiónDeUsuariosToolStripMenuItem,
             this.cerrarSesiónToolStripMenuItem,
             this.informacionDeLaSesionToolStripMenuItem,
@@ -125,12 +130,52 @@
             this.backUpToolStripMenuItem,
             this.permisosToolStripMenuItem,
             this.compositeToolStripMenuItem,
-            this.historialTraduccionesToolStripMenuItem});
-            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
-            this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1144, 24);
-            this.menuStrip1.TabIndex = 1;
-            this.menuStrip1.Text = "menuStrip1";
+            this.historialTraduccionesToolStripMenuItem,
+            this.gestiónDeRestaurantesToolStripMenuItem,
+            this.buscadorRestaurantesToolStripMenuItem,
+            this.gestionMesasToolStripMenuItem,
+            this.configuracionLocalToolStripMenuItem,
+            this.altaEventosToolStripMenuItem});
+            this.gestiónDeRestaurantes.Location = new System.Drawing.Point(0, 0);
+            this.gestiónDeRestaurantes.Name = "gestiónDeRestaurantes";
+            this.gestiónDeRestaurantes.Size = new System.Drawing.Size(1144, 24);
+            this.gestiónDeRestaurantes.TabIndex = 1;
+            this.gestiónDeRestaurantes.Text = "-----------";
+            // 
+            // gestiónDeRestaurantesToolStripMenuItem
+            // 
+            this.gestiónDeRestaurantesToolStripMenuItem.Name = "gestiónDeRestaurantesToolStripMenuItem";
+            this.gestiónDeRestaurantesToolStripMenuItem.Size = new System.Drawing.Size(139, 20);
+            this.gestiónDeRestaurantesToolStripMenuItem.Text = "gestiónDeRestaurantes";
+            this.gestiónDeRestaurantesToolStripMenuItem.Click += new System.EventHandler(this.gestiónDeRestaurantesToolStripMenuItem_Click);
+            // 
+            // buscadorRestaurantesToolStripMenuItem
+            // 
+            this.buscadorRestaurantesToolStripMenuItem.Name = "buscadorRestaurantesToolStripMenuItem";
+            this.buscadorRestaurantesToolStripMenuItem.Size = new System.Drawing.Size(135, 20);
+            this.buscadorRestaurantesToolStripMenuItem.Text = "buscadorRestaurantes";
+            this.buscadorRestaurantesToolStripMenuItem.Click += new System.EventHandler(this.buscadorRestaurantesToolStripMenuItem_Click);
+            // 
+            // gestionMesasToolStripMenuItem
+            // 
+            this.gestionMesasToolStripMenuItem.Name = "gestionMesasToolStripMenuItem";
+            this.gestionMesasToolStripMenuItem.Size = new System.Drawing.Size(91, 20);
+            this.gestionMesasToolStripMenuItem.Text = "gestionMesas";
+            this.gestionMesasToolStripMenuItem.Click += new System.EventHandler(this.gestionMesasToolStripMenuItem_Click);
+            // 
+            // configuracionLocalToolStripMenuItem
+            // 
+            this.configuracionLocalToolStripMenuItem.Name = "configuracionLocalToolStripMenuItem";
+            this.configuracionLocalToolStripMenuItem.Size = new System.Drawing.Size(121, 20);
+            this.configuracionLocalToolStripMenuItem.Text = "configuracionLocal";
+            this.configuracionLocalToolStripMenuItem.Click += new System.EventHandler(this.configuracionLocalToolStripMenuItem_Click);
+            // 
+            // altaEventosToolStripMenuItem
+            // 
+            this.altaEventosToolStripMenuItem.Name = "altaEventosToolStripMenuItem";
+            this.altaEventosToolStripMenuItem.Size = new System.Drawing.Size(79, 20);
+            this.altaEventosToolStripMenuItem.Text = "altaEventos";
+            this.altaEventosToolStripMenuItem.Click += new System.EventHandler(this.altaEventosToolStripMenuItem_Click);
             // 
             // FrmMenu
             // 
@@ -138,17 +183,17 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.ClientSize = new System.Drawing.Size(1144, 515);
-            this.Controls.Add(this.menuStrip1);
+            this.Controls.Add(this.gestiónDeRestaurantes);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.HelpButton = true;
             this.IsMdiContainer = true;
-            this.MainMenuStrip = this.menuStrip1;
+            this.MainMenuStrip = this.gestiónDeRestaurantes;
             this.Name = "FrmMenu";
             this.Text = "Menu ";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FrmMenu_FormClosed);
             this.Load += new System.EventHandler(this.Menu_Load);
-            this.menuStrip1.ResumeLayout(false);
-            this.menuStrip1.PerformLayout();
+            this.gestiónDeRestaurantes.ResumeLayout(false);
+            this.gestiónDeRestaurantes.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -165,6 +210,11 @@
         private System.Windows.Forms.ToolStripMenuItem permisosToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem compositeToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem historialTraduccionesToolStripMenuItem;
-        private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.MenuStrip gestiónDeRestaurantes;
+        private System.Windows.Forms.ToolStripMenuItem gestiónDeRestaurantesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem buscadorRestaurantesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem gestionMesasToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem configuracionLocalToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem altaEventosToolStripMenuItem;
     }
 }

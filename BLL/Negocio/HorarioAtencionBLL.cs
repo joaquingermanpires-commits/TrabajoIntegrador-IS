@@ -7,11 +7,8 @@ namespace BLL
 {
     public class HorarioAtencionBLL
     {
-        // CAMBIO: Declaramos las dependencias (DALs) una sola vez a nivel de clase
         private HorarioAtencionDal dalHorario = new HorarioAtencionDal();
         private ReservaDal dalReserva = new ReservaDal();
-
-        // CAMBIO: Devolvemos IList según nuestro nuevo estándar
         public IList<HorarioAtencion> ObtenerHorarios(int idRestaurante)
         {
             return dalHorario.ObtenerHorarios(idRestaurante);
@@ -23,19 +20,13 @@ namespace BLL
             {
                 throw new Exception("La hora de apertura no puede ser igual o posterior a la hora de cierre.");
             }
-
-            // Usamos la variable de clase dalReserva
             DateTime fechaVigencia = dalReserva.ObtenerFechaUltimaReservaPorDia(nuevoHorario.ID_Restaurante, (int)nuevoHorario.DiaSemana);
-
-            // REGLA DE NEGOCIO ESTRICTA: Deshabilitar días
-            if (!nuevoHorario.Habilitado && fechaVigencia > DateTime.Today)
+            if (!nuevoHorario.Habilitado && fechaVigencia > DateTime.Today)            // regla de negocio Deshabilitar días
             {
                 DateTime diaUltimaReserva = fechaVigencia.AddDays(-1);
                 throw new Exception($"No se puede deshabilitar este día porque existen reservas a futuro. La última reserva está programada para el {diaUltimaReserva.ToShortDateString()}.");
             }
             nuevoHorario.ValidoDesde = fechaVigencia;
-
-            // Usamos la variable de clase dalHorario
             if (dalHorario.InsertarHorario(nuevoHorario))
             {
                 if (fechaVigencia > DateTime.Today)

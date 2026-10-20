@@ -31,12 +31,13 @@
             this.panelSalon = new Krypton.Toolkit.KryptonPanel();
             this.kryptonPanel1 = new Krypton.Toolkit.KryptonPanel();
             this.kryptonGroupBox1 = new Krypton.Toolkit.KryptonGroupBox();
+            this.btnRotarMesa = new Krypton.Toolkit.KryptonButton();
             this.chkHabilitada = new Krypton.Toolkit.KryptonCheckBox();
             this.numCapacidad = new Krypton.Toolkit.KryptonNumericUpDown();
             this.txtCodigoMesa = new Krypton.Toolkit.KryptonTextBox();
             this.btnGuardar = new Krypton.Toolkit.KryptonButton();
             this.btnAgregarMesa = new Krypton.Toolkit.KryptonButton();
-            this.btnRotarMesa = new Krypton.Toolkit.KryptonButton();
+            this.btnEliminarMesa = new Krypton.Toolkit.KryptonButton();
             ((System.ComponentModel.ISupportInitialize)(this.panelSalon)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.kryptonPanel1)).BeginInit();
             this.kryptonPanel1.SuspendLayout();
@@ -55,6 +56,7 @@
             // 
             // kryptonPanel1
             // 
+            this.kryptonPanel1.Controls.Add(this.btnEliminarMesa);
             this.kryptonPanel1.Controls.Add(this.kryptonGroupBox1);
             this.kryptonPanel1.Controls.Add(this.btnGuardar);
             this.kryptonPanel1.Controls.Add(this.btnAgregarMesa);
@@ -75,6 +77,16 @@
             this.kryptonGroupBox1.Panel.Controls.Add(this.txtCodigoMesa);
             this.kryptonGroupBox1.Size = new System.Drawing.Size(176, 276);
             this.kryptonGroupBox1.TabIndex = 2;
+            // 
+            // btnRotarMesa
+            // 
+            this.btnRotarMesa.Location = new System.Drawing.Point(25, 166);
+            this.btnRotarMesa.Name = "btnRotarMesa";
+            this.btnRotarMesa.Size = new System.Drawing.Size(90, 25);
+            this.btnRotarMesa.TabIndex = 3;
+            this.btnRotarMesa.Values.DropDownArrowColor = System.Drawing.Color.Empty;
+            this.btnRotarMesa.Values.Text = "btnRotarMesa";
+            this.btnRotarMesa.Click += new System.EventHandler(this.btnRotarMesa_Click);
             // 
             // chkHabilitada
             // 
@@ -127,12 +139,12 @@
             // 
             // btnGuardar
             // 
-            this.btnGuardar.Location = new System.Drawing.Point(43, 100);
+            this.btnGuardar.Location = new System.Drawing.Point(43, 72);
             this.btnGuardar.Name = "btnGuardar";
             this.btnGuardar.Size = new System.Drawing.Size(90, 25);
             this.btnGuardar.TabIndex = 1;
             this.btnGuardar.Values.DropDownArrowColor = System.Drawing.Color.Empty;
-            this.btnGuardar.Values.Text = "kryptonButton1";
+            this.btnGuardar.Values.Text = "btnGuardar";
             this.btnGuardar.Click += new System.EventHandler(this.btnGuardar_Click);
             // 
             // btnAgregarMesa
@@ -142,18 +154,18 @@
             this.btnAgregarMesa.Size = new System.Drawing.Size(90, 25);
             this.btnAgregarMesa.TabIndex = 0;
             this.btnAgregarMesa.Values.DropDownArrowColor = System.Drawing.Color.Empty;
-            this.btnAgregarMesa.Values.Text = "kryptonButton1";
+            this.btnAgregarMesa.Values.Text = "btnAgregarMesa";
             this.btnAgregarMesa.Click += new System.EventHandler(this.btnAgregarMesa_Click);
             // 
-            // btnRotarMesa
+            // btnEliminarMesa
             // 
-            this.btnRotarMesa.Location = new System.Drawing.Point(25, 166);
-            this.btnRotarMesa.Name = "btnRotarMesa";
-            this.btnRotarMesa.Size = new System.Drawing.Size(90, 25);
-            this.btnRotarMesa.TabIndex = 3;
-            this.btnRotarMesa.Values.DropDownArrowColor = System.Drawing.Color.Empty;
-            this.btnRotarMesa.Values.Text = "btnRotarMesa";
-            this.btnRotarMesa.Click += new System.EventHandler(this.btnRotarMesa_Click);
+            this.btnEliminarMesa.Location = new System.Drawing.Point(43, 103);
+            this.btnEliminarMesa.Name = "btnEliminarMesa";
+            this.btnEliminarMesa.Size = new System.Drawing.Size(90, 25);
+            this.btnEliminarMesa.TabIndex = 3;
+            this.btnEliminarMesa.Values.DropDownArrowColor = System.Drawing.Color.Empty;
+            this.btnEliminarMesa.Values.Text = "btnEliminarMesa";
+            this.btnEliminarMesa.Click += new System.EventHandler(this.btnEliminarMesa_Click);
             // 
             // FrmGestionMesas
             // 
@@ -188,5 +200,6 @@
         private Krypton.Toolkit.KryptonNumericUpDown numCapacidad;
         private Krypton.Toolkit.KryptonTextBox txtCodigoMesa;
         private Krypton.Toolkit.KryptonButton btnRotarMesa;
+        private Krypton.Toolkit.KryptonButton btnEliminarMesa;
     }
 }

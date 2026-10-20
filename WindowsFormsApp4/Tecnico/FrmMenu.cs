@@ -5,6 +5,7 @@ using SERVICIOS;
 using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
+using WindowsFormsApp4.Negocio;
 
 namespace WindowsFormsApp4
 {
@@ -41,6 +42,11 @@ namespace WindowsFormsApp4
             permisosToolStripMenuItem.Visible = tieneUsuario && PermisoBLL.GetInstance().VerificarPermiso(usuarioLogueado, "MenuPermisos");
             gestiónDeUsuariosToolStripMenuItem.Visible = tieneUsuario && PermisoBLL.GetInstance().VerificarPermiso(usuarioLogueado, "MenuUsuarios");
             idiomasToolStripMenuItem.Visible = tieneUsuario && PermisoBLL.GetInstance().VerificarPermiso(usuarioLogueado, "MenuIdiomas");
+            gestiónDeRestaurantesToolStripMenuItem.Visible = tieneUsuario && PermisoBLL.GetInstance().VerificarPermiso(usuarioLogueado, "MenuRestaurantes");
+            buscadorRestaurantesToolStripMenuItem.Visible = tieneUsuario && PermisoBLL.GetInstance().VerificarPermiso(usuarioLogueado, "MenuBuscadorRestaurantes");
+            gestionMesasToolStripMenuItem.Visible = tieneUsuario && PermisoBLL.GetInstance().VerificarPermiso(usuarioLogueado, "MenuGestionMesas");
+            configuracionLocalToolStripMenuItem.Visible = tieneUsuario && PermisoBLL.GetInstance().VerificarPermiso(usuarioLogueado, "MenuConfiguracionLocal");
+            altaEventosToolStripMenuItem.Visible = tieneUsuario && PermisoBLL.GetInstance().VerificarPermiso(usuarioLogueado, "MenuAltaEvento");
         }
         //Controles ToolStripMenu
         private void gestiónDeUsuariosToolStripMenuItem_Click(object sender, EventArgs e)
@@ -80,6 +86,26 @@ namespace WindowsFormsApp4
         private void historialTraduccionesToolStripMenuItem_Click(object sender, EventArgs e)
         {
             AbrirFormulario<FrmHistorial>();
+        }
+        private void gestiónDeRestaurantesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            AbrirFormulario<FrmRestaurantes>();
+        }
+        private void buscadorRestaurantesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            AbrirFormulario<FrmBuscadorRestaurantes>();
+        }
+        private void gestionMesasToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            AbrirFormulario<FrmGestionMesas>();
+        }
+        private void configuracionLocalToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            AbrirFormulario<FrmConfiguracionLocal>();
+        }
+        private void altaEventosToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            AbrirFormulario<FrmAltaEvento>();
         }
         public void AbrirFormulario<T>() where T : Form, new()
         {

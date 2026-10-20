@@ -10,7 +10,7 @@ namespace BE
     {
         public int ID_Horario { get; set; }
         public int ID_Restaurante { get; set; }
-        public DayOfWeek DiaSemana { get; set; } //0=domingo, 1=lunes, etc.
+        public DayOfWeek DiaSemana { get; set; } 
         public bool Habilitado { get; set; }
         public TimeSpan HoraApertura { get; set; }
         public TimeSpan HoraCierre { get; set; }

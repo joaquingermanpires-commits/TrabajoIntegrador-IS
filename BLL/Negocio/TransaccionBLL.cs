@@ -7,13 +7,10 @@ namespace BLL
     public class TransaccionBLL
     {
         private TransaccionDal dalTransaccion = new TransaccionDal();
-
-        // CAMBIO: Elevamos el número mágico a una constante de negocio a nivel de clase
         private const decimal COSTO_SEGURO_POR_PERSONA = 5000.00m;
 
         public Transaccion ProcesarPreAutorizacion(int idReserva, int cantidadComensales, string tokenPago)
         {
-            // Regla de Negocio calculada limpiamente
             decimal montoTotal = COSTO_SEGURO_POR_PERSONA * cantidadComensales;
             bool validacionPasarelaExcitosa = SimularPasarela(tokenPago, montoTotal);
 

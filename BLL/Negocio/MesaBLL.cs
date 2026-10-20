@@ -32,11 +32,13 @@ namespace BLL
             return dalMesa.ActualizarMesa(mesa);
         }
 
-        public bool BajaMesa(int idMesa)
+        public bool EliminarMesa(int idMesa)
         {
-            // Regla: No se puede borrar si tiene reservas futuras asignadas. 
-            // (Esta validación debería idealmente estar acá antes de llamar al DAL, 
-            // pero si tu SQL Server lo bloquea por Foreign Key, el try/catch de la UI lo atajará).
+            int reservasPendientes = dalMesa.ContarReservasPendientes(idMesa);
+            if (reservasPendientes > 0)
+            {
+                throw new Exception($"Operación denegada. La mesa tiene {reservasPendientes} reserva(s) futura(s) asignada(s).\n\nPor favor, contactá a los clientes o reasigná esas reservas a otras mesas antes de eliminarla del salón.");
+            }
             return dalMesa.EliminarMesa_SP(idMesa);
         }
 
@@ -47,14 +49,11 @@ namespace BLL
 
         public IList<Mesa> ObtenerMesasDisponibles(int idRestaurante, DateTime fechaHoraSolicitada, int comensales, int minutosEstadia)
         {
-            // Validaciones de negocio
-            if (fechaHoraSolicitada < DateTime.Now)
+            if (fechaHoraSolicitada < DateTime.Now)            // Validaciones de negocio
                 throw new Exception("No se pueden buscar mesas en horarios pasados.");
 
             if (comensales <= 0)
                 throw new Exception("La cantidad de comensales debe ser mayor a cero.");
-
-            // CAMBIO: Se eliminó la instancia duplicada 'MesaDal dalMesa = new MesaDal();'
             return dalMesa.ObtenerMesasDisponibles(idRestaurante, fechaHoraSolicitada, comensales, minutosEstadia);
         }
     }

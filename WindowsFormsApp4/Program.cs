@@ -30,10 +30,10 @@ namespace WindowsFormsApp4
             else
             {
                 ////No hay error
-                //Application.Run(new FrmLogin());
-                Application.Run(new FrmBuscadorRestaurantes());
+                Application.Run(new FrmLogin());
+                //Application.Run(new FrmBuscadorRestaurantes());
                 //Application.Run(new FrmConfiguracionLocal());
-                //Application.Run(new FrmGestionMesas());
+                //Application.Run(new FrmAltaEvento());
             }
         }
     }

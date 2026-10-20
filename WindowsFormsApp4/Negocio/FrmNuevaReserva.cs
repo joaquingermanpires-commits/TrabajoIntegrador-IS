@@ -1,6 +1,7 @@
 ﻿using BE;
 using BLL;
 using Krypton.Toolkit;
+using SERVICIOS;
 using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
@@ -44,6 +45,15 @@ namespace WindowsFormsApp4.Negocio
             numTiempoEstadia.Maximum = 240;
             numTiempoEstadia.Value = 120;
             DibujarSalonConDisponibilidad(fechaHoraBusquedaActual, comensalesBusquedaActual, (int)numTiempoEstadia.Value);
+            AplicarSeguridad();
+        }
+        private void AplicarSeguridad()
+        {
+            Usuario usuarioLogueado = Singleton.GetInstance().GetUsuarioActual();
+            bool tieneUsuario = usuarioLogueado != null;
+
+            btnBuscarMesas.Enabled = tieneUsuario && PermisoBLL.GetInstance().VerificarPermiso(usuarioLogueado, "btnBuscarMesasReserva");
+            btnConfirmarReserva.Enabled = tieneUsuario && PermisoBLL.GetInstance().VerificarPermiso(usuarioLogueado, "btnConfirmarReserva");
         }
 
         private void btnBuscarMesas_Click(object sender, EventArgs e)
@@ -114,7 +124,7 @@ namespace WindowsFormsApp4.Negocio
                 {
                     ID_Mesa = mesaBE.ID_Mesa,
                     ID_Restaurante = idRestauranteActual,
-                    ID_Usuario = 1, // ID del comensal hardcodeado por ahora
+                    ID_Usuario = Singleton.GetInstance().GetUsuarioActual().ID_Usuario,
                     FechaHoraSolicitada = fechaHoraBusquedaActual,
                     CantidadComensales = comensalesBusquedaActual,
                     DuracionMinutos = duracionBusquedaActual

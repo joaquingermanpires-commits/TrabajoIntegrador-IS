@@ -26,5 +26,9 @@ namespace BLL
         {
             return dalEvento.ObtenerEventosActivos(idRestaurante, fechaHora);
         }
+        public IList<Evento> ObtenerEventosPorRestaurante(int idRestaurante)
+        {
+            return dalEvento.ObtenerEventosPorRestaurante(idRestaurante);
+        }
     }
 }

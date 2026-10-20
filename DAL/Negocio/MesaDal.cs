@@ -123,5 +123,18 @@ namespace DAL
                 EsVertical = Convert.ToBoolean(reader["EsVertical"])
             };
         }
+        public int ContarReservasPendientes(int idMesa)
+        {
+            using (SqlConnection con = new SqlConnection(connectionString))
+            {
+                using (SqlCommand cmd = new SqlCommand("VerificarReservasPendientes_SP", con))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@ID_Mesa", idMesa);
+                    con.Open();
+                    return Convert.ToInt32(cmd.ExecuteScalar());
+                }
+            }
+        }
     }
 }

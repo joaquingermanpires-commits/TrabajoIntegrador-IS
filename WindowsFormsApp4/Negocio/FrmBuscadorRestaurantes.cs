@@ -1,6 +1,7 @@
 ﻿using BE;
 using BLL;
 using Krypton.Toolkit;
+using SERVICIOS;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -26,6 +27,15 @@ namespace WindowsFormsApp4.Negocio
         private void FrmBuscadorRestaurantes_Load(object sender, EventArgs e)
         {
             ConfigurarGrilla();
+            AplicarSeguridad();
+        }
+        private void AplicarSeguridad()
+        {
+            Usuario usuarioLogueado = Singleton.GetInstance().GetUsuarioActual();
+            bool tieneUsuario = usuarioLogueado != null;
+
+            btnBuscarRestaurantes.Enabled = tieneUsuario && PermisoBLL.GetInstance().VerificarPermiso(usuarioLogueado, "btnBuscarRestaurantes");
+            btnSeleccionarRestaurante.Enabled = tieneUsuario && PermisoBLL.GetInstance().VerificarPermiso(usuarioLogueado, "btnSeleccionarRestaurante");
         }
 
         private void ConfigurarGrilla()
@@ -74,7 +84,6 @@ namespace WindowsFormsApp4.Negocio
             TimeSpan hora = dtpHoraBusqueda.Value.TimeOfDay;
             DateTime fechaHora = fecha.Add(hora);
             int comensales = (int)numComensalesBusqueda.Value;
-            // 3. ¡EL PUENTE! Abrimos el FrmNuevaReserva inyectándole estos datos
             FrmNuevaReserva frmReserva = new FrmNuevaReserva(restauranteElegido.ID_Restaurante, fechaHora, comensales);
             frmReserva.ShowDialog();
         }

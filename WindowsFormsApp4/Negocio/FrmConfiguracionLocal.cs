@@ -1,6 +1,7 @@
 ﻿using BE;
 using BLL;
 using Krypton.Toolkit;
+using SERVICIOS;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -15,7 +16,7 @@ namespace WindowsFormsApp4.Negocio
 {
     public partial class FrmConfiguracionLocal : KryptonForm
     {
-        private int idRestauranteActual = 1;
+        private int idRestauranteActual;
         private RestauranteBLL bllRestaurante = new RestauranteBLL();
         private HorarioAtencionBLL bllHorario = new HorarioAtencionBLL();
         private PreferenciaBLL bllPreferencia = new PreferenciaBLL();
@@ -29,9 +30,31 @@ namespace WindowsFormsApp4.Negocio
             CargarReglasGlobales();
             CargarGrillaHorarios();
             CargarPreferenciasDieteticas();
+            AplicarSeguridad();
             if (cmbDiaSemana.Items.Count > 0) cmbDiaSemana.SelectedIndex = 1;
-        }
+            Usuario usuarioLogueado = Singleton.GetInstance().GetUsuarioActual();
+            Restaurante miLocal = new RestauranteBLL().ObtenerRestaurantePorUsuario(usuarioLogueado.ID_Usuario);
 
+            if (miLocal != null)
+            {
+                idRestauranteActual = miLocal.ID_Restaurante;
+            }
+            else
+            {
+                MessageBox.Show("Tu usuario no tiene ningún restaurante asignado. Contactá al administrador.", "Acceso Denegado", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                this.Close();
+                return;
+            }
+        }
+        private void AplicarSeguridad()
+        {
+            Usuario usuarioLogueado = Singleton.GetInstance().GetUsuarioActual();
+            bool tieneUsuario = usuarioLogueado != null;
+
+            btnGuardarReglas.Enabled = tieneUsuario && PermisoBLL.GetInstance().VerificarPermiso(usuarioLogueado, "btnGuardarReglasGlobales");
+            btnGuardarHorario.Enabled = tieneUsuario && PermisoBLL.GetInstance().VerificarPermiso(usuarioLogueado, "btnGuardarHorarios");
+            btnAgregar.Enabled = tieneUsuario && PermisoBLL.GetInstance().VerificarPermiso(usuarioLogueado, "btnGuardarPreferencias");
+        }
 
         private void CargarReglasGlobales()
         {
@@ -74,7 +97,6 @@ namespace WindowsFormsApp4.Negocio
 
         private void CargarGrillaHorarios()
         {
-            // Opcional: Llenar el DataGridView con los horarios vigentes
             dgvHorarios.DataSource = bllHorario.ObtenerHorarios(idRestauranteActual);
         }
 
@@ -103,26 +125,18 @@ namespace WindowsFormsApp4.Negocio
             }
             catch (Exception ex)
             {
-                // Si la BLL detecta que se intenta cerrar un día con reservas futuras, termina acá
                 MessageBox.Show(ex.Message, "Acción Bloqueada", MessageBoxButtons.OK, MessageBoxIcon.Stop);
             }
         }
         private void CargarPreferenciasDieteticas()
         {
-            // 1. Cargamos TODAS las dietas del sistema en el CheckedListBox
             clbPreferencias.DataSource = bllPreferencia.ObtenerTodas();
             clbPreferencias.DisplayMember = "Descripcion";
             clbPreferencias.ValueMember = "ID_Preferencia";
-
-            // 2. Buscamos cuáles dietas YA TIENE este restaurante en la base de datos
             IList<PreferenciaDietetica> misPreferencias = bllPreferencia.ObtenerPreferenciasPorRestaurante(idRestauranteActual);
-
-            // 3. Recorremos el cuadro y tildamos automáticamente las que coincidan
             for (int i = 0; i < clbPreferencias.Items.Count; i++)
             {
                 PreferenciaDietetica prefGlobal = (PreferenciaDietetica)clbPreferencias.Items[i];
-
-                // Si la dieta global está en "mis preferencias", la marcamos con un Check
                 if (misPreferencias.Any(p => p.ID_Preferencia == prefGlobal.ID_Preferencia))
                 {
                     clbPreferencias.SetItemChecked(i, true);
@@ -135,14 +149,10 @@ namespace WindowsFormsApp4.Negocio
             try
             {
                 List<int> idsSeleccionados = new List<int>();
-
-                // Recorremos solamente los items que el gerente dejó tildados
                 foreach (PreferenciaDietetica pref in clbPreferencias.CheckedItems)
                 {
                     idsSeleccionados.Add(pref.ID_Preferencia);
                 }
-
-                // Se los mandamos a la BLL para que haga el Wipe & Replace
                 if (bllPreferencia.ActualizarPreferenciasRestaurante(idRestauranteActual, idsSeleccionados))
                 {
                     MessageBox.Show("¡Preferencias dietéticas actualizadas con éxito!", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);

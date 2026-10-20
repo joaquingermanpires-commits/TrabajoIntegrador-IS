@@ -1,6 +1,7 @@
 ﻿using BE;
 using BLL;
 using Krypton.Toolkit;
+using SERVICIOS;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -16,7 +17,7 @@ namespace WindowsFormsApp4.Negocio
 {
     public partial class FrmGestionMesas : KryptonForm
     {
-        private int idRestauranteActual = 1;
+        private int idRestauranteActual;
         private MesaBLL bllMesa = new MesaBLL();
         private MesaGraficaFactory fabrica = new MesaGraficaEstandarFactory();
 
@@ -38,6 +39,28 @@ namespace WindowsFormsApp4.Negocio
             numCapacidad.Enabled = false;
             chkHabilitada.Enabled = false;
             CargarSalon();
+            AplicarSeguridad();
+            Usuario usuarioLogueado = Singleton.GetInstance().GetUsuarioActual();
+            Restaurante miLocal = new RestauranteBLL().ObtenerRestaurantePorUsuario(usuarioLogueado.ID_Usuario);
+            if (miLocal != null)
+            {
+                idRestauranteActual = miLocal.ID_Restaurante;
+            }
+            else
+            {
+                MessageBox.Show("Tu usuario no tiene ningún restaurante asignado. Contactá al administrador.", "Acceso Denegado", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                this.Close();
+                return;
+            }
+        }
+        private void AplicarSeguridad()
+        {
+            Usuario usuarioLogueado = Singleton.GetInstance().GetUsuarioActual();
+            bool tieneUsuario = usuarioLogueado != null;
+            btnAgregarMesa.Enabled = tieneUsuario && PermisoBLL.GetInstance().VerificarPermiso(usuarioLogueado, "btnAgregarMesa");
+            btnGuardar.Enabled = tieneUsuario && PermisoBLL.GetInstance().VerificarPermiso(usuarioLogueado, "btnGuardarMesas");
+            btnRotarMesa.Enabled = tieneUsuario && PermisoBLL.GetInstance().VerificarPermiso(usuarioLogueado, "btnRotarMesa");
+            btnEliminarMesa.Enabled = tieneUsuario && PermisoBLL.GetInstance().VerificarPermiso(usuarioLogueado, "btnEliminarMesa");
         }
         private void CargarSalon()
         {
@@ -59,8 +82,6 @@ namespace WindowsFormsApp4.Negocio
             panelSalon.Controls.Add(mesaVisual);
         }
         // Logica de arrastre
-
-
         private void Mesa_MouseDown(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Left)
@@ -88,8 +109,6 @@ namespace WindowsFormsApp4.Negocio
             cargandoDatos = false;
         }
         // Calculo de desplazamiento
-
-
         private void Mesa_MouseMove(object sender, MouseEventArgs e)
         {
             if (isDragging && mesaActiva != null)
@@ -98,7 +117,6 @@ namespace WindowsFormsApp4.Negocio
                 mesaActiva.Top += e.Y - mouseOffset.Y;
             }
         }
-
         private void Mesa_MouseUp(object sender, MouseEventArgs e)
         {
             if (isDragging && mesaActiva != null)
@@ -119,8 +137,6 @@ namespace WindowsFormsApp4.Negocio
                 mesaActiva = null;
             }
         }
-
-
         // Eventos panel de adminsitrador de local
         private void txtCodigoMesa_TextChanged(object sender, EventArgs e)
         {
@@ -187,9 +203,8 @@ namespace WindowsFormsApp4.Negocio
                 MessageBox.Show($"Se guardó la distribución de {mesasGuardadas} mesas con éxito.",
                                 "Guardado Exitoso", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                CargarSalon(); // Recarga para obtener IDs nuevos
-                mesaSeleccionadaBtn = null; // Reseteamos la selección
-
+                CargarSalon();
+                mesaSeleccionadaBtn = null; 
                 txtCodigoMesa.Enabled = false;
                 numCapacidad.Enabled = false;
                 chkHabilitada.Enabled = false;
@@ -226,32 +241,25 @@ namespace WindowsFormsApp4.Negocio
                     }
                 }
             }
-            return true; // Vía libre, se puede colocar acá
+            return true; // No obstruye ninguna mesa
         }
-
         private void btnRotarMesa_Click(object sender, EventArgs e)
         {
             if (mesaSeleccionadaBtn == null) return;
 
             Mesa mesaBE = (Mesa)mesaSeleccionadaBtn.Tag;
 
-            // 1. Guardamos los valores viejos por si choca
+            //Guardado de los valores viejos por si choca
             bool orientacionAnterior = mesaBE.EsVertical;
             int anchoAnterior = mesaSeleccionadaBtn.Width;
             int altoAnterior = mesaSeleccionadaBtn.Height;
-
-            // 2. Invertimos la orientación (De true a false, o viceversa)
             mesaBE.EsVertical = !mesaBE.EsVertical;
-
-            // Calculamos cuánto mediría estando rotada
+            // Calculo de cuánto mediría estando rotada
             int cantidadModulos = (int)Math.Ceiling(mesaBE.CapacidadPersonas / 2.0);
             if (cantidadModulos < 1) cantidadModulos = 1;
-
-            // 3. Modificamos el botón FÍSICAMENTE de forma temporal para que el Radar lo detecte
             mesaSeleccionadaBtn.Width = mesaBE.EsVertical ? 71 : 51 * cantidadModulos;
             mesaSeleccionadaBtn.Height = mesaBE.EsVertical ? 51 * cantidadModulos : 71;
-
-            // 4. RADAR DE CHOQUE
+            // "radar" de posiciones
             if (!EsPosicionValida(mesaSeleccionadaBtn, mesaSeleccionadaBtn.Left, mesaSeleccionadaBtn.Top, 15))
             {
                 MessageBox.Show("No hay espacio suficiente para rotar la mesa aquí.", "Colisión", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -265,6 +273,39 @@ namespace WindowsFormsApp4.Negocio
                 mesaSeleccionadaBtn.Height = altoAnterior;
                 mesaBE.ModificarMesa(mesaBE.CodigoUbicacion, mesaBE.CapacidadPersonas, mesaBE.Habilitada);
                 bllMesa.ActualizarMesa(mesaBE);
+            }
+        }
+
+        private void btnEliminarMesa_Click(object sender, EventArgs e)
+        {
+            if (mesaSeleccionadaBtn == null) return;
+
+            Mesa mesaBE = (Mesa)mesaSeleccionadaBtn.Tag;
+            // Doble confirmación por ser una acción destructiva
+            DialogResult respuesta = MessageBox.Show($"¿Estás seguro que querés eliminar permanentemente la mesa {mesaBE.CodigoUbicacion} del salón?", "Confirmar Baja", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (respuesta == DialogResult.Yes)
+            {
+                try
+                {
+                    // Llama a la BLL. Si tiene reservas, va a saltar el catch
+                    if (bllMesa.EliminarMesa(mesaBE.ID_Mesa))
+                    {
+                        panelSalon.Controls.Remove(mesaSeleccionadaBtn);
+                        mesaSeleccionadaBtn.Dispose();
+                        mesaSeleccionadaBtn = null;
+                        txtCodigoMesa.Clear();
+                        numCapacidad.Value = 1;
+                        txtCodigoMesa.Enabled = false;
+                        numCapacidad.Enabled = false;
+                        chkHabilitada.Enabled = false;
+
+                        MessageBox.Show("Mesa eliminada correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "No se puede eliminar", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
             }
         }
     }

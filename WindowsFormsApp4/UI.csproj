@@ -82,6 +82,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Factories\MesaGraficaFactory.cs" />
+    <Compile Include="Negocio\FrmAltaEvento.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Negocio\FrmAltaEvento.Designer.cs">
+      <DependentUpon>FrmAltaEvento.cs</DependentUpon>
+    </Compile>
     <Compile Include="Negocio\FrmBuscadorRestaurantes.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -99,6 +105,12 @@
     </Compile>
     <Compile Include="Negocio\FrmGestionMesas.Designer.cs">
       <DependentUpon>FrmGestionMesas.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Negocio\FrmRestaurantes.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Negocio\FrmRestaurantes.Designer.cs">
+      <DependentUpon>FrmRestaurantes.cs</DependentUpon>
     </Compile>
     <Compile Include="Tecnico\FrmBackup.cs">
       <SubType>Form</SubType>
@@ -174,6 +186,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Negocio\FrmAltaEvento.resx">
+      <DependentUpon>FrmAltaEvento.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Negocio\FrmBuscadorRestaurantes.resx">
       <DependentUpon>FrmBuscadorRestaurantes.cs</DependentUpon>
     </EmbeddedResource>
@@ -182,6 +197,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Negocio\FrmGestionMesas.resx">
       <DependentUpon>FrmGestionMesas.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Negocio\FrmRestaurantes.resx">
+      <DependentUpon>FrmRestaurantes.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Tecnico\FrmBackup.resx">
       <DependentUpon>FrmBackup.cs</DependentUpon>
