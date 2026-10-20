@@ -20,12 +20,16 @@ namespace BLL
             return dalMesa.InsertarMesa_SP(mesa);
         }
 
-        public bool ModificarMesa(Mesa mesa)
+        public bool ActualizarMesa(Mesa mesa)
         {
+
             if (mesa.CapacidadPersonas <= 0)
                 throw new Exception("La capacidad de la mesa debe ser de al menos 1 persona.");
-
-            return dalMesa.ActualizarMesa_SP(mesa);
+            if (string.IsNullOrWhiteSpace(mesa.CodigoUbicacion))
+                throw new Exception("El código de ubicación no puede estar vacío.");
+            if (mesa.PosicionX < 0 || mesa.PosicionY < 0)
+                throw new Exception("Las coordenadas de la mesa son inválidas.");
+            return dalMesa.ActualizarMesa(mesa);
         }
 
         public bool BajaMesa(int idMesa)

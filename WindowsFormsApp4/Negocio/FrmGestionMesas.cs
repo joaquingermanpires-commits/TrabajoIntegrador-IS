@@ -26,6 +26,7 @@ namespace WindowsFormsApp4.Negocio
         private KryptonButton mesaActiva;
         private KryptonButton mesaSeleccionadaBtn = null;
         private bool cargandoDatos = false;
+        private Point posicionOriginal;
 
         public FrmGestionMesas()
         {
@@ -58,6 +59,8 @@ namespace WindowsFormsApp4.Negocio
             panelSalon.Controls.Add(mesaVisual);
         }
         // Logica de arrastre
+
+
         private void Mesa_MouseDown(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Left)
@@ -65,6 +68,7 @@ namespace WindowsFormsApp4.Negocio
                 isDragging = true;
                 mesaActiva = (KryptonButton)sender;
                 mouseOffset = e.Location;
+                posicionOriginal = mesaActiva.Location;
                 mesaActiva.BringToFront();
                 SeleccionarMesa(mesaActiva);
             }
@@ -84,7 +88,9 @@ namespace WindowsFormsApp4.Negocio
             cargandoDatos = false;
         }
         // Calculo de desplazamiento
-        private void Mesa_MouseMove(object sender, MouseEventArgs e)          
+
+
+        private void Mesa_MouseMove(object sender, MouseEventArgs e)
         {
             if (isDragging && mesaActiva != null)
             {
@@ -92,11 +98,28 @@ namespace WindowsFormsApp4.Negocio
                 mesaActiva.Top += e.Y - mouseOffset.Y;
             }
         }
+
         private void Mesa_MouseUp(object sender, MouseEventArgs e)
         {
-            isDragging = false;
-            mesaActiva = null;
+            if (isDragging && mesaActiva != null)
+            {
+                if (!EsPosicionValida(mesaActiva, mesaActiva.Left, mesaActiva.Top, 15))
+                {
+                    MessageBox.Show("Las mesas no pueden superponerse. Dejá un pasillo de espacio.", "Colisión", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    mesaActiva.Location = posicionOriginal;
+                }
+                else
+                {
+                    Mesa mesaBE = (Mesa)mesaActiva.Tag;
+                    mesaBE.PosicionX = mesaActiva.Left;
+                    mesaBE.PosicionY = mesaActiva.Top;
+                    bllMesa.ActualizarMesa(mesaBE);
+                }
+                isDragging = false;
+                mesaActiva = null;
+            }
         }
+
 
         // Eventos panel de adminsitrador de local
         private void txtCodigoMesa_TextChanged(object sender, EventArgs e)
@@ -155,7 +178,7 @@ namespace WindowsFormsApp4.Negocio
                         }
                         else
                         {
-                            bllMesa.ModificarMesa(mesaBE);
+                            bllMesa.ActualizarMesa(mesaBE);
                         }
                         mesasGuardadas++;
                     }
@@ -179,5 +202,71 @@ namespace WindowsFormsApp4.Negocio
                 MessageBox.Show("Error al guardar: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+        private bool EsPosicionValida(Control mesaQueSeMueve, int nuevaPosicionX, int nuevaPosicionY, int distanciaMinima = 15)
+        {
+            Rectangle rectMovido = new Rectangle(
+                nuevaPosicionX - distanciaMinima,
+                nuevaPosicionY - distanciaMinima,
+                mesaQueSeMueve.Width + (distanciaMinima * 2),
+                mesaQueSeMueve.Height + (distanciaMinima * 2)
+            );
+            foreach (Control controlExistente in panelSalon.Controls)
+            {
+                if (controlExistente is KryptonButton && controlExistente != mesaQueSeMueve)
+                {
+                    Rectangle rectExistente = new Rectangle(
+                        controlExistente.Location.X,
+                        controlExistente.Location.Y,
+                        controlExistente.Width,
+                        controlExistente.Height
+                    );
+                    if (rectMovido.IntersectsWith(rectExistente))
+                    {
+                        return false;
+                    }
+                }
+            }
+            return true; // Vía libre, se puede colocar acá
+        }
+
+        private void btnRotarMesa_Click(object sender, EventArgs e)
+        {
+            if (mesaSeleccionadaBtn == null) return;
+
+            Mesa mesaBE = (Mesa)mesaSeleccionadaBtn.Tag;
+
+            // 1. Guardamos los valores viejos por si choca
+            bool orientacionAnterior = mesaBE.EsVertical;
+            int anchoAnterior = mesaSeleccionadaBtn.Width;
+            int altoAnterior = mesaSeleccionadaBtn.Height;
+
+            // 2. Invertimos la orientación (De true a false, o viceversa)
+            mesaBE.EsVertical = !mesaBE.EsVertical;
+
+            // Calculamos cuánto mediría estando rotada
+            int cantidadModulos = (int)Math.Ceiling(mesaBE.CapacidadPersonas / 2.0);
+            if (cantidadModulos < 1) cantidadModulos = 1;
+
+            // 3. Modificamos el botón FÍSICAMENTE de forma temporal para que el Radar lo detecte
+            mesaSeleccionadaBtn.Width = mesaBE.EsVertical ? 71 : 51 * cantidadModulos;
+            mesaSeleccionadaBtn.Height = mesaBE.EsVertical ? 51 * cantidadModulos : 71;
+
+            // 4. RADAR DE CHOQUE
+            if (!EsPosicionValida(mesaSeleccionadaBtn, mesaSeleccionadaBtn.Left, mesaSeleccionadaBtn.Top, 15))
+            {
+                MessageBox.Show("No hay espacio suficiente para rotar la mesa aquí.", "Colisión", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                mesaSeleccionadaBtn.Width = anchoAnterior;
+                mesaSeleccionadaBtn.Height = altoAnterior;
+                mesaBE.EsVertical = orientacionAnterior;
+            }
+            else
+            {
+                mesaSeleccionadaBtn.Width = anchoAnterior;
+                mesaSeleccionadaBtn.Height = altoAnterior;
+                mesaBE.ModificarMesa(mesaBE.CodigoUbicacion, mesaBE.CapacidadPersonas, mesaBE.Habilitada);
+                bllMesa.ActualizarMesa(mesaBE);
+            }
+        }
     }
 }
+

@@ -19,25 +19,43 @@ namespace WindowsFormsApp4.Factories
     {
         public override KryptonButton CrearMesaGrafica(Mesa mesaBE, bool esModoAdmin = false)
         {
-            //Detalles visuales de la mesa
             KryptonButton btnMesa = new KryptonButton();
-            btnMesa.Width = 50;
-            btnMesa.Height = 70;
-            btnMesa.Location = new Point(mesaBE.PosicionX, mesaBE.PosicionY);
             btnMesa.Tag = mesaBE;
+
+            Action AplicarTamañoYPosicion = () =>
+            {
+                int cantidadModulos = (int)Math.Ceiling(mesaBE.CapacidadPersonas / 2.0);
+                if (cantidadModulos < 1) cantidadModulos = 1;
+
+                if (mesaBE.EsVertical)
+                {
+                    btnMesa.Width = 71; // Alto pasa a ser el ancho
+                    btnMesa.Height = 51 * cantidadModulos; // Ancho pasa a ser el alto apilado
+                }
+                else
+                {
+                    btnMesa.Width = 53 * cantidadModulos;
+                    btnMesa.Height = 71;
+                }
+            };
+
+            AplicarTamañoYPosicion();
+            btnMesa.Location = new Point(mesaBE.PosicionX, mesaBE.PosicionY);
+
             btnMesa.Values.Text = mesaBE.CodigoUbicacion;
             btnMesa.StateCommon.Content.ShortText.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            btnMesa.StateCommon.Back.ImageAlign = PaletteRectangleAlign.Control;
-            btnMesa.StateCommon.Back.ImageStyle = PaletteImageStyle.CenterMiddle;
+
             btnMesa.StateCommon.Border.DrawBorders = PaletteDrawBorders.None;
-            btnMesa.StateCommon.Border.Width = 0; 
+            btnMesa.StateCommon.Border.Width = 0;
             btnMesa.StateCommon.Border.Rounding = 0;
             btnMesa.StateCommon.Content.Padding = new Padding(0);
+            btnMesa.StateCommon.Content.AdjacentGap = 0;
 
             ConfigurarEstadoVisual(btnMesa, mesaBE, esModoAdmin);
 
             mesaBE.OnMesaModificada += (mesaActualizada) =>
             {
+                AplicarTamañoYPosicion();
                 btnMesa.Values.Text = mesaActualizada.CodigoUbicacion;
                 ConfigurarEstadoVisual(btnMesa, mesaActualizada, esModoAdmin);
                 btnMesa.Invalidate();
@@ -47,20 +65,62 @@ namespace WindowsFormsApp4.Factories
         }
         private void ConfigurarEstadoVisual(KryptonButton btn, Mesa mesa, bool esModoAdmin)
         {
-            Size tamañoBoton = new Size(50, 70);
-            if (mesa.Habilitada) //(Mesa Libre)
+            Size tamañoBoton;
+            RotateFlipType tipoRotacion;
+            int ajusteX, ajusteY;
+
+            // rotacion
+            if (mesa.EsVertical)
             {
-                btn.StateCommon.Back.Image = new Bitmap(Properties.Resources.MesaLibre, tamañoBoton);
+                tamañoBoton = new Size(71, 51);
+                tipoRotacion = RotateFlipType.Rotate90FlipNone;
+                ajusteX = 1; ajusteY = 0; // Calibración Vertical
+            }
+            else
+            {
+                tamañoBoton = new Size(51, 71);
+                tipoRotacion = RotateFlipType.RotateNoneFlipNone;
+                ajusteX = 2; ajusteY = 1; // Calibración Horizontal
+            }
+            Image imgBase = mesa.Habilitada ? Properties.Resources.MesaLibre : Properties.Resources.MesaOcupada;
+            if (tipoRotacion != RotateFlipType.RotateNoneFlipNone)
+            {
+                Bitmap imgRotada = new Bitmap(imgBase);
+                imgRotada.RotateFlip(tipoRotacion);
+                imgBase = imgRotada;
+            }
+
+            btn.StateCommon.Back.ImageStyle = PaletteImageStyle.Tile;
+            btn.StateCommon.Back.ImageAlign = PaletteRectangleAlign.Control;
+            btn.StateCommon.Back.Image = ObtenerImagenAlineada(imgBase, tamañoBoton, ajusteX, ajusteY);
+
+            if (mesa.Habilitada)
+            {
                 btn.Cursor = Cursors.Hand;
                 btn.Enabled = true;
                 btn.StateCommon.Content.ShortText.Color1 = Color.Black;
             }
-            else                //(Mesa Ocupada)
+            else
             {
-                btn.StateCommon.Back.Image = new Bitmap(Properties.Resources.MesaOcupada, tamañoBoton);
                 if (!esModoAdmin) btn.Enabled = false;
                 btn.StateCommon.Content.ShortText.Color1 = Color.White;
             }
+        }
+        // Método para reposicionar la imagen al píxel
+        private Bitmap ObtenerImagenAlineada(Image original, Size tamañoDestino, int offsetX, int offsetY)
+        {
+            Bitmap lienzo = new Bitmap(tamañoDestino.Width, tamañoDestino.Height);
+            using (Graphics g = Graphics.FromImage(lienzo))
+            {
+                g.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.HighQualityBicubic;
+                g.PixelOffsetMode = System.Drawing.Drawing2D.PixelOffsetMode.HighQuality;
+                g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
+                g.DrawImage(original,
+                    new Rectangle(offsetX, offsetY, tamañoDestino.Width, tamañoDestino.Height),
+                    new Rectangle(0, 0, original.Width, original.Height),
+                    GraphicsUnit.Pixel);
+            }
+            return lienzo;
         }
     }
 }

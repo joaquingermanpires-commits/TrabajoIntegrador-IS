@@ -15,7 +15,7 @@ namespace BE
         public int CapacidadPersonas { get; set; }
         public int PosicionX { get; set; }
         public int PosicionY { get; set; }
-
+        public bool EsVertical { get; set; } = false;        // true = Vertical (rotada 90°), false = Horizontal (normal)
         private string _codigoUbicacion;
         public string CodigoUbicacion
         {
@@ -40,6 +40,13 @@ namespace BE
 
         private void NotificarObservadores()
         {
+            OnMesaModificada?.Invoke(this);
+        }
+        public void ModificarMesa(string codigo, int capacidad, bool habilitada)
+        {
+            this.CodigoUbicacion = codigo;
+            this.CapacidadPersonas = capacidad;
+            this.Habilitada = habilitada;
             OnMesaModificada?.Invoke(this);
         }
     }

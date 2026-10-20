@@ -23,26 +23,31 @@ namespace DAL
                     cmd.Parameters.AddWithValue("@Habilitada", mesa.Habilitada);
                     cmd.Parameters.AddWithValue("@PosicionX", mesa.PosicionX);
                     cmd.Parameters.AddWithValue("@PosicionY", mesa.PosicionY);
+                    cmd.Parameters.AddWithValue("@EsVertical", mesa.EsVertical);
                     con.Open();
                     return cmd.ExecuteNonQuery() > 0;
                 }
             }
         }
-        public bool ActualizarMesa_SP(Mesa mesa)
+        public bool ActualizarMesa(Mesa mesa)
         {
             using (SqlConnection con = new SqlConnection(connectionString))
             {
                 using (SqlCommand cmd = new SqlCommand("ActualizarMesa_SP", con))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
+
                     cmd.Parameters.AddWithValue("@ID_Mesa", mesa.ID_Mesa);
-                    cmd.Parameters.AddWithValue("@Capacidad", mesa.CapacidadPersonas);
-                    cmd.Parameters.AddWithValue("@Codigo", mesa.CodigoUbicacion);
-                    cmd.Parameters.AddWithValue("@Habilitada", mesa.Habilitada);
+                    cmd.Parameters.AddWithValue("@CodigoUbicacion", mesa.CodigoUbicacion);
+                    cmd.Parameters.AddWithValue("@CapacidadPersonas", mesa.CapacidadPersonas);
                     cmd.Parameters.AddWithValue("@PosicionX", mesa.PosicionX);
                     cmd.Parameters.AddWithValue("@PosicionY", mesa.PosicionY);
+                    cmd.Parameters.AddWithValue("@Habilitada", mesa.Habilitada);
+                    cmd.Parameters.AddWithValue("@EsVertical", mesa.EsVertical);
+
                     con.Open();
-                    return cmd.ExecuteNonQuery() > 0;
+                    int filasAfectadas = cmd.ExecuteNonQuery();
+                    return filasAfectadas > 0;
                 }
             }
         }
@@ -114,7 +119,8 @@ namespace DAL
                 CodigoUbicacion = reader["CodigoUbicacion"].ToString(),
                 Habilitada = Convert.ToBoolean(reader["Habilitada"]),
                 PosicionX = Convert.ToInt32(reader["PosicionX"]),
-                PosicionY = Convert.ToInt32(reader["PosicionY"])
+                PosicionY = Convert.ToInt32(reader["PosicionY"]),
+                EsVertical = Convert.ToBoolean(reader["EsVertical"])
             };
         }
     }
