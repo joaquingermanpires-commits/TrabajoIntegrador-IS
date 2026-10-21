@@ -41,6 +41,10 @@
             this.dtpHoraReserva = new Krypton.Toolkit.KryptonDateTimePicker();
             this.dtpFechaReserva = new Krypton.Toolkit.KryptonDateTimePicker();
             this.lblMesaElegida = new Krypton.Toolkit.KryptonLabel();
+            this.kryptonLabel2 = new Krypton.Toolkit.KryptonLabel();
+            this.kryptonLabel3 = new Krypton.Toolkit.KryptonLabel();
+            this.kryptonLabel4 = new Krypton.Toolkit.KryptonLabel();
+            this.kryptonLabel5 = new Krypton.Toolkit.KryptonLabel();
             ((System.ComponentModel.ISupportInitialize)(this.panelSalon)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.panelReserva)).BeginInit();
             this.panelReserva.SuspendLayout();
@@ -72,7 +76,7 @@
             0,
             0});
             this.kryptonNumericUpDown1.Name = "kryptonNumericUpDown1";
-            this.kryptonNumericUpDown1.Size = new System.Drawing.Size(120, 22);
+            this.kryptonNumericUpDown1.Size = new System.Drawing.Size(120, 19);
             this.kryptonNumericUpDown1.TabIndex = 0;
             this.kryptonNumericUpDown1.Value = new decimal(new int[] {
             0,
@@ -84,15 +88,19 @@
             // 
             this.kryptonTextBox1.Location = new System.Drawing.Point(23, 170);
             this.kryptonTextBox1.Name = "kryptonTextBox1";
-            this.kryptonTextBox1.Size = new System.Drawing.Size(100, 23);
+            this.kryptonTextBox1.Size = new System.Drawing.Size(100, 20);
             this.kryptonTextBox1.TabIndex = 6;
             this.kryptonTextBox1.Text = "kryptonTextBox1";
             // 
             // panelReserva
             // 
+            this.panelReserva.Controls.Add(this.numTiempoEstadia);
+            this.panelReserva.Controls.Add(this.kryptonLabel5);
+            this.panelReserva.Controls.Add(this.kryptonLabel4);
+            this.panelReserva.Controls.Add(this.kryptonLabel3);
+            this.panelReserva.Controls.Add(this.kryptonLabel2);
             this.panelReserva.Controls.Add(this.kryptonLabel1);
             this.panelReserva.Controls.Add(this.btnBuscarMesas);
-            this.panelReserva.Controls.Add(this.numTiempoEstadia);
             this.panelReserva.Controls.Add(this.numComensales);
             this.panelReserva.Controls.Add(this.btnConfirmarReserva);
             this.panelReserva.Controls.Add(this.txtTokenTarjeta);
@@ -107,7 +115,7 @@
             // 
             // kryptonLabel1
             // 
-            this.kryptonLabel1.Location = new System.Drawing.Point(477, 18);
+            this.kryptonLabel1.Location = new System.Drawing.Point(498, 3);
             this.kryptonLabel1.Name = "kryptonLabel1";
             this.kryptonLabel1.Size = new System.Drawing.Size(90, 25);
             this.kryptonLabel1.TabIndex = 7;
@@ -115,12 +123,12 @@
             // 
             // btnBuscarMesas
             // 
-            this.btnBuscarMesas.Location = new System.Drawing.Point(793, 13);
+            this.btnBuscarMesas.Location = new System.Drawing.Point(762, 13);
             this.btnBuscarMesas.Name = "btnBuscarMesas";
-            this.btnBuscarMesas.Size = new System.Drawing.Size(90, 25);
+            this.btnBuscarMesas.Size = new System.Drawing.Size(121, 25);
             this.btnBuscarMesas.TabIndex = 0;
             this.btnBuscarMesas.Values.DropDownArrowColor = System.Drawing.Color.Empty;
-            this.btnBuscarMesas.Values.Text = "btnBuscarMesas";
+            this.btnBuscarMesas.Values.Text = "Buscar Mesas";
             this.btnBuscarMesas.Click += new System.EventHandler(this.btnBuscarMesas_Click);
             // 
             // numTiempoEstadia
@@ -130,7 +138,7 @@
             0,
             0,
             0});
-            this.numTiempoEstadia.Location = new System.Drawing.Point(477, 47);
+            this.numTiempoEstadia.Location = new System.Drawing.Point(498, 21);
             this.numTiempoEstadia.Maximum = new decimal(new int[] {
             100,
             0,
@@ -157,7 +165,7 @@
             0,
             0,
             0});
-            this.numComensales.Location = new System.Drawing.Point(339, 48);
+            this.numComensales.Location = new System.Drawing.Point(332, 68);
             this.numComensales.Maximum = new decimal(new int[] {
             100,
             0,
@@ -179,26 +187,26 @@
             // 
             // btnConfirmarReserva
             // 
-            this.btnConfirmarReserva.Location = new System.Drawing.Point(793, 44);
+            this.btnConfirmarReserva.Location = new System.Drawing.Point(762, 44);
             this.btnConfirmarReserva.Name = "btnConfirmarReserva";
-            this.btnConfirmarReserva.Size = new System.Drawing.Size(90, 25);
+            this.btnConfirmarReserva.Size = new System.Drawing.Size(121, 25);
             this.btnConfirmarReserva.TabIndex = 4;
             this.btnConfirmarReserva.Values.DropDownArrowColor = System.Drawing.Color.Empty;
-            this.btnConfirmarReserva.Values.Text = "btnConfirmarReserva";
+            this.btnConfirmarReserva.Values.Text = "Confirmar Reserva";
             this.btnConfirmarReserva.Click += new System.EventHandler(this.btnConfirmarReserva_Click);
             // 
             // txtTokenTarjeta
             // 
-            this.txtTokenTarjeta.Location = new System.Drawing.Point(646, 48);
+            this.txtTokenTarjeta.Location = new System.Drawing.Point(498, 67);
             this.txtTokenTarjeta.Name = "txtTokenTarjeta";
             this.txtTokenTarjeta.Size = new System.Drawing.Size(100, 23);
             this.txtTokenTarjeta.TabIndex = 3;
-            this.txtTokenTarjeta.Text = "txtTokenTarjeta";
+            this.txtTokenTarjeta.Text = ".";
             // 
             // dtpHoraReserva
             // 
             this.dtpHoraReserva.Format = System.Windows.Forms.DateTimePickerFormat.Time;
-            this.dtpHoraReserva.Location = new System.Drawing.Point(169, 49);
+            this.dtpHoraReserva.Location = new System.Drawing.Point(178, 69);
             this.dtpHoraReserva.Name = "dtpHoraReserva";
             this.dtpHoraReserva.ShowUpDown = true;
             this.dtpHoraReserva.Size = new System.Drawing.Size(134, 21);
@@ -206,7 +214,7 @@
             // 
             // dtpFechaReserva
             // 
-            this.dtpFechaReserva.Location = new System.Drawing.Point(4, 50);
+            this.dtpFechaReserva.Location = new System.Drawing.Point(4, 69);
             this.dtpFechaReserva.Name = "dtpFechaReserva";
             this.dtpFechaReserva.Size = new System.Drawing.Size(134, 21);
             this.dtpFechaReserva.TabIndex = 1;
@@ -215,9 +223,41 @@
             // 
             this.lblMesaElegida.Location = new System.Drawing.Point(4, 18);
             this.lblMesaElegida.Name = "lblMesaElegida";
-            this.lblMesaElegida.Size = new System.Drawing.Size(92, 25);
+            this.lblMesaElegida.Size = new System.Drawing.Size(195, 25);
             this.lblMesaElegida.TabIndex = 0;
-            this.lblMesaElegida.Values.Text = "lblMesaElegida";
+            this.lblMesaElegida.Values.Text = "Informacion de la mesa solicitada:";
+            // 
+            // kryptonLabel2
+            // 
+            this.kryptonLabel2.Location = new System.Drawing.Point(498, 44);
+            this.kryptonLabel2.Name = "kryptonLabel2";
+            this.kryptonLabel2.Size = new System.Drawing.Size(90, 25);
+            this.kryptonLabel2.TabIndex = 8;
+            this.kryptonLabel2.Values.Text = "Seña:";
+            // 
+            // kryptonLabel3
+            // 
+            this.kryptonLabel3.Location = new System.Drawing.Point(4, 44);
+            this.kryptonLabel3.Name = "kryptonLabel3";
+            this.kryptonLabel3.Size = new System.Drawing.Size(90, 25);
+            this.kryptonLabel3.TabIndex = 9;
+            this.kryptonLabel3.Values.Text = "Dia:";
+            // 
+            // kryptonLabel4
+            // 
+            this.kryptonLabel4.Location = new System.Drawing.Point(178, 44);
+            this.kryptonLabel4.Name = "kryptonLabel4";
+            this.kryptonLabel4.Size = new System.Drawing.Size(90, 25);
+            this.kryptonLabel4.TabIndex = 10;
+            this.kryptonLabel4.Values.Text = "Hora:";
+            // 
+            // kryptonLabel5
+            // 
+            this.kryptonLabel5.Location = new System.Drawing.Point(332, 44);
+            this.kryptonLabel5.Name = "kryptonLabel5";
+            this.kryptonLabel5.Size = new System.Drawing.Size(132, 25);
+            this.kryptonLabel5.TabIndex = 11;
+            this.kryptonLabel5.Values.Text = "Cantidad de personas:";
             // 
             // FrmNuevaReserva
             // 
@@ -252,5 +292,9 @@
         private Krypton.Toolkit.KryptonLabel kryptonLabel1;
         private Krypton.Toolkit.KryptonNumericUpDown numTiempoEstadia;
         private Krypton.Toolkit.KryptonButton btnBuscarMesas;
+        private Krypton.Toolkit.KryptonLabel kryptonLabel5;
+        private Krypton.Toolkit.KryptonLabel kryptonLabel4;
+        private Krypton.Toolkit.KryptonLabel kryptonLabel3;
+        private Krypton.Toolkit.KryptonLabel kryptonLabel2;
     }
 }

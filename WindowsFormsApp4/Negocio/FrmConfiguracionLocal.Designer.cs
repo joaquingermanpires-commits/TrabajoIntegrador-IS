@@ -44,8 +44,8 @@
             this.chkHabilitado = new Krypton.Toolkit.KryptonCheckBox();
             this.cmbDiaSemana = new Krypton.Toolkit.KryptonComboBox();
             this.kryptonGroupBox3 = new Krypton.Toolkit.KryptonGroupBox();
-            this.btnAgregar = new Krypton.Toolkit.KryptonButton();
             this.clbPreferencias = new Krypton.Toolkit.KryptonCheckedListBox();
+            this.btnAgregar = new Krypton.Toolkit.KryptonButton();
             ((System.ComponentModel.ISupportInitialize)(this.kryptonGroupBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.kryptonGroupBox1.Panel)).BeginInit();
             this.kryptonGroupBox1.Panel.SuspendLayout();
@@ -75,8 +75,9 @@
             this.kryptonGroupBox1.Panel.Controls.Add(this.kryptonLabel3);
             this.kryptonGroupBox1.Panel.Controls.Add(this.kryptonLabel2);
             this.kryptonGroupBox1.Panel.Controls.Add(this.kryptonLabel1);
-            this.kryptonGroupBox1.Size = new System.Drawing.Size(171, 443);
+            this.kryptonGroupBox1.Size = new System.Drawing.Size(171, 431);
             this.kryptonGroupBox1.TabIndex = 0;
+            this.kryptonGroupBox1.Values.Heading = "Reservas";
             // 
             // btnGuardarReglas
             // 
@@ -122,7 +123,7 @@
             0,
             0,
             0});
-            this.numTiempoMaximo.Location = new System.Drawing.Point(29, 175);
+            this.numTiempoMaximo.Location = new System.Drawing.Point(29, 155);
             this.numTiempoMaximo.Maximum = new decimal(new int[] {
             300,
             0,
@@ -179,7 +180,7 @@
             // 
             // kryptonLabel2
             // 
-            this.kryptonLabel2.Location = new System.Drawing.Point(29, 143);
+            this.kryptonLabel2.Location = new System.Drawing.Point(27, 117);
             this.kryptonLabel2.Name = "kryptonLabel2";
             this.kryptonLabel2.Size = new System.Drawing.Size(130, 25);
             this.kryptonLabel2.TabIndex = 1;
@@ -205,13 +206,14 @@
             this.kryptonGroupBox2.Panel.Controls.Add(this.dtpApertura);
             this.kryptonGroupBox2.Panel.Controls.Add(this.chkHabilitado);
             this.kryptonGroupBox2.Panel.Controls.Add(this.cmbDiaSemana);
-            this.kryptonGroupBox2.Size = new System.Drawing.Size(359, 443);
+            this.kryptonGroupBox2.Size = new System.Drawing.Size(359, 431);
             this.kryptonGroupBox2.TabIndex = 1;
+            this.kryptonGroupBox2.Values.Heading = "Apertura";
             // 
             // dgvHorarios
             // 
             this.dgvHorarios.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvHorarios.Location = new System.Drawing.Point(15, 192);
+            this.dgvHorarios.Location = new System.Drawing.Point(16, 183);
             this.dgvHorarios.Name = "dgvHorarios";
             this.dgvHorarios.Size = new System.Drawing.Size(321, 217);
             this.dgvHorarios.TabIndex = 6;
@@ -277,8 +279,16 @@
             // 
             this.kryptonGroupBox3.Panel.Controls.Add(this.clbPreferencias);
             this.kryptonGroupBox3.Panel.Controls.Add(this.btnAgregar);
-            this.kryptonGroupBox3.Size = new System.Drawing.Size(351, 443);
+            this.kryptonGroupBox3.Size = new System.Drawing.Size(206, 431);
             this.kryptonGroupBox3.TabIndex = 2;
+            this.kryptonGroupBox3.Values.Heading = "Opciones Dieteticas";
+            // 
+            // clbPreferencias
+            // 
+            this.clbPreferencias.Location = new System.Drawing.Point(11, 3);
+            this.clbPreferencias.Name = "clbPreferencias";
+            this.clbPreferencias.Size = new System.Drawing.Size(175, 213);
+            this.clbPreferencias.TabIndex = 3;
             // 
             // btnAgregar
             // 
@@ -290,18 +300,11 @@
             this.btnAgregar.Values.Text = "Guardar Preferencias";
             this.btnAgregar.Click += new System.EventHandler(this.btnAgregar_Click);
             // 
-            // clbPreferencias
-            // 
-            this.clbPreferencias.Location = new System.Drawing.Point(11, 3);
-            this.clbPreferencias.Name = "clbPreferencias";
-            this.clbPreferencias.Size = new System.Drawing.Size(175, 148);
-            this.clbPreferencias.TabIndex = 3;
-            // 
             // FrmConfiguracionLocal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(896, 443);
+            this.ClientSize = new System.Drawing.Size(761, 443);
             this.Controls.Add(this.kryptonGroupBox3);
             this.Controls.Add(this.kryptonGroupBox2);
             this.Controls.Add(this.kryptonGroupBox1);

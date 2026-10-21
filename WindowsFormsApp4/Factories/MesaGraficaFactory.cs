@@ -74,13 +74,13 @@ namespace WindowsFormsApp4.Factories
             {
                 tamañoBoton = new Size(71, 51);
                 tipoRotacion = RotateFlipType.Rotate90FlipNone;
-                ajusteX = 1; ajusteY = 0; // Calibración Vertical
+                ajusteX = 1; ajusteY = 0; // Calibracion manual
             }
             else
             {
                 tamañoBoton = new Size(51, 71);
                 tipoRotacion = RotateFlipType.RotateNoneFlipNone;
-                ajusteX = 2; ajusteY = 1; // Calibración Horizontal
+                ajusteX = 2; ajusteY = 1; // Calibracion manual
             }
             Image imgBase = mesa.Habilitada ? Properties.Resources.MesaLibre : Properties.Resources.MesaOcupada;
             if (tipoRotacion != RotateFlipType.RotateNoneFlipNone)

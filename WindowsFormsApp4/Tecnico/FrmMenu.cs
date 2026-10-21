@@ -44,6 +44,7 @@ namespace WindowsFormsApp4
             idiomasToolStripMenuItem.Visible = tieneUsuario && PermisoBLL.GetInstance().VerificarPermiso(usuarioLogueado, "MenuIdiomas");
             gestiónDeRestaurantesToolStripMenuItem.Visible = tieneUsuario && PermisoBLL.GetInstance().VerificarPermiso(usuarioLogueado, "MenuRestaurantes");
             buscadorRestaurantesToolStripMenuItem.Visible = tieneUsuario && PermisoBLL.GetInstance().VerificarPermiso(usuarioLogueado, "MenuBuscadorRestaurantes");
+            historialTraduccionesToolStripMenuItem.Visible = tieneUsuario && PermisoBLL.GetInstance().VerificarPermiso(usuarioLogueado, "Menu");
             gestionMesasToolStripMenuItem.Visible = tieneUsuario && PermisoBLL.GetInstance().VerificarPermiso(usuarioLogueado, "MenuGestionMesas");
             configuracionLocalToolStripMenuItem.Visible = tieneUsuario && PermisoBLL.GetInstance().VerificarPermiso(usuarioLogueado, "MenuConfiguracionLocal");
             altaEventosToolStripMenuItem.Visible = tieneUsuario && PermisoBLL.GetInstance().VerificarPermiso(usuarioLogueado, "MenuAltaEvento");

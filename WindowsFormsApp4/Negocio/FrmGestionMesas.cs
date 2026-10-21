@@ -64,7 +64,9 @@ namespace WindowsFormsApp4.Negocio
         }
         private void CargarSalon()
         {
+
             panelSalon.Controls.Clear();
+
             IList<Mesa> mesasDelLocal = bllMesa.ObtenerMesas(idRestauranteActual);
             foreach (Mesa mesaBE in mesasDelLocal)
             {
@@ -73,6 +75,7 @@ namespace WindowsFormsApp4.Negocio
         }
         private void AgregarMesaAlPanel(Mesa mesaBE)
         {
+
             KryptonButton mesaVisual = fabrica.CrearMesaGrafica(mesaBE, true);
 
             mesaVisual.MouseDown += Mesa_MouseDown;

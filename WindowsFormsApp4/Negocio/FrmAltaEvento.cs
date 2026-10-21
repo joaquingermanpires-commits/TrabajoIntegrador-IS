@@ -125,5 +125,10 @@ namespace WindowsFormsApp4.Negocio
                 MessageBox.Show("Error al cargar la grilla de eventos: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+        private void kryptonPanel1_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
     }
 }
