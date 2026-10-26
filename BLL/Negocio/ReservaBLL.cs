@@ -18,7 +18,7 @@ namespace BLL
                 throw new Exception("La cantidad de comensales debe ser mayor a cero.");
             if (!ValidarDisponibilidad(reserva.ID_Restaurante, reserva.FechaHoraSolicitada, reserva.CantidadComensales))   // valida el Cupo del Salón
                 throw new Exception("No hay disponibilidad en el salón para la fecha y cantidad de comensales solicitada.");
-
+            reserva.CodigoAcceso = GenerarCodigoAcceso();
             int idReservaGenerada = dalReserva.InsertarReserva_SP(reserva);
             reserva.ID_Reserva = idReservaGenerada;
 
@@ -38,22 +38,19 @@ namespace BLL
             }
         }
 
-        public bool RegistrarCheckIn(int idReserva, string codigoQR, int idMesaAsignada)
+        public Reserva ProcesarCheckInAlfanumerico(string codigoAcceso, int idRestaurante)
         {
-            Reserva reserva = dalReserva.ObtenerReservaPorId_SP(idReserva);
+            Reserva reservaConfirmada = dalReserva.ValidarCheckInPorCodigo(codigoAcceso, idRestaurante);
 
-            if (reserva == null || reserva.Estado != Reserva.EstadoReserva.Confirmada)
-                throw new Exception("Código QR inválido o reserva no vigente.");
-
-            reserva.RegistrarCheckInReal(DateTime.Now, idMesaAsignada);
-            dalReserva.ActualizarEstado_SP(reserva);
-            Transaccion t = dalReserva.ObtenerTransaccionAsociada_SP(idReserva);
-            if (t != null)
+            if (reservaConfirmada != null)
             {
-                bllTransaccion.LiberarFondos(t.ID_Transaccion);
+                Transaccion t = dalReserva.ObtenerTransaccionAsociada_SP(reservaConfirmada.ID_Reserva);
+                if (t != null)
+                {
+                    bllTransaccion.LiberarFondos(t.ID_Transaccion);
+                }
             }
-
-            return true;
+            return reservaConfirmada;
         }
 
         public void ProcesarNoShowManual(int idReserva)
@@ -94,6 +91,25 @@ namespace BLL
         private bool ValidarDisponibilidad(int idRestaurante, DateTime fecha, int comensales)
         {
             return dalReserva.VerificarCupo_SP(idRestaurante, fecha, comensales);
+        }
+        public int AuditarNoShowsAutomatico(int toleranciaMinutos = 15)
+        {
+            return dalReserva.AuditarNoShowsAutomatico(toleranciaMinutos);
+        }
+        public string GenerarCodigoAcceso()
+        {
+            const string caracteres = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
+            Random random = new Random();
+            char[] codigo = new char[6];
+            for (int i = 0; i < 6; i++)
+            {
+                codigo[i] = caracteres[random.Next(caracteres.Length)];
+            }
+            return new string(codigo);
+        }
+        public IList<Reserva> ObtenerReservasPorUsuario(long idUsuario)
+        {
+            return dalReserva.ObtenerReservasPorUsuario(idUsuario);
         }
     }
 }

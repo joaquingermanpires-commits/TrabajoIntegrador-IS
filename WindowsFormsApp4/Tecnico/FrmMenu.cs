@@ -48,6 +48,8 @@ namespace WindowsFormsApp4
             gestionMesasToolStripMenuItem.Visible = tieneUsuario && PermisoBLL.GetInstance().VerificarPermiso(usuarioLogueado, "MenuGestionMesas");
             configuracionLocalToolStripMenuItem.Visible = tieneUsuario && PermisoBLL.GetInstance().VerificarPermiso(usuarioLogueado, "MenuConfiguracionLocal");
             altaEventosToolStripMenuItem.Visible = tieneUsuario && PermisoBLL.GetInstance().VerificarPermiso(usuarioLogueado, "MenuAltaEvento");
+            //misReservasToolStripMenuItem.Visible = tieneUsuario && PermisoBLL.GetInstance().VerificarPermiso(usuarioLogueado, "MenuMisReservas");
+            //recepcionToolStripMenuItem.Visible = tieneUsuario && PermisoBLL.GetInstance().VerificarPermiso(usuarioLogueado, "MenuRecepcion");
         }
         //Controles ToolStripMenu
         private void gestiónDeUsuariosToolStripMenuItem_Click(object sender, EventArgs e)
@@ -108,6 +110,15 @@ namespace WindowsFormsApp4
         {
             AbrirFormulario<FrmAltaEvento>();
         }
+        //private void misReservasToolStripMenuItem_Click(object sender, EventArgs e)
+        //{
+        //    AbrirFormulario<FrmMisReservas>();
+        //}
+
+        //private void recepcionToolStripMenuItem_Click(object sender, EventArgs e)
+        //{
+        //    AbrirFormulario<FrmRecepcionCheckIn>();
+        //}
         public void AbrirFormulario<T>() where T : Form, new()
         {
             //se busca que no se instancie 2 veces el mismo formulario

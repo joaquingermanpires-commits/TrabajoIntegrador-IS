@@ -106,6 +106,18 @@
     <Compile Include="Negocio\FrmGestionMesas.Designer.cs">
       <DependentUpon>FrmGestionMesas.cs</DependentUpon>
     </Compile>
+    <Compile Include="Negocio\FrmMisReservas.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Negocio\FrmMisReservas.Designer.cs">
+      <DependentUpon>FrmMisReservas.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Negocio\FrmRecepcionCheckIn.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Negocio\FrmRecepcionCheckIn.Designer.cs">
+      <DependentUpon>FrmRecepcionCheckIn.cs</DependentUpon>
+    </Compile>
     <Compile Include="Negocio\FrmRestaurantes.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -198,6 +210,12 @@
     <EmbeddedResource Include="Negocio\FrmGestionMesas.resx">
       <DependentUpon>FrmGestionMesas.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Negocio\FrmMisReservas.resx">
+      <DependentUpon>FrmMisReservas.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Negocio\FrmRecepcionCheckIn.resx">
+      <DependentUpon>FrmRecepcionCheckIn.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Negocio\FrmRestaurantes.resx">
       <DependentUpon>FrmRestaurantes.cs</DependentUpon>
     </EmbeddedResource>
@@ -285,7 +303,6 @@
   <ItemGroup>
     <None Include="Resources\MesaLibre.png" />
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\System.ValueTuple.4.6.2\build\net471\System.ValueTuple.targets" Condition="Exists('..\packages\System.ValueTuple.4.6.2\build\net471\System.ValueTuple.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

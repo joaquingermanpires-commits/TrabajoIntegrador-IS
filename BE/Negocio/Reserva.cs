@@ -12,6 +12,7 @@ namespace BE
         public long ID_Usuario { get; set; } // El Comensal
         public int ID_Restaurante { get; set; }
         public int? ID_Mesa { get; set; }
+        public string CodigoAcceso { get; set; }
         public DateTime FechaHoraSolicitada { get; set; }
         public int CantidadComensales { get; set; }
         public int DuracionMinutos { get; set; }
@@ -19,6 +20,7 @@ namespace BE
         public enum EstadoReserva { Pendiente, Confirmada, Cancelada, CheckIn, NoShow }
         public DateTime? FechaHoraCheckIn { get; set; }
         public Transaccion SeguroFinanciero { get; set; }
+        public string RestauranteNombre { get; set; }
         public Reserva()
         {
             this.Estado = EstadoReserva.Pendiente;

@@ -22,6 +22,7 @@ namespace DAL
                     cmd.Parameters.AddWithValue("@FechaHoraSolicitada", r.FechaHoraSolicitada);
                     cmd.Parameters.AddWithValue("@CantidadComensales", r.CantidadComensales);
                     cmd.Parameters.AddWithValue("@Estado", r.Estado.ToString());
+                    cmd.Parameters.AddWithValue("@CodigoAcceso", (object)r.CodigoAcceso ?? DBNull.Value);
 
                     SqlParameter outputId = new SqlParameter("@NuevoID", SqlDbType.Int)
                     {
@@ -34,6 +35,58 @@ namespace DAL
                     return Convert.ToInt32(outputId.Value);
                 }
             }
+        }
+        public Reserva ValidarCheckInPorCodigo(string codigoAcceso, int idRestaurante)
+        {
+            Reserva r = null;
+            using (SqlConnection con = new SqlConnection(connectionString))
+            {
+                using (SqlCommand cmd = new SqlCommand("ValidarCheckInPorCodigo_SP", con))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@CodigoAcceso", codigoAcceso.ToUpper());
+                    cmd.Parameters.AddWithValue("@ID_Restaurante", idRestaurante);
+                    con.Open();
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            r = new Reserva
+                            {
+                                ID_Reserva = Convert.ToInt32(reader["ID_Reserva"]),
+                                ID_Mesa = reader["ID_Mesa"] != DBNull.Value ? Convert.ToInt32(reader["ID_Mesa"]) : 0,
+                                ID_Restaurante = Convert.ToInt32(reader["ID_Restaurante"]),
+                                CantidadComensales = Convert.ToInt32(reader["CantidadComensales"])
+                            };
+                        }
+                    }
+                }
+            }
+            return r;
+        }
+        public IList<Reserva> ObtenerReservasPorUsuario(long idUsuario)
+        {
+            IList<Reserva> lista = new List<Reserva>();
+            using (SqlConnection con = new SqlConnection(connectionString))
+            {
+                using (SqlCommand cmd = new SqlCommand("ObtenerReservasPorUsuario_SP", con))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@ID_Usuario", idUsuario);
+                    con.Open();
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            Reserva r = MapearLector(reader);
+                            r.RestauranteNombre = reader["NombreRestaurante"].ToString();
+                            r.CodigoAcceso = reader["CodigoAcceso"] != DBNull.Value ? reader["CodigoAcceso"].ToString() : "";
+                            lista.Add(r);
+                        }
+                    }
+                }
+            }
+            return lista;
         }
         public bool ActualizarEstado_SP(Reserva r)
         {
@@ -165,7 +218,7 @@ namespace DAL
         }
         private Reserva MapearLector(SqlDataReader reader)
         {
-            return new Reserva
+            var r = new Reserva
             {
                 ID_Reserva = Convert.ToInt32(reader["ID_Reserva"]),
                 ID_Usuario = Convert.ToInt64(reader["ID_Usuario"]),
@@ -176,6 +229,31 @@ namespace DAL
                 Estado = (Reserva.EstadoReserva)Enum.Parse(typeof(Reserva.EstadoReserva), reader["Estado"].ToString()),
                 FechaHoraCheckIn = reader["FechaHoraCheckIn"] != DBNull.Value ? (DateTime?)Convert.ToDateTime(reader["FechaHoraCheckIn"]) : null
             };
+            for (int i = 0; i < reader.FieldCount; i++)
+            {
+                if (reader.GetName(i).Equals("CodigoAcceso", StringComparison.InvariantCultureIgnoreCase))
+                {
+                    r.CodigoAcceso = reader["CodigoAcceso"] != DBNull.Value ? reader["CodigoAcceso"].ToString() : "";
+                    break;
+                }
+            }
+            return r;
+        }
+        public int AuditarNoShowsAutomatico(int toleranciaMinutos = 15)
+        {
+            using (SqlConnection con = new SqlConnection(connectionString))
+            {
+                using (SqlCommand cmd = new SqlCommand("AuditarNoShowsAutomatico_SP", con))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@ToleranciaMinutos", toleranciaMinutos);
+                    con.Open();
+
+                    // ExecuteScalar nos devuelve el SELECT @CantidadMarcada
+                    object resultado = cmd.ExecuteScalar();
+                    return resultado != null ? Convert.ToInt32(resultado) : 0;
+                }
+            }
         }
     }
 }

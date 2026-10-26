@@ -131,7 +131,7 @@ namespace WindowsFormsApp4.Negocio
                 };
                 if (bllReserva.GenerarReserva(nuevaReserva, txtTokenTarjeta.Text))
                 {
-                    MessageBox.Show($"¡Reserva confirmada con éxito!\n\nMesa: {mesaBE.CodigoUbicacion}\nTe esperamos el {fechaHoraBusquedaActual.ToString("dd/MM/yyyy")} a las {fechaHoraBusquedaActual.ToString("HH:mm")}.",
+                    MessageBox.Show($"¡Reserva confirmada con éxito!\n\nTu Código de Acceso es: {nuevaReserva.CodigoAcceso}\n\nPresentá este código de 6 caracteres al llegar al local.\nMesa asignada: {mesaBE.CodigoUbicacion}",
                                     "Reserva Exitosa", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                     this.Close();
